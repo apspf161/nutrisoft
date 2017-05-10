@@ -1,5 +1,7 @@
 package com.nutrisoft.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,9 +12,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="CLIENTE")
-public class Cliente { /* extends Person*/
+@AttributeOverrides({@AttributeOverride(name="id", column=@Column(name="id"))})
+public class Cliente extends Person {
 
-	@Id
 	@Column(name="cpfCli")
 	private String cpfCli;
 

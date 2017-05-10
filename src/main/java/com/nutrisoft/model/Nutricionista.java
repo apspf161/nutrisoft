@@ -1,5 +1,7 @@
 package com.nutrisoft.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,9 +9,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="NUTRICIONISTA")
-public class Nutricionista  { /*extends Person {*/
+@AttributeOverrides({@AttributeOverride(name="id", column=@Column(name="id"))})  
+public class Nutricionista extends Person {
 
-	@Id
 	@Column(name="registro")
 	private String reg;
 

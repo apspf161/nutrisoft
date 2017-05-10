@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  * Entity bean with JPA annotations
@@ -17,12 +18,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="PESSOA")
-/*@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)*/
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Person {
 
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	private int id;
 	
 	private String name;

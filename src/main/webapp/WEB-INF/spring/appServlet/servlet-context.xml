@@ -9,7 +9,7 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
-	<context:component-scan base-package="com.marfeel" />
+	<context:component-scan base-package="com.nutrisoft" />
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
@@ -38,8 +38,18 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		 <beans:property name="packagesToScan" value="com.nutrisoft.model" /> 
 <!--  		<beans:property name="annotatedClasses">
-			<beans:list>
+					<beans:list>
+				<beans:value>com.nutrisoft.model.AgendamentoConsulta</beans:value>
+				<beans:value>com.nutrisoft.model.Antropometria</beans:value>
+				<beans:value>com.nutrisoft.model.AtendimentoConsulta</beans:value>
+				<beans:value>com.nutrisoft.model.Cliente</beans:value>
+				<beans:value>com.nutrisoft.model.DadosLaboratoriais</beans:value>
+				<beans:value>com.nutrisoft.model.DietaNutricional</beans:value>
+				<beans:value>com.nutrisoft.model.HistoricoMedico</beans:value>
+				<beans:value>com.nutrisoft.model.Nutricionista</beans:value>
 				<beans:value>com.nutrisoft.model.Person</beans:value>
+				<beans:value>com.nutrisoft.model.PlanoAlimentar</beans:value>
+				<beans:value>com.nutrisoft.model.Usuario</beans:value>
 			</beans:list>
 		</beans:property> -->
 		<beans:property name="hibernateProperties">
@@ -58,8 +68,6 @@
 	<beans:bean id="personService" class="com.nutrisoft.service.PersonServiceImpl">
 		<beans:property name="personDAO" ref="personDAO"></beans:property>
 	</beans:bean>
-	<context:component-scan base-package="com.nutrisoft" />
-	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
