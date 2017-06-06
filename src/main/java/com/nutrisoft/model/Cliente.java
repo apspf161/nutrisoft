@@ -1,29 +1,35 @@
 package com.nutrisoft.model;
+import java.math.BigDecimal;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+public class Cliente extends Pessoa {
 
-@Entity
-@Table(name="CLIENTE")
-@AttributeOverrides({@AttributeOverride(name="id", column=@Column(name="id"))})
-public class Cliente extends Person {
+	private String profissao;
+	private BigDecimal altura;
+	private String observacoes;
+	private DadoLaboratorial dadoLaboratorial;
 
-	@Column(name="cpfCli")
-	private String cpfCli;
-
-	public String getCpfCli() {
-		return cpfCli;
+	public DadoLaboratorial getDadoLaboratorial() {
+		return dadoLaboratorial;
 	}
-
-	public void setCpfCli(String cpfCli) {
-		this.cpfCli = cpfCli;
+	public void setDadoLaboratorial(DadoLaboratorial dadoLaboratorial) {
+		this.dadoLaboratorial = dadoLaboratorial;
 	}
-	
+	public String getProfissao() {
+		return profissao;
+	}
+	public void setProfissao(String profissao) {
+		this.profissao = profissao;
+	}
+	public BigDecimal getAltura() {
+		return altura;
+	}
+	public void setAltura(BigDecimal altura) {
+		this.altura = altura;
+	}
+	public String getObservacoes() {
+		return observacoes;
+	}
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
 }

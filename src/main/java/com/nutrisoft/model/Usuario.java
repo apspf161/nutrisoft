@@ -1,92 +1,45 @@
 package com.nutrisoft.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import com.nutrisoft.model.enums.PerfilEnum;
 
-
-@Entity
-@Table(name="USUARIO")
-public class Usuario {
+public class Usuario extends Pessoa {
 	
-	@Id
-	@Column(name="ID")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-/*	@Column(name="USUARIO")
-	private Usuario usuario;*/
-	
-	@Column(name = "NOME", nullable = false, length = 50)
-	private String nome;
-	
-	@Column(name = "EMAIL", nullable = false, length = 50)
-	private String email;
-	
-	@Column(name = "SENHA", nullable = false, length = 10)
+	private String login;
 	private String senha;
-
-	@Column(name = "PERFIL", nullable = false, length = 50)
-	private String perfil;
+	private PerfilEnum perfil;
+	private Timestamp dataUltimoAcesso;
+	private String tokenEsqueciSenha;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name="ULTIMO_ACESSO")
-	private Date dtUltimoAcesso;
-	
-	public int getId() {
-		return id;
+	public String getLogin() {
+		return login;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setLogin(String login) {
+		this.login = login;
 	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
-
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	public String getPerfil() {
+	public PerfilEnum getPerfil() {
 		return perfil;
 	}
-
-	public void setPerfil(String perfil) {
+	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
 	}
-
-	public Date getDtUltimoAcesso() {
-		return dtUltimoAcesso;
+	public Timestamp getDataUltimoAcesso() {
+		return dataUltimoAcesso;
 	}
-
-	public void setDtUltimoAcesso(Date dtUltimoAcesso) {
-		this.dtUltimoAcesso = dtUltimoAcesso;
+	public void setDataUltimoAcesso(Timestamp dataUltimoAcesso) {
+		this.dataUltimoAcesso = dataUltimoAcesso;
 	}
-
-	
+	public String getTokenEsqueciSenha() {
+		return tokenEsqueciSenha;
+	}
+	public void setTokenEsqueciSenha(String tokenEsqueciSenha) {
+		this.tokenEsqueciSenha = tokenEsqueciSenha;
+	}
 }

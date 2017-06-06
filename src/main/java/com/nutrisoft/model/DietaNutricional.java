@@ -1,20 +1,56 @@
 package com.nutrisoft.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="DIETA_NUTRICIONAL")
 public class DietaNutricional {
 
-	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-		
+	private Consulta consulta;
+	private String cafeDaManha;
+	private String lancheDaManha;
+	private String almoco;
+	private String lanceDaTarde;
+	private String jantar;
+	private String ceia;
+
+	public Consulta getConsulta() {
+		return consulta;
+	}
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
+	}
+	public String getCafeDaManha() {
+		return cafeDaManha;
+	}
+	public void setCafeDaManha(String cafeDaManha) {
+		this.cafeDaManha = cafeDaManha;
+	}
+	public String getLancheDaManha() {
+		return lancheDaManha;
+	}
+	public void setLancheDaManha(String lancheDaManha) {
+		this.lancheDaManha = lancheDaManha;
+	}
+	public String getAlmoco() {
+		return almoco;
+	}
+	public void setAlmoco(String almoco) {
+		this.almoco = almoco;
+	}
+	public String getLanceDaTarde() {
+		return lanceDaTarde;
+	}
+	public void setLanceDaTarde(String lanceDaTarde) {
+		this.lanceDaTarde = lanceDaTarde;
+	}
+	public String getJantar() {
+		return jantar;
+	}
+	public void setJantar(String jantar) {
+		this.jantar = jantar;
+	}
+	public String getCeia() {
+		return ceia;
+	}
+	public void setCeia(String ceia) {
+		this.ceia = ceia;
+	}
 	
 }

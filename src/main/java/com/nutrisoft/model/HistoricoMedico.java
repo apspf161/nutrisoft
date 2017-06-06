@@ -1,71 +1,41 @@
 package com.nutrisoft.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="HISTORICO_MEDICO")
 public class HistoricoMedico {
-
-	@Id
-	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-		
-	@Column (name = "doencasPreExist", nullable = false, length = 255)
-	private String doencasPreExist;
 	
-	@Column (name = "histDoencaFamiliar", nullable = false, length = 255)
-	private String histDoencaFamiliar;
-	
-	@Column (name = "exameLaboratorial", nullable = false, length = 255)
+	private Cliente cliente;
+	private String doencasPreExistentes;
+	private String historicoDoencaFamiliar;
 	private String exameLaboratorial;
-	
-	@Column (name = "obs", nullable = false, length = 255)
-	private String obs;
-	
+	private String observacoes;
 
-	public int getId() {
-		return id;
+	public String getDoencasPreExistentes() {
+		return doencasPreExistentes;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setDoencasPreExistentes(String doencasPreExistentes) {
+		this.doencasPreExistentes = doencasPreExistentes;
 	}
-
-	public String getDoencasPreExist() {
-		return doencasPreExist;
+	public String getHistoricoDoencaFamiliar() {
+		return historicoDoencaFamiliar;
 	}
-
-	public void setDoencasPreExist(String doencasPreExist) {
-		this.doencasPreExist = doencasPreExist;
+	public void setHistoricoDoencaFamiliar(String historicoDoencaFamiliar) {
+		this.historicoDoencaFamiliar = historicoDoencaFamiliar;
 	}
-
-	public String getHistDoencaFamiliar() {
-		return histDoencaFamiliar;
-	}
-
-	public void setHistDoencaFamiliar(String histDoencaFamiliar) {
-		this.histDoencaFamiliar = histDoencaFamiliar;
-	}
-
 	public String getExameLaboratorial() {
 		return exameLaboratorial;
 	}
-
 	public void setExameLaboratorial(String exameLaboratorial) {
 		this.exameLaboratorial = exameLaboratorial;
 	}
-
-	public String getObs() {
-		return obs;
+	public String getObservacoes() {
+		return observacoes;
 	}
-
-	public void setObs(String obs) {
-		this.obs = obs;
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }
