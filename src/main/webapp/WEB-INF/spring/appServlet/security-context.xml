@@ -1,0 +1,47 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+	<http disable-url-rewriting="true" use-expressions="true" auto-config="true">
+		<access-denied-handler error-page="/403page" />
+		<intercept-url pattern="/entrada*" access="permitAll" />
+		<intercept-url pattern="/interno*" access="permitAll" />
+		<intercept-url pattern="/static*" access="permitAll" />
+	
+		<form-login login-page='/' username-parameter="username" password-parameter="password" default-target-url="/usuarios"
+			authentication-failure-url="/login?authfailed" />
+			
+		<logout invalidate-session="true" logout-success-url="/" />
+	
+		<logout logout-success-url="/" />
+
+	</http>
+
+	<authentication-manager>
+		<authentication-provider ref="customAuthenticationProvider" />
+	</authentication-manager>
+	
+<!-- 	<beans:bean id="customAuthenticationProvider" class="com.nutrisoft.authentication.CustomAuthenticationProvider" />
+
+	 -->
+
+</beans:beans> 
+
+<!-- 	<authentication-manager>
+		<authentication-provider>
+			<password-encoder ref="encoder" />
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select username,password, enabled from users where username=?"
+				authorities-by-username-query="select username, role from user_roles where username =?  " />
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="10" />
+	</beans:bean>
+
+ -->

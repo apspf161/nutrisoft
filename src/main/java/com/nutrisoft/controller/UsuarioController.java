@@ -94,7 +94,8 @@ public class UsuarioController {
 	public String listPersons(Model model) {
 		model.addAttribute("usuario", new Usuario());
 		model.addAttribute("usuarios", usuarioService.listUsuarios());
-		return "usuario";	}
+		return "usuario";
+	}
 
 	@RequestMapping(value= "/usuario/add", method = RequestMethod.POST)
 	public String addPerson(@ModelAttribute("usuario") Usuario usuario, @RequestParam String senha) throws Exception{
