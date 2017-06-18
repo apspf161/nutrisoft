@@ -1,0 +1,70 @@
+#header {
+	width: 100%;
+	position: fixed;
+}
+
+#header {
+	margin:0px;
+	height: 120px;
+	top: 0px;
+	z-index: 999;
+	border-bottom: #FF00FF 3px solid;
+	position:relative;
+	clear: both;
+}
+
+.responsive-image
+{
+/* width: 100%;
+background-color:#F7FFF1;
+background-position:center top;
+background-image: url('img/logo_nutrisoft.jpg');
+background-repeat:no-repeat;
+background-size: contain; */
+background-color:#F7FFF1;
+background-image: url('img/logo_nutrisoft.jpg');
+background-repeat: no-repeat;
+background-position: center center;
+background-size: contain;
+
+
+
+}
+
+footer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: -1;
+  background-color: #F7FFF1;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+ @media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+#table-list td, tr, th #table-list>tbody>tr>td, #table-list>tbody>tr>th,
+	#table-list>tfoot>tr>td, #table-list>tfoot>tr>th, #table-list>thead>tr>td,
+	#table-list>thead>tr>th {
+	text-align: center;
+}
+
+#table-list thead, th {
+	background-color: #D0D0D0;
+}
+
+#table-list tr:HOVER td{
+	color: #FF6347;
+}
+
+#table-list th:HOVER {
+	color: black;
+}
