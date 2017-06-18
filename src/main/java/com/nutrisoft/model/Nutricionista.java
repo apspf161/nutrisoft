@@ -1,14 +1,27 @@
 package com.nutrisoft.model;
 
-public class Nutricionista extends Pessoa {
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PrimaryKeyJoinColumns;
+import javax.persistence.Table;
 
-	private String registroProfissional;
+@Entity
+@Table(name="Nutricionista")
+@PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idNutricionista",referencedColumnName="idUsuario")})
+public class Nutricionista extends Usuario {
+    
+	private String reg;
 
-	public String getRegistroProfissional() {
-		return registroProfissional;
+	public String getReg() {
+		return reg;
 	}
-	
-	public void setRegistroProfissional(String registroProfissional) {
-		this.registroProfissional = registroProfissional;
+
+	public void setReg(String reg) {
+		this.reg = reg;
+	}
+
+	@Override
+	public String toString() {
+		return this.toString() + " - Nutricionista [reg=" + reg + "]";
 	}
 }

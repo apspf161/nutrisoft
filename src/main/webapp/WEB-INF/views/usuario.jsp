@@ -13,8 +13,10 @@
 	
 	<c:url var="addAction" value="/usuario/add" ></c:url>
 
-	<form:form action="${addAction}" commandName="usuario">
-		<form:hidden path="id"/>
+	<form:form action="${addAction}" commandName="usuario" method="POST">
+	
+		<form:hidden path="idPessoa" />
+		
 		<div class="form-group">
     		<form:label path="nome">Nome</form:label>
 			<form:input path="nome" cssClass="form-control"/>
@@ -32,13 +34,60 @@
 			<form:password path="senha" cssClass="form-control"/>
 		</div>
 		<div class="form-group">
-    		<form:label path="perfil">Senha</form:label>
+    		<form:label path="perfil">Perfil</form:label>
 			<form:select path="perfil" cssClass="form-control">
 				<form:option value="1">Atendente</form:option>
 				<form:option value="2">Nutricionista</form:option>
 				<form:option value="3">Administrador</form:option>
 			</form:select>
 		</div>
+		
+		<div class="form-group">
+    		<form:label path="sexo">Sexo</form:label>
+			<form:select path="sexo" cssClass="form-control">
+				<form:option value="F">Feminino</form:option>
+				<form:option value="M">Masculino</form:option>
+			</form:select>
+		</div>
+		<div class="form-group">
+    		<form:label path="cpf">CPF</form:label>
+			<form:input path="cpf" cssClass="form-control"/>
+		</div>
+		
+		<div class="form-group">
+    		<form:label path="endereco">Endereco</form:label>
+			<form:input path="endereco" cssClass="form-control"/>
+		</div>
+		
+		<div class="form-group">
+    		<form:label path="cep">CEP</form:label>
+			<form:input path="cep" cssClass="form-control"/>
+		</div>
+		
+		<div class="form-group">
+    		<form:label path="cidade">Cidade</form:label>
+			<form:input path="cidade" cssClass="form-control"/>
+		</div>
+		
+		
+		<div class="form-group">
+    		<form:label path="uf">UF</form:label>
+			<form:input path="uf" cssClass="form-control"/>
+		</div>
+		<div class="form-group">
+    		<form:label path="telefone">Telefone</form:label>
+			<form:input path="telefone" cssClass="form-control"/>
+		</div>
+		
+		<div class="form-group">
+    		<form:label path="celular">Celular</form:label>
+			<form:input path="celular" cssClass="form-control"/>
+		</div>
+		<div class="form-group">
+    		<form:label path="dataNascimento">Data de Nascimento</form:label>
+			<form:input path="dataNascimento" cssClass="form-control"/>
+		</div>
+		
 		<div class="form-group">
 			<c:if test="${!empty usuario.nome}">
 				<input type="submit" class="btn" value="<spring:message text="Alterar Usuário"/>" />
@@ -71,8 +120,8 @@
 					<td>${usuario.email}</td>
 					<td>${usuario.login}</td>
 					<td>${usuario.perfil}</td>
-					<td><a href="<c:url value='/edit/${person.id}' />" >Alterar</a></td>
-					<td><a href="<c:url value='/remove/${person.id}' />" >Excluir</a></td>
+					<td><a href="<c:url value='/edit/${usuario.idPessoa}' />" >Alterar</a></td>
+					<td><a href="<c:url value='/remove/${usuario.idPessoa}' />" >Excluir</a></td>
 				</tr>
 			</c:forEach>
 		</table>

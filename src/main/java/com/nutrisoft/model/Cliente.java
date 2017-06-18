@@ -1,35 +1,62 @@
 package com.nutrisoft.model;
-import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PrimaryKeyJoinColumns;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Cliente")
+@Inheritance(strategy=InheritanceType.JOINED)
+@PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idCliente",referencedColumnName="idPessoa")})
 public class Cliente extends Pessoa {
 
+	private String motivoConsulta;
+	
 	private String profissao;
-	private BigDecimal altura;
-	private String observacoes;
-	private DadoLaboratorial dadoLaboratorial;
+	
+	private Float altura;
+	
+	@Column(name = "obs", columnDefinition = "TEXT")
+	private String obs;
+	
+	public String getMotivoConsulta() {
+		return motivoConsulta;
+	}
 
-	public DadoLaboratorial getDadoLaboratorial() {
-		return dadoLaboratorial;
+	public void setMotivoConsulta(String motivoConsulta) {
+		this.motivoConsulta = motivoConsulta;
 	}
-	public void setDadoLaboratorial(DadoLaboratorial dadoLaboratorial) {
-		this.dadoLaboratorial = dadoLaboratorial;
-	}
+
 	public String getProfissao() {
 		return profissao;
 	}
+
 	public void setProfissao(String profissao) {
 		this.profissao = profissao;
 	}
-	public BigDecimal getAltura() {
+
+	public Float getAltura() {
 		return altura;
 	}
-	public void setAltura(BigDecimal altura) {
+
+	public void setAltura(Float altura) {
 		this.altura = altura;
 	}
-	public String getObservacoes() {
-		return observacoes;
+
+	public String getObs() {
+		return obs;
 	}
-	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
+
+	public void setObs(String obs) {
+		this.obs = obs;
+	}
+
+	@Override
+	public String toString() {
+		return this.toString() + " - Cliente [motivoConsulta=" + motivoConsulta + ", profissao=" + profissao + ", altura=" + altura + ", obs=" + obs + "]";
 	}
 }

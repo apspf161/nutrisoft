@@ -1,85 +1,109 @@
 package com.nutrisoft.model;
 
-import java.math.BigDecimal;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+@Entity
+@Table(name="Consulta")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Consulta {
 
-	private Integer id;
-	private String motivo;
-	private BigDecimal pesoAtual;
-	private BigDecimal pesoMeta;
-	private BigDecimal valor;
-	private Integer calorias;
-	private Boolean pago;
-	private Agendamento agendamento;
-	private DietaNutricional dietaNutricional;
-	private Antropometria antropometria;
-	private AvaliacaoAlimentar avaliacaoAlimentar;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int idConsulta;
+		
+	@Column(name = "pesoCliente", precision = 4, scale = 1)  
+	private Float pesoCliente;
 	
-	public Integer getId() {
-		return id;
+	@Column(name = "meta", precision = 4, scale = 1)  
+	private Float meta;	
+
+	@Column(name = "valor", precision = 5, scale = 2)  
+	private Float valor;
+
+	@Column(name = "calorias")  
+	private Float calorias;
+	
+	@Column (name="pago",nullable = false)
+	private Boolean pago;
+
+	@ManyToOne(fetch = FetchType.EAGER) 
+	@JoinColumn(name = "idAgendamento", nullable=false, insertable = false, updatable = false)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	private Agendamento agendamento;
+	
+	@PrePersist
+	protected void onCreate()
+	{
+	//	data = new Date();
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	public int getIdConsulta() {
+		return idConsulta;
 	}
-	public String getMotivo() {
-		return motivo;
+
+	public void setIdConsulta(int idConsulta) {
+		this.idConsulta = idConsulta;
 	}
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
+
+	public Float getPesoCliente() {
+		return pesoCliente;
 	}
-	public BigDecimal getPesoAtual() {
-		return pesoAtual;
+
+	public void setPesoCliente(Float pesoCliente) {
+		this.pesoCliente = pesoCliente;
 	}
-	public void setPesoAtual(BigDecimal pesoAtual) {
-		this.pesoAtual = pesoAtual;
+
+	public Float getMeta() {
+		return meta;
 	}
-	public BigDecimal getPesoMeta() {
-		return pesoMeta;
+
+	public void setMeta(Float meta) {
+		this.meta = meta;
 	}
-	public void setPesoMeta(BigDecimal pesoMeta) {
-		this.pesoMeta = pesoMeta;
-	}
-	public BigDecimal getValor() {
+
+	public Float getValor() {
 		return valor;
 	}
-	public void setValor(BigDecimal valor) {
+
+	public void setValor(Float valor) {
 		this.valor = valor;
 	}
-	public Integer getCalorias() {
+
+	public Float getCalorias() {
 		return calorias;
 	}
-	public void setCalorias(Integer calorias) {
+
+	public void setCalorias(Float calorias) {
 		this.calorias = calorias;
 	}
-	public Boolean getPago() {
+
+	public Boolean isPago() {
 		return pago;
 	}
+
 	public void setPago(Boolean pago) {
 		this.pago = pago;
 	}
+
 	public Agendamento getAgendamento() {
 		return agendamento;
 	}
+
 	public void setAgendamento(Agendamento agendamento) {
 		this.agendamento = agendamento;
-	}
-	public DietaNutricional getDietaNutricional() {
-		return dietaNutricional;
-	}
-	public void setDietaNutricional(DietaNutricional dietaNutricional) {
-		this.dietaNutricional = dietaNutricional;
-	}
-	public Antropometria getAntropometria() {
-		return antropometria;
-	}
-	public void setAntropometria(Antropometria antropometria) {
-		this.antropometria = antropometria;
-	}
-	public AvaliacaoAlimentar getAvaliacaoAlimentar() {
-		return avaliacaoAlimentar;
-	}
-	public void setAvaliacaoAlimentar(AvaliacaoAlimentar avaliacaoAlimentar) {
-		this.avaliacaoAlimentar = avaliacaoAlimentar;
 	}
 }

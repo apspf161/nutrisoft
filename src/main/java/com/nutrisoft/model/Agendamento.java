@@ -1,60 +1,99 @@
 package com.nutrisoft.model;
 
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
-import com.nutrisoft.model.enums.StatusAgendamentoEnum;
-import com.nutrisoft.model.enums.TipoConsultaEnum;
-
+@Entity
+@Table(name="Agendamento")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Agendamento {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer idAgendamento;
 	
-	private Integer id;
-	private Date data;
-	private StatusAgendamentoEnum statusAgendamento;
-	private Cliente cliente;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataAgendamento;
+	
+	private char stAgendamento;
+
+	@ManyToOne(fetch = FetchType.EAGER) 
+	@JoinColumn(name = "idNutricionista", nullable=false, insertable = false, updatable = false)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Nutricionista nutricionista;
-	private TipoConsultaEnum tipoConsulta;
-	private Consulta consulta;
+
+	@ManyToOne(fetch = FetchType.EAGER) 
+	@JoinColumn(name = "idCliente", nullable=false, insertable = false, updatable = false)
+	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	private Cliente cliente;
 	
-	public Consulta getConsulta() {
-		return consulta;
+	private char tipoConsulta;
+	
+	@PrePersist
+	protected void onCreate()
+	{
+		//estadoAgendamento = EstadoAgendamento.MARCADA;
 	}
-	public void setConsulta(Consulta consulta) {
-		this.consulta = consulta;
+
+	public Integer getIdAgendamento() {
+		return idAgendamento;
 	}
-	public Integer getId() {
-		return id;
+
+	public void setIdAgendamento(Integer idAgendamento) {
+		this.idAgendamento = idAgendamento;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+
+	public Date getDataAgendamento() {
+		return dataAgendamento;
 	}
-	public Date getData() {
-		return data;
+
+	public void setDataAgendamento(Date dataAgendamento) {
+		this.dataAgendamento = dataAgendamento;
 	}
-	public void setData(Date data) {
-		this.data = data;
+
+	public char getStAgendamento() {
+		return stAgendamento;
 	}
-	public StatusAgendamentoEnum getStatusAgendamento() {
-		return statusAgendamento;
+
+	public void setStAgendamento(char stAgendamento) {
+		this.stAgendamento = stAgendamento;
 	}
-	public void setStatusAgendamento(StatusAgendamentoEnum statusAgendamento) {
-		this.statusAgendamento = statusAgendamento;
-	}
-	public Cliente getCliente() {
-		return cliente;
-	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+
 	public Nutricionista getNutricionista() {
 		return nutricionista;
 	}
+
 	public void setNutricionista(Nutricionista nutricionista) {
 		this.nutricionista = nutricionista;
 	}
-	public TipoConsultaEnum getTipoConsulta() {
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public char getTipoConsulta() {
 		return tipoConsulta;
 	}
-	public void setTipoConsulta(TipoConsultaEnum tipoConsulta) {
+
+	public void setTipoConsulta(char tipoConsulta) {
 		this.tipoConsulta = tipoConsulta;
 	}
 }

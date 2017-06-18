@@ -9,41 +9,31 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nutrisoft.model.Usuario;
-import com.nutrisoft.repository.PessoaDAO;
 import com.nutrisoft.repository.UsuarioDAO;
 
 @Service
 @Transactional(propagation=Propagation.NOT_SUPPORTED)
 public class UsuarioServiceImpl implements UsuarioService {
-
-	@Autowired
-	private PessoaDAO pessoaDAO;
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
-
+	
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional
 	public void addUsuario(Usuario usuario) {
-		this.pessoaDAO.addPessoa(usuario);
-		this.usuarioDAO.addUsuario(usuario);
+		
+		this.usuarioDAO.salvar(usuario);
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateUsuario(Usuario usuario) {
-		this.pessoaDAO.updatePessoa(usuario);
-		this.usuarioDAO.updateUsuario(usuario);
-	}
-
-	@Override
-	public List<Usuario> listUsuarios() {
-		return this.usuarioDAO.listUsuarios();
+		this.usuarioDAO.alterar(usuario);
 	}
 
 	@Override
 	public Usuario getUsuarioById(int id) {
-		return this.usuarioDAO.getUsuarioById(id);
+		return this.usuarioDAO.obterPorIdUsuario(id);
 	}
 	
 	@Override
@@ -58,7 +48,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void removeUsuario(int id) {
-		this.usuarioDAO.removeUsuario(id);
-		this.pessoaDAO.removePessoa(id);
+		Usuario usuario = usuarioDAO.obterPorIdUsuario(id);
+		this.usuarioDAO.excluir(usuario);
+	}
+
+	@Override
+	public List<Usuario> listUsuarios() {
+		return this.usuarioDAO.obterTodosOsUsuarios();
+	}	
+	
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
+	}
+
+
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
 	}
 }
