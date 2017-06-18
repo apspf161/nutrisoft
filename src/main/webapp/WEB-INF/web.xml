@@ -5,7 +5,6 @@
 	xmlns:web="http://java.sun.com/xml/ns/javaee" version="3.0">
  	<display-name>NutriSoft</display-name>
 
-
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

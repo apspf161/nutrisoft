@@ -1,69 +1,46 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="false"%>
-<html>
-<head>
-<script src="resources/js/agendamento.js"></script>
-</head>
-<body>
-	<header>
-		<c:import url="/WEB-INF/views/header.jsp"></c:import>
-	</header>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-	<div class="container" id="container">
+<sec:authentication var="user" property="principal" />
+<sec:authentication property="authorities" var="roles" scope="page" />
 
-		<c:import url="/WEB-INF/views/menuLateral.jsp"></c:import>
-		<section>
-			<div id="page-content-wrapper">
-				<div class="form-group email required user_horizontal_email">
-					<h2>
-						Pr�ximas Consultas do Dia
-					</h2>
-		
-					<table class="table table-striped" id="content-table">
-						<thead>
-							<tr>
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%-- <c:forEach var="lista" items="${listaElegiveis}">
-								<tr class="text-left">
-									<td class="details-control"></td>
-									<td>${lista.matricula}</td>
-									<td>${lista.nome}</td>
-									<td>${lista.adesao.documento}</td>
-									<td><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${lista.adesao.dt_adesao}" /></td>
-									<td><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${lista.dt_agendamento}" /></td>
-									<td><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${lista.dt_Flexibilizacao}" /></td>
-									<td>${lista.status.descricaoDoStatus}</td>
-									<td><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${lista.dt_csa}" /></td>
-									<td><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${lista.dt_rha}" /></td>
-									<td><fmt:formatDate pattern="dd/MM/yyyy"
-											value="${lista.dt_agendamento}" /></td>
-								</tr>
-							</c:forEach>
- --%>
-							<tr class="text-left">
-								<td>4</td>
-								<td>5</td>
-								<td>6</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</section>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<sec:authorize access="hasAuthority('atendente')">
+					<li><a href="${pageContext.request.contextPath}/agendamento">Agendamento</a></li>
+				</sec:authorize>
+
+				<sec:authorize access="hasAuthority('nutricionista') ">
+					<li><a href="${pageContext.request.contextPath}/consulta">Consulta</a></li>
+					<li><a href="${pageContext.request.contextPath}/consulta/grafico">Gráfico de Evolução</a></li>
+					<li><a href="${pageContext.request.contextPath}/relatorios">Relatórios</a></li>
+				</sec:authorize>
+				
+				<sec:authorize access="hasAuthority('atendente')">
+					<li><a href="${pageContext.request.contextPath}/consulta/pagamento">Pagamento</a></li>
+				</sec:authorize>
+				
+				<sec:authorize access="hasAuthority('administrador') ">
+					<li><a href="${pageContext.request.contextPath}/usuario">Usuários</a></li>
+				</sec:authorize>
+				
+			<%-- 
+				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administração <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="${pageContext.request.contextPath}/adesao/adesao">Solicitação</a></li>
+						<li><a href="${pageContext.request.contextPath}/adesao/acompanhar">Acompanhamento</a></li>
+					</ul>
+				</li>
+			--%>
+								
+				<li><a href="${pageContext.request.contextPath}/j_spring_security_logout">Sair</a></li>
+			</ul>
+		</div>
+		<!--/.nav-collapse -->
 	</div>
-
-	<c:import url="/WEB-INF/views/footer.jsp"></c:import>
-</body>
-</html>
+	<!--/.container-fluid -->
+</nav>

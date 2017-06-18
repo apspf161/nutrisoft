@@ -1,15 +1,4 @@
-/**
- * Furnas Centrais Elétricas S.A
- * Divisão de Suporte ao Desenvolvimento de Sistemas de Informação
- * Copyright (c) 2014 Todos os direitos reservados à Eletrobras Furnas S.A.
- * 
- * @author Wilson Fernandes 
- * @since 12/01/2017
- * @version 1.0
- */
-
 package com.nutrisoft.authentication;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +26,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList<SimpleGrantedAuthority>();
 
-		boolean usuarioAutenticadoNoDominio = true;
-
 		try 
 		{ 
 
@@ -47,23 +34,24 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			if (null != usuarioBanco) 
 			{					
 
-				if(usuarioBanco.getPerfil().equals(PerfilEnum.ATENDENTE.toString()))
+				if(usuarioBanco.getPerfil().equals(PerfilEnum.ATENDENTE.getId().toString()))
 				{
 					updatedAuthorities.add(new SimpleGrantedAuthority("atendente"));
 				}
-				else if(usuarioBanco.getPerfil().equals(PerfilEnum.ADMINISTRADOR.toString()))
+				else if(usuarioBanco.getPerfil().equals(PerfilEnum.ADMINISTRADOR.getId().toString()))
 				{
 					updatedAuthorities.add(new SimpleGrantedAuthority("administrador"));
 				}
-				else if(usuarioBanco.getPerfil().equals(PerfilEnum.NUTRICIONISTA.toString()))
+				else if(usuarioBanco.getPerfil().equals(PerfilEnum.NUTRICIONISTA.getId().toString()))
 				{
+					updatedAuthorities.add(new SimpleGrantedAuthority("atendente"));
 					updatedAuthorities.add(new SimpleGrantedAuthority("nutricionista"));
 				}
 			} 
 
 			if(updatedAuthorities.size() == 0)
 			{
-				throw new BadCredentialsException("Usuário sem permissão.");
+				throw new BadCredentialsException("Usuário sem acesso.");
 			}
 
 			return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials().toString(), updatedAuthorities);
@@ -72,7 +60,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		catch (Exception e) 
 		{
 			e.printStackTrace();
-			throw new BadCredentialsException("Você não está Elegível a Adesão ao PAE ou tem permissão de acesso.");
+			throw new BadCredentialsException("Usuário inexistente.");
 		}
 	}
 

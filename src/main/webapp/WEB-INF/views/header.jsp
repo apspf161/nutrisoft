@@ -14,10 +14,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/dataTables.bootstrap.css">
 <link rel="stylesheet" href="resources/css/login.min.css">
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
 <link rel="stylesheet" href="resources/css/header.css">
+
+
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.dataTables.min.js"></script>
 
 <div class="responsive-image" id="header"></div>
