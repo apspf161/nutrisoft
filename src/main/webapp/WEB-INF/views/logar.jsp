@@ -37,10 +37,8 @@
 				<%-- <form:input path="login" cssClass="form-control" placeholder="E-mail" onfocus="true"  />
             	<form:password path="senha" cssClass="form-control" placeholder="Senha" /> --%>
 
-				<input type="text" name="j_username" cssClass="form-control"
-					placeholder="E-mail" onfocus="true" />
-				<input type="password" name="j_password" cssClass="form-control"
-					placeholder="Senha" />
+				<input type="text" name="j_username" cssClass="form-control" placeholder="E-mail" onfocus="true" />
+				<input type="password" name="j_password" cssClass="form-control" placeholder="Senha" />
 
  				<sec:csrfInput />
  				

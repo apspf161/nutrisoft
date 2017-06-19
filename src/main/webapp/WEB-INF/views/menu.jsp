@@ -36,11 +36,12 @@
 					</ul>
 				</li>
 			--%>
-								
-				<li><a href="${pageContext.request.contextPath}/j_spring_security_logout">Sair</a></li>
+				<li><a href="<c:url value="j_spring_security_logout" />">Sair</a></li>
 			</ul>
 		</div>
 		<!--/.nav-collapse -->
 	</div>
 	<!--/.container-fluid -->
 </nav>
+
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
