@@ -4,9 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.PrimaryKeyJoinColumns;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name="Cliente")
@@ -14,22 +18,26 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idCliente",referencedColumnName="idPessoa")})
 public class Cliente extends Pessoa {
 
-	private String motivoConsulta;
-	
 	private String profissao;
 	
 	private Float altura;
 	
 	@Column(name = "obs", columnDefinition = "TEXT")
 	private String obs;
-	
-	public String getMotivoConsulta() {
-		return motivoConsulta;
-	}
 
-	public void setMotivoConsulta(String motivoConsulta) {
-		this.motivoConsulta = motivoConsulta;
-	}
+	@Column(name = "doencasPreExist", columnDefinition = "TEXT")
+	private String doencasPreExist;
+	
+    @Column(name = "histDoencaFamiliar", columnDefinition = "TEXT")
+	private String histDoencaFamiliar;
+	
+    @Column(name = "exameLaboratorial", columnDefinition = "TEXT")
+	private String exameLaboratorial;
+	
+	@OneToOne
+	@PrimaryKeyJoinColumn(name="idConsulta")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private DadoLaboratorial dadoLaboratorial;
 
 	public String getProfissao() {
 		return profissao;
@@ -55,8 +63,35 @@ public class Cliente extends Pessoa {
 		this.obs = obs;
 	}
 
-	@Override
-	public String toString() {
-		return this.toString() + " - Cliente [motivoConsulta=" + motivoConsulta + ", profissao=" + profissao + ", altura=" + altura + ", obs=" + obs + "]";
+	public DadoLaboratorial getDadoLaboratorial() {
+		return dadoLaboratorial;
+	}
+
+	public void setDadoLaboratorial(DadoLaboratorial dadoLaboratorial) {
+		this.dadoLaboratorial = dadoLaboratorial;
+	}
+
+	public String getDoencasPreExist() {
+		return doencasPreExist;
+	}
+
+	public void setDoencasPreExist(String doencasPreExist) {
+		this.doencasPreExist = doencasPreExist;
+	}
+
+	public String getHistDoencaFamiliar() {
+		return histDoencaFamiliar;
+	}
+
+	public void setHistDoencaFamiliar(String histDoencaFamiliar) {
+		this.histDoencaFamiliar = histDoencaFamiliar;
+	}
+
+	public String getExameLaboratorial() {
+		return exameLaboratorial;
+	}
+
+	public void setExameLaboratorial(String exameLaboratorial) {
+		this.exameLaboratorial = exameLaboratorial;
 	}
 }

@@ -51,7 +51,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 			if(updatedAuthorities.size() == 0)
 			{
-				throw new BadCredentialsException("Usuário sem acesso.");
+				throw new BadCredentialsException("Usu�rio sem acesso.");
 			}
 
 			return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials().toString(), updatedAuthorities);
@@ -60,7 +60,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		catch (Exception e) 
 		{
 			e.printStackTrace();
-			throw new BadCredentialsException("Usuário inexistente.");
+			throw new BadCredentialsException("Usu�rio inexistente.");
 		}
 	}
 

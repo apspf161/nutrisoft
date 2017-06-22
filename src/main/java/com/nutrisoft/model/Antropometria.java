@@ -1,24 +1,38 @@
 package com.nutrisoft.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.PrimaryKeyJoinColumns;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Antropometria")
-@PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idConsulta",referencedColumnName="idConsulta")})
-public class Antropometria extends Consulta{
+public class Antropometria implements Serializable {
+
+	private static final long serialVersionUID = 6442541897068880914L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer idAntropometria;
+	
+	@OneToOne(mappedBy="antropometria")
+	@JoinColumn(name="idConsulta")
+	private Consulta consulta;
 
 	@Column(name = "pesoUsual", precision = 4, scale = 1)  
 	private Float pesoUsual;	
-	
+
 	@Column(name = "pesoDesejavel", precision = 4, scale = 1)  
 	private Float pesoDesejavel;
 	
 	private Integer torax;
-	
+
 	private Integer bracoRelaxado;
 	
 	private Integer bracoFletido;
@@ -201,5 +215,21 @@ public class Antropometria extends Consulta{
 
 	public void setSomatorio(Integer somatorio) {
 		this.somatorio = somatorio;
+	}
+
+	public Integer getIdAntropometria() {
+		return idAntropometria;
+	}
+
+	public void setIdAntropometria(Integer idAntropometria) {
+		this.idAntropometria = idAntropometria;
+	}
+
+	public Consulta getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
 	}
 }

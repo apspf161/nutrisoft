@@ -1,16 +1,30 @@
 package com.nutrisoft.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.PrimaryKeyJoinColumns;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Dieta_Nutricional")
-@PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idConsulta",referencedColumnName="idConsulta")})
-public class DietaNutricional extends Consulta {
-    
+public class DietaNutricional implements Serializable {
+	
+	private static final long serialVersionUID = 6442541897068880914L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer idDietaNutricional;
+	
+	@OneToOne(mappedBy="dietaNutricional")
+	@JoinColumn(name="idConsulta")
+	private Consulta consulta;
+
     @Column(name = "cafeDaManha", columnDefinition = "TEXT")
     private String cafeDaManha;
     
@@ -76,6 +90,20 @@ public class DietaNutricional extends Consulta {
 	public void setCeia(String ceia) {
 		this.ceia = ceia;
 	}
-		
-	
+
+	public Integer getIdDietaNutricional() {
+		return idDietaNutricional;
+	}
+
+	public void setIdDietaNutricional(Integer idDietaNutricional) {
+		this.idDietaNutricional = idDietaNutricional;
+	}
+
+	public Consulta getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
+	}
 }

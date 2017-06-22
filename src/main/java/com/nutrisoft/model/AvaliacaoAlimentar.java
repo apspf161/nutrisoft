@@ -1,72 +1,86 @@
 package com.nutrisoft.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.PrimaryKeyJoinColumns;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Avaliacao_Alimentar")
-@PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idConsulta",referencedColumnName="idConsulta")})
-public class AvaliacaoAlimentar extends Consulta {
+public class AvaliacaoAlimentar implements Serializable {
+	
+	private static final long serialVersionUID = 6442541897068880914L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer idAvaliacao;
+	
+	@OneToOne(mappedBy="avaliacaoAlimentar")
+	@JoinColumn(name="idConsulta")
+	private Consulta consulta;
+	
 	private char stAcompanhamentoNutricional;
-    
-    private String nutricionistaAcompanhamentoAnterior;
-    
-    private String objetivoAcompanhamento;
-    
-    private String alergiaAlimentar;
-    
-    private String intoleranciaAlimentar;
-    
-    private String preferenciaAlimentar;
-    
-    private String alimentoPreterido;
-    
-    private String classificacaoApetite;
-    
-    private String horarioFome;
-    
-    private Boolean beliscaEntreRefeicao;
-    
-    private String alteracaoApetite;
-    
-    private String motivoAlteracao;
-     
-     private Float qtdAguaDia;
-    
-     private Float qtdLiquidoDia;
-    
-     private Boolean ingereLiquidoRefeicao;
-    
-     private Float qtdLiquidoRefeicao;
-     
-     private Boolean usaSuplemento;
-    
-     private String indicacaoUsoSuplemento;
-    
-     private String quemEscolheAlimento;
-    
-     private String quemPreparaRefeicao;
-    
-     private String formaPreparoRefeicao;
-    
-     private String gorduraPreparoRefeicao;
-     
-     private Integer nrPessoasCozinha;
-     
-     private Float qtdSal;
-     
-     private Float qtdGordura;
-     
-     private Float totSalMes;
-     
-     private Float totSalDia;
-     
-     private Float totOleoDia;
-     
-     private Float totalOleoMes;
+	
+	private String nutricionistaAcompanhamentoAnterior;
+	
+	private String objetivoAcompanhamento;
+	
+	private String alergiaAlimentar;
+	
+	private String intoleranciaAlimentar;
+	
+	private String preferenciaAlimentar;
+	
+	private String alimentoPreterido;
+	
+	private String classificacaoApetite;
+	
+	private String horarioFome;
+	
+	private Boolean beliscaEntreRefeicao;
+	
+	private String alteracaoApetite;
+	
+	private String motivoAlteracao;
+	
+	private Float qtdAguaDia;
+	
+	private Float qtdLiquidoDia;
+	
+	private Boolean ingereLiquidoRefeicao;
+	
+	private Float qtdLiquidoRefeicao;
+	
+	private Boolean usaSuplemento;
+	
+	private String indicacaoUsoSuplemento;
+	
+	private String quemEscolheAlimento;
+	
+	private String quemPreparaRefeicao;
+	
+	private String formaPreparoRefeicao;
+	
+	private String gorduraPreparoRefeicao;
+	
+	private Integer nrPessoasCozinha;
+	
+	private Float qtdSal;
+	
+	private Float qtdGordura;
+	
+	private Float totSalMes;
+	
+	private Float totSalDia;
+	
+	private Float totOleoDia;
+	
+	private Float totalOleoMes;
 
 	public char getStAcompanhamentoNutricional() {
 		return stAcompanhamentoNutricional;
@@ -298,5 +312,21 @@ public class AvaliacaoAlimentar extends Consulta {
 
 	public void setTotalOleoMes(Float totalOleoMes) {
 		this.totalOleoMes = totalOleoMes;
+	}
+
+	public Integer getIdAvaliacao() {
+		return idAvaliacao;
+	}
+
+	public void setIdAvaliacao(Integer idAvaliacao) {
+		this.idAvaliacao = idAvaliacao;
+	}
+
+	public Consulta getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
 	}
 }

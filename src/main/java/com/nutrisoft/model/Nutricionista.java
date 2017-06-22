@@ -10,18 +10,18 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idNutricionista",referencedColumnName="idUsuario")})
 public class Nutricionista extends Usuario {
     
-	private String reg;
-
-	public String getReg() {
-		return reg;
-	}
-
-	public void setReg(String reg) {
-		this.reg = reg;
-	}
+	private String registro;
 
 	@Override
 	public String toString() {
-		return this.toString() + " - Nutricionista [reg=" + reg + "]";
+		return this.toString() + " - Nutricionista [registro=" + registro + "]";
+	}
+
+	public String getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(String registro) {
+		this.registro = registro;
 	}
 }

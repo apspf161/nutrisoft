@@ -21,7 +21,6 @@ import org.springframework.security.crypto.codec.Hex;
 @Table(name="Usuario")
 @Inheritance(strategy=InheritanceType.JOINED)
 @PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idUsuario",referencedColumnName="idPessoa")})
-
 public class Usuario extends Pessoa{
 
 	private String login;

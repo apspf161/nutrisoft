@@ -1,7 +1,6 @@
 package com.nutrisoft.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,56 +8,83 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nutrisoft.authentication.Autenticacao;
 import com.nutrisoft.model.Usuario;
 import com.nutrisoft.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
+	
+//	private Autenticacao autenticacao;
 
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listPersons() {
-		ModelAndView model = new ModelAndView("listaUsuario");
-		model.addObject("listaUsuarios", usuarioService.listUsuarios());
+
+	/*	if (autenticacao.isAutenticado() == false) {
+			return new ModelAndView("logar");
+		}
+*/
+		ModelAndView model = new ModelAndView("usuario");
+		model.addObject("usuario", new Usuario());
+		model.addObject("usuarios", usuarioService.listUsuarios());
+		return model;
+	}
+	
+	@RequestMapping(value = "/usuario", method = RequestMethod.GET)
+	public ModelAndView usuario() {
+
+/*		if (autenticacao.isAutenticado() == false) {
+			return new ModelAndView("logar");
+		}
+*/		
+		ModelAndView model = new ModelAndView("usuario");
+		model.addObject("usuario", new Usuario());
 		return model;
 	}
 
+	
 	@RequestMapping(value= "/add", method = RequestMethod.POST)
-	public String addPerson(@ModelAttribute("usuario") Usuario usuario, @RequestParam String senha) throws Exception{
-
+	public ModelAndView addPerson(@ModelAttribute("usuario") Usuario usuario, @RequestParam String senha) throws Exception{
+/*		if (autenticacao.isAutenticado() == false) {
+			return new ModelAndView("logar");
+		}
+*/		
 		String senhaMD5 = Usuario.getSenhaMD5(senha);
 		usuario.setSenha(senhaMD5);
 		
-		if(usuario.getIdPessoa() == null){
-			//new person, add it
+		if (usuario.getIdPessoa() == null) {
 			this.usuarioService.addUsuario(usuario);
-		}else{
-			//existing person, call update
+		} else {
 			this.usuarioService.updateUsuario(usuario);
 		}
-
-		return "redirect:/usuarios";
+		
+		return new ModelAndView("redirect:/");
 	}
 
 	@RequestMapping("/remove/{id}")
-	public String removePerson(@PathVariable("id") int id){
+	public ModelAndView removePerson(@PathVariable("id") int id){
+
+/*		if (autenticacao.isAutenticado() == false) {
+			return new ModelAndView("logar");
+		}
+*/
 		this.usuarioService.removeUsuario(id);
-		return "redirect:/usuarios";
+		return new ModelAndView("redirect:/");
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String editPerson(@PathVariable("id") int id, Model model){
-		model.addAttribute("usuario", this.usuarioService.getUsuarioById(id));
-		return "usuario";
-	}
-	
-	public UsuarioService getUsuarioService() {
-		return usuarioService;
-	}
-	public void setUsuarioService(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
+	public ModelAndView editPerson(@PathVariable("id") int id){
+
+/*		if (autenticacao.isAutenticado() == false) {
+			return new ModelAndView("logar");
+		}
+*/
+		ModelAndView model = new ModelAndView("usuario");
+		model.addObject("usuario", this.usuarioService.getUsuarioById(id));
+		return model;
 	}
 }
