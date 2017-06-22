@@ -15,25 +15,24 @@ import com.nutrisoft.service.UsuarioService;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-	
+
 //	private Autenticacao autenticacao;
 
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView listPersons() {
 
 	/*	if (autenticacao.isAutenticado() == false) {
 			return new ModelAndView("logar");
 		}
 */
-		ModelAndView model = new ModelAndView("usuario");
-		model.addObject("usuario", new Usuario());
-		model.addObject("usuarios", usuarioService.listUsuarios());
+		ModelAndView model = new ModelAndView("listaUsuario");
+		model.addObject("listaUsuarios", usuarioService.listUsuarios());
 		return model;
 	}
-	
+
 	@RequestMapping(value = "/usuario", method = RequestMethod.GET)
 	public ModelAndView usuario() {
 
@@ -49,6 +48,7 @@ public class UsuarioController {
 	
 	@RequestMapping(value= "/add", method = RequestMethod.POST)
 	public ModelAndView addPerson(@ModelAttribute("usuario") Usuario usuario, @RequestParam String senha) throws Exception{
+
 /*		if (autenticacao.isAutenticado() == false) {
 			return new ModelAndView("logar");
 		}
@@ -56,12 +56,14 @@ public class UsuarioController {
 		String senhaMD5 = Usuario.getSenhaMD5(senha);
 		usuario.setSenha(senhaMD5);
 		
-		if (usuario.getIdPessoa() == null) {
+		if(usuario.getIdPessoa() == null){
+			//new person, add it
 			this.usuarioService.addUsuario(usuario);
-		} else {
+		}else{
+			//existing person, call update
 			this.usuarioService.updateUsuario(usuario);
 		}
-		
+
 		return new ModelAndView("redirect:/");
 	}
 
@@ -86,5 +88,12 @@ public class UsuarioController {
 		ModelAndView model = new ModelAndView("usuario");
 		model.addObject("usuario", this.usuarioService.getUsuarioById(id));
 		return model;
+	}
+	
+	public UsuarioService getUsuarioService() {
+		return usuarioService;
+	}
+	public void setUsuarioService(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
 	}
 }
