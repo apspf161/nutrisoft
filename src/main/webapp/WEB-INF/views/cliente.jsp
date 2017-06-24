@@ -4,16 +4,16 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Cadastro de Usuários</title>
+	<title>Cadastro de Clientes</title>
 </head>
 <body>
 	<div class="page-header">
-		<h3>Novo Usuário</h3>
+		<h3>Novo Cliente</h3>
 	</div>
 	
-	<c:url var="addAction" value="/usuario/add" ></c:url>
+	<c:url var="addAction" value="/cliente/add" ></c:url>
 
-	<form:form action="${addAction}" commandName="usuario" method="POST">
+	<form:form action="${addAction}" commandName="cliente" method="POST">
 	
 		<form:hidden path="idPessoa" />
 		
@@ -26,22 +26,13 @@
 			<form:input path="email" cssClass="form-control"/>
 		</div>
 		<div class="form-group">
-    		<form:label path="login">Login</form:label>
-			<form:input path="login" cssClass="form-control"/>
+    		<form:label path="profissao">Profissão</form:label>
+			<form:input path="profissao" cssClass="form-control"/>
 		</div>
 		<div class="form-group">
-    		<form:label path="senha">Senha</form:label>
-			<form:password path="senha" cssClass="form-control"/>
+    		<form:label path="altura">Altura</form:label>
+			<form:input path="altura" cssClass="form-control"/>
 		</div>
-		<div class="form-group">
-    		<form:label path="perfil">Perfil</form:label>
-			<form:select path="perfil" cssClass="form-control">
-				<form:option value="1">Atendente</form:option>
-				<form:option value="2">Nutricionista</form:option>
-				<form:option value="3">Administrador</form:option>
-			</form:select>
-		</div>
-		
 		<div class="form-group">
     		<form:label path="sexo">Sexo</form:label>
 			<form:select path="sexo" cssClass="form-control">
@@ -53,7 +44,6 @@
     		<form:label path="cpf">CPF</form:label>
 			<form:input path="cpf" cssClass="form-control"/>
 		</div>
-		
 		<div class="form-group">
     		<form:label path="endereco">Endereco</form:label>
 			<form:input path="endereco" cssClass="form-control"/>
@@ -68,8 +58,6 @@
     		<form:label path="cidade">Cidade</form:label>
 			<form:input path="cidade" cssClass="form-control"/>
 		</div>
-		
-		
 		<div class="form-group">
     		<form:label path="uf">UF</form:label>
 			<form:input path="uf" cssClass="form-control"/>
@@ -87,12 +75,16 @@
     		<form:label path="dataNascimento">Data de Nascimento</form:label>
 			<form:input path="dataNascimento" cssClass="form-control"/>
 		</div>
+		<div class="form-group">
+    		<form:label path="obs">Observações</form:label>
+			<form:input path="obs" cssClass="form-control"/>
+		</div>
 		
 		<div class="form-group">
-			<c:if test="${!empty usuario.nome}">
+			<c:if test="${!empty cliente.nome}">
 				<input type="submit" class="btn" value="<spring:message text="Alterar Usuário"/>" />
 			</c:if>
-			<c:if test="${empty usuario.nome}">
+			<c:if test="${empty cliente.nome}">
 				<input type="submit" class="btn" value="<spring:message text="Incluir Usuário"/>" />
 			</c:if>
 		</div>
@@ -101,27 +93,25 @@
 	<br>
 		
 	<div class="page-header">
-		<h3>Usuários</h3>
+		<h3>Clientes</h3>
 	</div>
 	
-	<c:if test="${!empty usuarios}">
+	<c:if test="${!empty clientes}">
 		<table class="table">
 			<tr>
+				<th>Cpf</th>
 				<th>Nome</th>
 				<th>Email</th>
-				<th>Login</th>
-				<th>perfil</th>
 				<th>Alterar</th>
 				<th>Excluir</th>
 			</tr>
-			<c:forEach items="${usuarios}" var="usuario">
+			<c:forEach items="${clientes}" var="cliente">
 				<tr>
-					<td>${usuario.nome}</td>
-					<td>${usuario.email}</td>
-					<td>${usuario.login}</td>
-					<td>${usuario.perfil}</td>
-					<td><a href="<c:url value='/usuario/edit/${usuario.idPessoa}' />" >Alterar</a></td>
-					<td><a href="<c:url value='/usuario/remove/${usuario.idPessoa}' />" >Excluir</a></td>
+					<td>${cliente.cpf}</td>
+					<td>${cliente.nome}</td>
+					<td>${cliente.email}</td>
+					<td><a href="<c:url value='/cliente/edit/${cliente.idPessoa}' />" >Alterar</a></td>
+					<td><a href="<c:url value='/cliente/remove/${cliente.idPessoa}' />" >Excluir</a></td>
 				</tr>
 			</c:forEach>
 		</table>

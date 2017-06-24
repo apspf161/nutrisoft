@@ -18,8 +18,10 @@ import org.hibernate.annotations.OnDeleteAction;
 @PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idCliente",referencedColumnName="idPessoa")})
 public class Cliente extends Pessoa {
 
+	@Column(name="profissao")
 	private String profissao;
-	
+
+	@Column(name="altura")
 	private Float altura;
 	
 	@Column(name = "obs", columnDefinition = "TEXT")
