@@ -2,6 +2,7 @@ package com.nutrisoft.service;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateUsuario(Usuario usuario) {
-		this.usuarioDAO.alterar(usuario);
+		//Quando se tenta fazer um merge em um objeto não gerenciado e há um registro na tabela usuario e nutricionista ao mesmo tempo, ocorre uma WrongClassException. Ela não ocorre caso o objeto seja gerenciado.
+		Usuario usuarioBanco = this.usuarioDAO.obterPorIdUsuario(usuario.getIdPessoa());
+		BeanUtils.copyProperties(usuario, usuarioBanco);
+		this.usuarioDAO.alterar(usuarioBanco);
 	}
 
 	@Override

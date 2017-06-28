@@ -4,30 +4,38 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.PrimaryKeyJoinColumns;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.security.crypto.codec.Hex;
 
+import com.nutrisoft.model.enums.PerfilEnum;
+
 @Entity
 @Table(name="Usuario")
 @Inheritance(strategy=InheritanceType.JOINED)
-@PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idUsuario",referencedColumnName="idPessoa")})
-public class Usuario extends Pessoa{
+@PrimaryKeyJoinColumn(name="idUsuario", referencedColumnName="idPessoa")
+public class Usuario extends Pessoa {
 
+	@Column(name="login")
 	private String login;
 
+	@Column(name="senha")
 	private String senha;
 
-	private String perfil;
+	@Column(name="perfil")
+	@Enumerated(EnumType.STRING)
+	private PerfilEnum perfil;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataUltimoAcesso;
@@ -60,11 +68,11 @@ public class Usuario extends Pessoa{
 		this.senha = senha;
 	}
 
-	public String getPerfil() {
+	public PerfilEnum getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
+	public void setPerfil(PerfilEnum perfil) {
 		this.perfil = perfil;
 	}
 

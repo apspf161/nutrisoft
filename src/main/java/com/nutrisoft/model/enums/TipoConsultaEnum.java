@@ -1,17 +1,18 @@
 package com.nutrisoft.model.enums;
 
 public enum TipoConsultaEnum {
-	PRIMEIRA_VEZ ('P'),
-	ACOMPANHAMENTO('A');
 	
-	private char tipo;
+	PRIMEIRA_VEZ("P"),
+	ACOMPANHAMENTO("A");
 	
-	private TipoConsultaEnum (char tipo) {
-		this.tipo = tipo;
+	private String status;
+	
+	private TipoConsultaEnum(String status) {
+		this.status = status;
 	}
 
-	public char getTipo() {
-		return tipo;
+	public String getStatus() {
+		return status;
 	}
 	
 }
