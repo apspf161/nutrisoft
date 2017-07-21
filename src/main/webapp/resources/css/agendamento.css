@@ -1,0 +1,33 @@
+input[type="radio"] {
+    margin:10px 10px 10px 20px;
+}
+
+td.details-control {
+    background: url('img/details_open.png') no-repeat center center;
+    cursor: pointer;
+    width:5%;
+}
+
+tr.details td.details-control {
+    background: url('img/details_close.png') no-repeat center center;
+      cursor: pointer;
+    width:5%;
+}
+
+.minhas-colunas{  
+  width: calc(100%/2);
+  box-sizing:border-box;
+  float:left;
+  display:block;
+  text-align: left;
+  padding:0 10px 0 10px;
+}
+
+.title{  
+  width:100%;
+  box-sizing:border-box;
+  float:left;
+  display:block;
+  text-align: left;
+  padding:0 10px 0 10px;
+}

@@ -1,6 +1,7 @@
 package com.nutrisoft.model;
 
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,8 +15,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="Agendamento")
@@ -27,17 +30,19 @@ public class Agendamento {
 	private Integer idAgendamento;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date dataAgendamento;
 	
 	private char stAgendamento;
 
 	@ManyToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "idNutricionista", nullable=false, insertable = false, updatable = false)
+	@JoinColumn(name = "idNutricionista", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Nutricionista nutricionista;
 
+	
 	@ManyToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "idCliente", nullable=false, insertable = false, updatable = false)
+	@JoinColumn(name = "idCliente", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Cliente cliente;
 	
@@ -46,7 +51,7 @@ public class Agendamento {
 	@PrePersist
 	protected void onCreate()
 	{
-		//estadoAgendamento = EstadoAgendamento.MARCADA;
+		stAgendamento = 'M';
 	}
 
 	public Integer getIdAgendamento() {

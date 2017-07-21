@@ -64,7 +64,7 @@ public class EntradaController {
 		}
 		else if(authorities.contains(new SimpleGrantedAuthority("atendente")))
 		{
-			mav = "redirect:/usuario/";
+			mav = "redirect:/agendamento/";
 		}
 		else 
 		{

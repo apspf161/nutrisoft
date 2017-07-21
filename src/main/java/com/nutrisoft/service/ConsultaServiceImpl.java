@@ -44,5 +44,15 @@ public class ConsultaServiceImpl implements ConsultaService {
 	@Override
 	public List<Consulta> listConsultas() {
 		return this.consultaDAO.obterTodasAsConsultas();
+	}
+
+	@Override
+	public List<Consulta> filtrarListaPagamentos(Consulta consulta) {
+		return this.consultaDAO.filtrarPagamentos(consulta);
+	}
+
+	@Override
+	public void efetuarPagamento(Consulta consulta) {
+		this.consultaDAO.alterar(consulta);		
 	}	
 }

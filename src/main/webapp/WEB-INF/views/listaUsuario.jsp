@@ -5,11 +5,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ page session="false"%>
 <html>
-<head></head>
+<head>
+<c:import url="/WEB-INF/views/imports.jsp" />
+</head>
 <body>
-	<header>
-		<c:import url="/WEB-INF/views/header.jsp"></c:import>
-	</header>
+	<c:import url="/WEB-INF/views/header.jsp"></c:import>
 
 	<div class="container" id="container">
 
@@ -55,7 +55,7 @@
 							</tr>
 							<tr id="buttons">
 								<td class="result" colspan="6">
-									<a id="btnInclui" href="<c:url value='/usuario/usuario' />" class="btn btn-sm btn-default"><i class="icon-plus icon-white"></i> Incluir</a>
+									<a id="btnInclui" href="<c:url value='/usuario/cadUsuario' />" class="btn btn-sm btn-default"><i class="icon-plus icon-white"></i> Incluir</a>
 								</td>
 							</tr>
 						</tfoot>
@@ -68,5 +68,5 @@
 	<c:import url="/WEB-INF/views/footer.jsp"></c:import>
 </body>
 
-<script src="resources/js/agendamento.js"></script>
+<script src="resources/js/usuario.js"></script>
 </html>

@@ -3,11 +3,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page session="false" %>
 <html>
-<head></head>
+<html>
+<head>
+<c:import url="/WEB-INF/views/imports.jsp" />
+</head>
 <body>
-	<header>
-		<c:import url="/WEB-INF/views/header.jsp"></c:import>
-	</header>
+	<c:import url="/WEB-INF/views/header.jsp"></c:import>
 	<section>
 	
   <div class="alert alert-success alert-dismissible" style="display:none; margin-top:10px;" id="myAlert" >

@@ -15,4 +15,6 @@ public interface ClienteService {
 	List<Cliente> listClientes();
 	
 	Cliente getClienteById(int id);
+
+	List<Cliente> filtrarListaCliente(Cliente cliente);
 }

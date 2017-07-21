@@ -1,54 +1,63 @@
+body {  
+	min-width:350px; 
+}
+
 #header {
 	width: 100%;
 	position: fixed;
 }
 
 #header {
-	margin:0px;
-	height: 120px;
+	margin: 0px;
+	height: 130px;
 	top: 0px;
 	z-index: 999;
 	border-bottom: #FF00FF 3px solid;
-	position:relative;
+	position: relative;
 	clear: both;
+	background-color: #F7FFF1;
 }
 
-.responsive-image
-{
-/* width: 100%;
-background-color:#F7FFF1;
-background-position:center top;
-background-image: url('img/logo_nutrisoft.jpg');
-background-repeat:no-repeat;
-background-size: contain; */
-background-color:#F7FFF1;
-background-image: url('img/logo_nutrisoft.jpg');
-background-repeat: no-repeat;
-background-position: center center;
-background-size: contain;
+.responsive-image {
+	background-image: url('img/logo_nutrisoft.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+	image-rendering:crisp-edges;
+	width: 100%;
+	height: auto;
+}
 
+/* @media only screen and (max-width: 990	px) { */
+@media screen and (min-width: 200px) and (max-width: 990px){
+	#header {
+		height:60px;
+	}
 
-
+	.responsive-image {
+		max-height: none !important;
+    	height: 50px !important;
+	}
 }
 
 footer {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-  z-index: -1;
-  background-color: #F7FFF1;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	text-align: center;
+	width: 100%;
+	z-index: -1;
+	background-color: #F7FFF1;
 }
 
 /* Lastly, apply responsive CSS fixes as necessary */
- @media (max-width: 767px) {
-    #footer {
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
+@media ( max-width : 767px) {
+	#footer {
+		margin-left: -20px;
+		margin-right: -20px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 }
 
 #table-list td, tr, th #table-list>tbody>tr>td, #table-list>tbody>tr>th,
@@ -61,10 +70,18 @@ footer {
 	background-color: #D0D0D0;
 }
 
-#table-list tr:HOVER td{
+#table-list tr:HOVER td {
 	color: #FF6347;
 }
 
 #table-list th:HOVER {
 	color: black;
+}
+
+#welcome {
+	background-image: url('img/welcome.jpg');
+	background-position: center center;
+	background-size: contain;
+	height: 400px;
+	background-repeat: no-repeat;
 }

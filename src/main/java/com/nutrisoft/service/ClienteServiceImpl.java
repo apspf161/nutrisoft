@@ -15,34 +15,39 @@ import com.nutrisoft.repository.ClienteDAO;
 public class ClienteServiceImpl implements ClienteService {
 	
 	@Autowired
-	private ClienteDAO usuarioDAO;
+	private ClienteDAO clienteDAO;
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void addCliente(Cliente usuario) {
-		this.usuarioDAO.salvar(usuario);
+	public void addCliente(Cliente cliente) {
+		this.clienteDAO.salvar(cliente);
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void updateCliente(Cliente usuario) {
-		this.usuarioDAO.alterar(usuario);
+	public void updateCliente(Cliente cliente) {
+		this.clienteDAO.alterar(cliente);
 	}
 
 	@Override
 	public Cliente getClienteById(int id) {
-		return this.usuarioDAO.obterPorIdCliente(id);
+		return this.clienteDAO.obterPorIdCliente(id);
 	}
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void removeCliente(int id) {
-		Cliente usuario = usuarioDAO.obterPorIdCliente(id);
-		this.usuarioDAO.excluir(usuario);
+		Cliente cliente = clienteDAO.obterPorIdCliente(id);
+		this.clienteDAO.excluir(cliente);
 	}
 
 	@Override
 	public List<Cliente> listClientes() {
-		return this.usuarioDAO.obterTodosOsClientes();
+		return this.clienteDAO.obterTodosOsClientes();
+	}
+	
+	@Override
+	public List<Cliente> filtrarListaCliente(Cliente cliente) {
+		return this.clienteDAO.filtrarClientes(cliente);
 	}	
 }

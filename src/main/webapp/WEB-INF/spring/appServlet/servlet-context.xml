@@ -67,6 +67,17 @@
 		</beans:property>
 	</beans:bean>
 
+
+	<!-- Configuração do message source do sistema -->
+	<beans:bean id="mensagens" class="com.nutrisoft.util.MessageResourceUTF" />
+	<beans:bean id="validacaoUtil" class="com.nutrisoft.util.ValidacaoUtil" />
+	
+	<beans:bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<beans:property name="basename" value="mensagens" />
+		<beans:property name="defaultEncoding" value="UTF-8" />
+	</beans:bean>
+	
 	<beans:bean id="entityManager"
 		class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
 		<beans:property name="entityManagerFactory" ref="entityManagerFactory" />

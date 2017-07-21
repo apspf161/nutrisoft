@@ -18,6 +18,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 
 @Entity
 @Table(name="Consulta")
@@ -37,7 +39,8 @@ public class Consulta implements Serializable {
 	@Column(name = "meta", precision = 4, scale = 1)  
 	private Float meta;	
 
-	@Column(name = "valor", precision = 5, scale = 2)  
+	@Column(name = "valor", precision = 5, scale = 2)
+	@NumberFormat(pattern = "#.###,###")
 	private Float valor;
 
 	@Column(name = "calorias")  
@@ -45,6 +48,9 @@ public class Consulta implements Serializable {
 	
 	@Column(name="pago",nullable = false)
 	private Boolean pago;
+	
+	@Column(name="formaPgto")
+	private String formaPgto;	
 	
 	@OneToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idAgendamento", nullable=false, insertable = false, updatable = false)

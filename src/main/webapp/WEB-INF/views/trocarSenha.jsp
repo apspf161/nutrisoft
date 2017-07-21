@@ -6,11 +6,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page session="false"%>
 <html>
-<head></head>
+<head>
+<c:import url="/WEB-INF/views/imports.jsp" />
+</head>
 <body>
-	<header>
-		<c:import url="/WEB-INF/views/header.jsp"></c:import>
-	</header>
+	<c:import url="/WEB-INF/views/header.jsp"></c:import>
 	<section>
 		
 		  <div class="alert alert-danger alert-dismissible" style="display:none; margin-top:10px;" id="myAlert" >
@@ -42,7 +42,7 @@
 							</div>
 							<div class="form-group">
 								<input class="btn btn-lg btn-primary btn-block"
-									value="Enviar minha Senha" type="submit">
+									value="Enviar" type="submit">
 							</div>
 						</fieldset>
 					</form>

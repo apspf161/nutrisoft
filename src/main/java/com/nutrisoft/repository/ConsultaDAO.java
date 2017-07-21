@@ -15,4 +15,6 @@ public interface ConsultaDAO {
 	Consulta obterPorIdConsulta(Integer id);
 	
 	List<Consulta> obterTodasAsConsultas();
+
+	List<Consulta> filtrarPagamentos(Consulta consulta);
 }

@@ -28,6 +28,7 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 	@PersistenceContext
 	private EntityManager gerenciadorDeEntidade;
 	private Class<T> clazz;
+	private Class<T> clazz_;
 
 	public RepositorioGenericoDados(Class<T> clazz) {
 		this.clazz = clazz;
@@ -38,14 +39,14 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 	}
 
 	public void excluir(T entidade) {
-		
-    if (gerenciadorDeEntidade.contains(entidade)) {
-	    	this.gerenciadorDeEntidade.remove(entidade);
-	    } else {
-	        
-	        entidade = this.gerenciadorDeEntidade.merge(entidade);  
-	        this.gerenciadorDeEntidade.remove(entidade);  
-	    }
+
+		if (gerenciadorDeEntidade.contains(entidade)) {
+			this.gerenciadorDeEntidade.remove(entidade);
+		} else {
+
+			entidade = this.gerenciadorDeEntidade.merge(entidade);  
+			this.gerenciadorDeEntidade.remove(entidade);  
+		}
 	}
 
 	public void alterar(T entidade) {
@@ -67,12 +68,11 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 	public T obterPorId(Integer id) {
 		return this.gerenciadorDeEntidade.find(clazz, id);
 	}
-
 	
 	public T obterPorId(String id) {
 		return this.gerenciadorDeEntidade.find(clazz, id);
 	}
-	
+
 	public List<T> obterTodosComRelacionamentos(String... relacionamentos) {
 
 		CriteriaBuilder construtorDeQuery = this.gerenciadorDeEntidade.getCriteriaBuilder();
@@ -152,6 +152,23 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 
 		return resultList;
 	}
+
+	public List<T> obterListaComRelacionamento(Map<String, Object> atributos, String relacionamento){
+
+		CriteriaBuilder criteriaBuilder = gerenciadorDeEntidade.getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clazz);
+		Root<T> from = criteriaQuery.from(clazz);
+		from.fetch(relacionamento); 
+
+		List<Predicate> condicoes = new ArrayList<Predicate>();
+
+		for(String nome : atributos.keySet()){
+			condicoes.add(criteriaBuilder.like(from.get(relacionamento).get(nome), "%"+atributos.get(nome)+"%"));
+		}
+
+		criteriaQuery.select(from).where(condicoes.toArray(new Predicate[]{}));
+		return obterPorRestricao(criteriaQuery);
+	}
 	
 	public List<T> obterPorCriterios(Map<String, Object> atributos) {
 
@@ -168,8 +185,8 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 		criteriaQuery.select(from).where(condicoes.toArray(new Predicate[]{}));
 		return obterPorRestricao(criteriaQuery);
 	}
-	
-	
+
+
 	public T obterUnicoPorCriterios(Map<String, Object> atributos) {
 
 		CriteriaBuilder criteriaBuilder = obterCriadorDeBuscaPorCriterio();
@@ -179,7 +196,7 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 		List<Predicate> condicoes = new ArrayList<Predicate>();
 
 		for(String nome : atributos.keySet()){
-			
+
 			if(("null").equals(atributos.get(nome)))
 				condicoes.add(criteriaBuilder.isNull(from.get(nome)));
 			else if(("!null").equals(atributos.get(nome)))
@@ -191,8 +208,8 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 		criteriaQuery.select(from).where(condicoes.toArray(new Predicate[]{}));
 		return obterUnicoPorRestricao(criteriaQuery);
 	}
-	
-	
+
+
 	public List<T> obterPorCriteriosLike(Map<String, Object> atributos) {
 		CriteriaBuilder criteriaBuilder = obterCriadorDeBuscaPorCriterio();
 		CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
@@ -208,7 +225,7 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 		query.select(estruturaRaiz).where(condicoes.toArray(new Predicate[]{}));
 		return obterPorRestricao(query);
 	}
-	
+
 	public List<T> obterPorCriteriosLikeOrEquals(Map<String, Object> atributos) {
 		CriteriaBuilder criteriaBuilder = obterCriadorDeBuscaPorCriterio();
 		CriteriaQuery<T> query = criteriaBuilder.createQuery(clazz);
@@ -219,21 +236,23 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 
 		for(String nome : atributos.keySet()){
 			Object atributo = atributos.get(nome);
-			
+
+
 			if(atributo.toString().contains("%"))
 			{
 				condicoes.add(criteriaBuilder.like(criteriaBuilder.upper(estruturaRaiz.<String>get(nome)), atributos.get(nome)+""));
 			}
+
 			else
 			{
 				condicoes.add(criteriaBuilder.equal(estruturaRaiz.get(nome), atributos.get(nome)));
 			}
 		}
-		
+
 		query.select(estruturaRaiz).where(condicoes.toArray(new Predicate[]{}));
 		return obterPorRestricao(query);
 	}
-		
+
 	public T obterUnicoPorRestricao(CriteriaQuery<T> consulta) {
 		return this.gerenciadorDeEntidade.createQuery(consulta).getSingleResult();
 	}
@@ -242,7 +261,7 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 		return this.gerenciadorDeEntidade.getCriteriaBuilder();
 	}
 
-	private List<T> obterPorRestricao(CriteriaQuery<T> consulta) {
+	public List<T> obterPorRestricao(CriteriaQuery<T> consulta) {
 		return this.gerenciadorDeEntidade.createQuery(consulta).getResultList();
 	}
 

@@ -15,4 +15,6 @@ public interface ClienteDAO {
 	Cliente obterPorIdCliente(Integer id);
 	
 	List<Cliente> obterTodosOsClientes();
+
+	List<Cliente> filtrarClientes(Cliente cliente);
 }

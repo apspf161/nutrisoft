@@ -7,13 +7,12 @@
 
 <c:set var="pageReq" value="${pageContext.request}" />
 <c:set var="urlBase" value="${fn:replace(pageReq.requestURL, pageReq.requestURI, pageReq.contextPath)}/" scope="request" />
-
 <html>
-<head></head>
+<head>
+<c:import url="/WEB-INF/views/imports.jsp" />
+</head>
 <body>
-	<header>
-		<c:import url="/WEB-INF/views/header.jsp"></c:import>
-	</header>
+	<c:import url="/WEB-INF/views/header.jsp"></c:import>
 	<section>
 
 		<div class="alert alert-success alert-dismissible"
@@ -45,7 +44,7 @@
 				<button class="btn btn-primary btn-block btn-lg btn-signin"
 					type="submit">Entrar</button>
 			</form>
-			<a href="${urlBase}/mudarSenha" class="forgot-password">Esqueci
+			<a href="${urlBase}trocarSenha" class="forgot-password">Esqueci
 				minha senha</a>
 		</div>
 	</section>

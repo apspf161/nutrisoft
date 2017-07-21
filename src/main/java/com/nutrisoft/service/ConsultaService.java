@@ -15,4 +15,8 @@ public interface ConsultaService {
 	List<Consulta> listConsultas();
 	
 	Consulta getConsultaById(int id);
+
+	List<Consulta> filtrarListaPagamentos(Consulta consulta);
+
+	void efetuarPagamento(Consulta consulta);
 }

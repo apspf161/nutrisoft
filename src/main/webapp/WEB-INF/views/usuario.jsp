@@ -120,8 +120,8 @@
 					<td>${usuario.email}</td>
 					<td>${usuario.login}</td>
 					<td>${usuario.perfil}</td>
-					<td><a href="<c:url value='/usuario/edit/${usuario.idPessoa}' />" >Alterar</a></td>
-					<td><a href="<c:url value='/usuario/remove/${usuario.idPessoa}' />" >Excluir</a></td>
+					<td><a href="<c:url value='/edit/${usuario.idPessoa}' />" >Alterar</a></td>
+					<td><a href="<c:url value='/remove/${usuario.idPessoa}' />" >Excluir</a></td>
 				</tr>
 			</c:forEach>
 		</table>
