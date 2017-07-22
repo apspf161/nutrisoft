@@ -1,7 +1,11 @@
 package com.nutrisoft.model;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,12 +14,15 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import com.nutrisoft.model.enums.StatusAgendamentoEnum;
+import com.nutrisoft.model.enums.TipoConsultaEnum;
 
 @Entity
 @Table(name="Agendamento")
@@ -26,11 +33,18 @@ public class Agendamento {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idAgendamento;
 	
+	@Column(name="dataAgendamento")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAgendamento;
 	
-	private char stAgendamento;
-
+	@Column(name="stAgendamento")
+	@Enumerated(EnumType.STRING)
+	private StatusAgendamentoEnum statusAgendamento;
+	
+	@Column(name="tipoConsulta")
+	@Enumerated(EnumType.STRING)
+	private TipoConsultaEnum tipoConsulta;
+	
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idNutricionista", nullable=false, insertable = false, updatable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -41,13 +55,10 @@ public class Agendamento {
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Cliente cliente;
 	
-	private char tipoConsulta;
-	
-	@PrePersist
-	protected void onCreate()
-	{
-		//estadoAgendamento = EstadoAgendamento.MARCADA;
-	}
+//	@PrePersist
+//	protected void onCreate() {
+//		estadoAgendamento = EstadoAgendamento.MARCADA;
+//	}
 
 	public Integer getIdAgendamento() {
 		return idAgendamento;
@@ -65,12 +76,12 @@ public class Agendamento {
 		this.dataAgendamento = dataAgendamento;
 	}
 
-	public char getStAgendamento() {
-		return stAgendamento;
+	public StatusAgendamentoEnum getStatusAgendamento() {
+		return statusAgendamento;
 	}
 
-	public void setStAgendamento(char stAgendamento) {
-		this.stAgendamento = stAgendamento;
+	public void setStatusAgendamento(StatusAgendamentoEnum statusAgendamento) {
+		this.statusAgendamento = statusAgendamento;
 	}
 
 	public Nutricionista getNutricionista() {
@@ -89,11 +100,11 @@ public class Agendamento {
 		this.cliente = cliente;
 	}
 
-	public char getTipoConsulta() {
+	public TipoConsultaEnum getTipoConsulta() {
 		return tipoConsulta;
 	}
 
-	public void setTipoConsulta(char tipoConsulta) {
+	public void setTipoConsulta(TipoConsultaEnum tipoConsulta) {
 		this.tipoConsulta = tipoConsulta;
 	}
 }

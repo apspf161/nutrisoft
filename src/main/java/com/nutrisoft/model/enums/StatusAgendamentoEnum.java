@@ -3,6 +3,7 @@ package com.nutrisoft.model.enums;
 import org.springframework.util.StringUtils;
 
 public enum StatusAgendamentoEnum {
+	
 	MARCADO,
 	CONFIRMADO,
 	CANCELADO,

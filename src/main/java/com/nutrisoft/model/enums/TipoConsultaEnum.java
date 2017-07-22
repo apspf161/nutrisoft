@@ -1,18 +1,13 @@
 package com.nutrisoft.model.enums;
 
+import org.springframework.util.StringUtils;
+
 public enum TipoConsultaEnum {
 	
-	PRIMEIRA_VEZ("P"),
-	ACOMPANHAMENTO("A");
+	PRIMEIRA_VEZ,
+	ACOMPANHAMENTO;
 	
-	private String status;
-	
-	private TipoConsultaEnum(String status) {
-		this.status = status;
+	public String getFormatado() {
+		return StringUtils.capitalize(this.toString().toLowerCase());
 	}
-
-	public String getStatus() {
-		return status;
-	}
-	
 }

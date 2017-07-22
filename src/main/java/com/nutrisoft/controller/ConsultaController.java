@@ -3,12 +3,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nutrisoft.model.Antropometria;
+import com.nutrisoft.model.AvaliacaoAlimentar;
 import com.nutrisoft.model.Consulta;
+import com.nutrisoft.model.DietaNutricional;
+import com.nutrisoft.service.AgendamentoService;
 import com.nutrisoft.service.ConsultaService;
 
 @Controller
@@ -17,34 +21,50 @@ public class ConsultaController {
 	
 	@Autowired
 	private ConsultaService consultaService;
+	
+	@Autowired
+	private AgendamentoService agendamentoService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listConsulta() {
-		ModelAndView model = new ModelAndView("consulta");
+		ModelAndView model = new ModelAndView("listaConsulta");
 		model.addObject("consulta", new Consulta());
 		model.addObject("consultas", consultaService.listConsultas());
 		return model;
 	}
+//
+//	@RequestMapping("/remove/{id}")
+//	public String removeConsulta(@PathVariable("id") int id){
+//		this.consultaService.removeConsulta(id);
+//		return "redirect:/consulta";
+//	}
+//	
+//	@RequestMapping("/edit/{id}")
+//	public String editConsulta(@PathVariable("id") int id, Model model){
+//		model.addAttribute("consulta", this.consultaService.getConsultaById(id));
+//		return "listConsulta";
+//	}
+	
+	@RequestMapping("/listarAgendamentosDeHoje")
+	public String listarAgendamentosDeHoje(Model model) {
+		model.addAttribute("agendamentos", this.agendamentoService.listarAgendamentosDeHoje());
+		return "listarAgendamentosDeHoje";
+	}
+	
+	@RequestMapping(value= "/add", method = RequestMethod.GET)
+	public String iniciarConsulta(@RequestParam Integer idAgendamento, Model model){
+		Consulta consulta = new Consulta();
+		consulta.setAgendamento(this.agendamentoService.getAgendamentoById(idAgendamento));
+		consulta.setAntropometria(new Antropometria());
+		consulta.setAvaliacaoAlimentar(new AvaliacaoAlimentar());
+		consulta.setDietaNutricional(new DietaNutricional());
+		model.addAttribute("consulta", consulta);
+		return "consulta";
+	}
 	
 	@RequestMapping(value= "/add", method = RequestMethod.POST)
-	public String addPerson(@ModelAttribute("consulta") Consulta consulta) throws Exception{
-		if (consulta.getIdConsulta() == null) {
-			this.consultaService.addConsulta(consulta);
-		} else {
-			this.consultaService.updateConsulta(consulta);
-		}
-		return "redirect:/consulta";
-	}
-
-	@RequestMapping("/remove/{id}")
-	public String removePerson(@PathVariable("id") int id){
-		this.consultaService.removeConsulta(id);
-		return "redirect:/consulta";
-	}
-
-	@RequestMapping("/edit/{id}")
-	public String editPerson(@PathVariable("id") int id, Model model){
-		model.addAttribute("consulta", this.consultaService.getConsultaById(id));
-		return "consulta";
+	public String addConsulta(@ModelAttribute("consulta") Consulta consulta) throws Exception {
+		this.consultaService.addConsulta(consulta);
+		return "menu";
 	}
 }

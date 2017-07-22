@@ -6,13 +6,13 @@ import com.nutrisoft.model.Consulta;
 
 public interface ConsultaService {
 	
-	void addConsulta(Consulta consulta);
-
-	void updateConsulta(Consulta consulta);
+	public void addConsulta(Consulta consulta);
 	
-	void removeConsulta(int id);
+	public void updateConsulta(Consulta consulta);
 	
-	List<Consulta> listConsultas();
+	public void removeConsulta(int id);
 	
-	Consulta getConsultaById(int id);
+	public List<Consulta> listConsultas();
+	
+	public Consulta getConsultaById(int id);
 }
