@@ -21,4 +21,6 @@ public interface AgendamentoService {
 	void confirmarConsulta(Agendamento agendamento);
 
 	void cancelarAgendamento(Agendamento agendamento);
+
+	public List<Agendamento> listarAgendamentosDeHoje();
 }

@@ -1,6 +1,7 @@
 package com.nutrisoft.model.enums;
 
 public enum SexoEnum {
+	
 	MASCULINO('M'), 
 	FEMININO('F');
 	

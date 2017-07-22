@@ -34,15 +34,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 			if (null != usuarioBanco) 
 			{					
 
-				if(usuarioBanco.getPerfil().equals(PerfilEnum.ATENDENTE.getId().toString()))
+				if(usuarioBanco.getPerfil().equals(PerfilEnum.ATENDENTE))
 				{
 					updatedAuthorities.add(new SimpleGrantedAuthority("atendente"));
 				}
-				else if(usuarioBanco.getPerfil().equals(PerfilEnum.ADMINISTRADOR.getId().toString()))
+				else if(usuarioBanco.getPerfil().equals(PerfilEnum.ADMINISTRADOR))
 				{
 					updatedAuthorities.add(new SimpleGrantedAuthority("administrador"));
 				}
-				else if(usuarioBanco.getPerfil().equals(PerfilEnum.NUTRICIONISTA.getId().toString()))
+				else if(usuarioBanco.getPerfil().equals(PerfilEnum.NUTRICIONISTA))
 				{
 					updatedAuthorities.add(new SimpleGrantedAuthority("atendente"));
 					updatedAuthorities.add(new SimpleGrantedAuthority("nutricionista"));

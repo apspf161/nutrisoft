@@ -1,4 +1,4 @@
-package com.nutrisoft.service;
+package	 com.nutrisoft.service;
 
 import java.util.List;
 
@@ -6,17 +6,18 @@ import com.nutrisoft.model.Consulta;
 
 public interface ConsultaService {
 	
-	void addConsulta(Consulta consulta);
-
-	void updateConsulta(Consulta consulta);
+	public void addConsulta(Consulta consulta);
 	
-	void removeConsulta(int id);
+	public void updateConsulta(Consulta consulta);
 	
-	List<Consulta> listConsultas();
+	public void removeConsulta(int id);
 	
-	Consulta getConsultaById(int id);
-
 	List<Consulta> filtrarListaPagamentos(Consulta consulta);
 
 	void efetuarPagamento(Consulta consulta);
+
+	public List<Consulta> listConsultas();
+	
+	public Consulta getConsultaById(int id);
+
 }

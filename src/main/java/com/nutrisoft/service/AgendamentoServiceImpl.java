@@ -62,4 +62,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 		// TODO Auto-generated method stub
 		
 	}	
+
+	public List<Agendamento> listarAgendamentosDeHoje() {
+		return this.agendamentoDAO.listarAgendamentosDeHoje();
+	}
 }

@@ -1,17 +1,13 @@
 package com.nutrisoft.model.enums;
 
-public enum TipoConsultaEnum {
-	PRIMEIRA_VEZ ('P'),
-	ACOMPANHAMENTO('A');
-	
-	private char tipo;
-	
-	private TipoConsultaEnum (char tipo) {
-		this.tipo = tipo;
-	}
+import org.springframework.util.StringUtils;
 
-	public char getTipo() {
-		return tipo;
-	}
+public enum TipoConsultaEnum {
 	
+	PRIMEIRA_VEZ,
+	ACOMPANHAMENTO;
+	
+	public String getFormatado() {
+		return StringUtils.capitalize(this.toString().toLowerCase());
+	}
 }

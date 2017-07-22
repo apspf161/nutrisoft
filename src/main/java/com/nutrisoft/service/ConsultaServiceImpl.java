@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Consulta;
+import com.nutrisoft.model.enums.StatusAgendamentoEnum;
+import com.nutrisoft.repository.AgendamentoDAO;
 import com.nutrisoft.repository.ConsultaDAO;
 
 @Service
@@ -16,10 +19,18 @@ public class ConsultaServiceImpl implements ConsultaService {
 	
 	@Autowired
 	private ConsultaDAO consultaDAO;
+
+	@Autowired
+	private AgendamentoDAO agendamentoDAO;
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void addConsulta(Consulta consulta) {
+		Agendamento agendamento = this.agendamentoDAO.getAgendamentoById(consulta.getAgendamento().getIdAgendamento());
+		
+		agendamento.setStatusAgendamento(StatusAgendamentoEnum.REALIZADO);
+		this.agendamentoDAO.salvar(agendamento);
+		
 		this.consultaDAO.salvar(consulta);
 	}
 

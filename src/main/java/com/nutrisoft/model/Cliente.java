@@ -6,7 +6,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.PrimaryKeyJoinColumns;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
@@ -15,7 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name="Cliente")
 @Inheritance(strategy=InheritanceType.JOINED)
-@PrimaryKeyJoinColumns({@PrimaryKeyJoinColumn(name="idCliente",referencedColumnName="idPessoa")})
+@PrimaryKeyJoinColumn(name="idCliente",referencedColumnName="idPessoa")
 public class Cliente extends Pessoa {
 
 	@Column(name="profissao")

@@ -6,15 +6,15 @@ import com.nutrisoft.model.Consulta;
 
 public interface ConsultaDAO {
 
-	void salvar(Consulta consulta);
-	
-	void excluir(Consulta consulta);
-	
-	void alterar(Consulta consulta);
-	
-	Consulta obterPorIdConsulta(Integer id);
-	
-	List<Consulta> obterTodasAsConsultas();
+	public void salvar(Consulta consulta);
 
-	List<Consulta> filtrarPagamentos(Consulta consulta);
+	public void excluir(Consulta consulta);
+
+	public void alterar(Consulta consulta);
+
+	public Consulta obterPorIdConsulta(Integer id);
+
+	public List<Consulta> obterTodasAsConsultas();
+
+	public List<Consulta> filtrarPagamentos(Consulta consulta);
 }

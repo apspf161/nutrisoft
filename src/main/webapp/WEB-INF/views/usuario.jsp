@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page session="false" %>
@@ -36,9 +37,10 @@
 		<div class="form-group">
     		<form:label path="perfil">Perfil</form:label>
 			<form:select path="perfil" cssClass="form-control">
-				<form:option value="1">Atendente</form:option>
-				<form:option value="2">Nutricionista</form:option>
-				<form:option value="3">Administrador</form:option>
+				<form:option value="">Selecione</form:option>
+				<form:option value="ATENDENTE">Atendente</form:option>
+				<form:option value="NUTRICIONISTA">Nutricionista</form:option>
+				<form:option value="ADMINISTRADOR">Administrador</form:option>
 			</form:select>
 		</div>
 		
@@ -119,9 +121,9 @@
 					<td>${usuario.nome}</td>
 					<td>${usuario.email}</td>
 					<td>${usuario.login}</td>
-					<td>${usuario.perfil}</td>
-					<td><a href="<c:url value='/edit/${usuario.idPessoa}' />" >Alterar</a></td>
-					<td><a href="<c:url value='/remove/${usuario.idPessoa}' />" >Excluir</a></td>
+					<td>${usuario.perfil.formatado}</td>
+					<td><a href="<c:url value='/usuario/edit/${usuario.idPessoa}' />" >Alterar</a></td>
+					<td><a href="<c:url value='/usuario/remove/${usuario.idPessoa}' />" >Excluir</a></td>
 				</tr>
 			</c:forEach>
 		</table>

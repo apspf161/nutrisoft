@@ -12,7 +12,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -53,7 +52,7 @@ public class Consulta implements Serializable {
 	private String formaPgto;	
 	
 	@OneToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "idAgendamento", nullable=false, insertable = false, updatable = false)
+	@JoinColumn(name = "idAgendamento")
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Agendamento agendamento;
 	
@@ -72,10 +71,10 @@ public class Consulta implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private AvaliacaoAlimentar avaliacaoAlimentar;
 
-	@PrePersist
-	protected void onCreate() {
+//	@PrePersist
+//	protected void onCreate() {
 //		data = new Date();
-	}
+//	}
 
 	public Integer getIdConsulta() {
 		return idConsulta;

@@ -17,4 +17,8 @@ public interface AgendamentoDAO {
 	List<Agendamento> obterTodosOsAgendamentos();
 	
 	List<Agendamento> filtrarAgendamentos(Agendamento agendamento);
+	
+	public List<Agendamento> listarAgendamentosDeHoje();
+	
+	public Agendamento getAgendamentoById(int id);
 }

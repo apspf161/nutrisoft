@@ -27,7 +27,7 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value= "/add", method = RequestMethod.POST)
-	public String addPerson(@ModelAttribute("cliente") Cliente cliente) throws Exception{
+	public String addCliente(@ModelAttribute("cliente") Cliente cliente) throws Exception{
 		if (cliente.getIdPessoa() == null) {
 			this.clienteService.addCliente(cliente);
 		} else {
@@ -37,13 +37,13 @@ public class ClienteController {
 	}
 
 	@RequestMapping("/remove/{id}")
-	public String removePerson(@PathVariable("id") int id){
+	public String removeCliente(@PathVariable("id") int id){
 		this.clienteService.removeCliente(id);
 		return "redirect:/cliente";
 	}
 
 	@RequestMapping("/edit/{id}")
-	public String editPerson(@PathVariable("id") int id, Model model){
+	public String editCliente(@PathVariable("id") int id, Model model){
 		model.addAttribute("cliente", this.clienteService.getClienteById(id));
 		return "cliente";
 	}
