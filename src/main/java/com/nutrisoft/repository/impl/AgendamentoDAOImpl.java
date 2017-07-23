@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.nutrisoft.model.Agendamento;
+import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.repository.AgendamentoDAO;
 import com.nutrisoft.repository.RepositorioGenericoDados;
 
@@ -19,8 +20,9 @@ public class AgendamentoDAOImpl extends RepositorioGenericoDados<Agendamento, In
 	
 	@Override
 	public List<Agendamento> listarAgendamentosDeHoje() {
-	    TypedQuery<Agendamento> query = getGerenciadorDeEntidade().createQuery("select a from Agendamento a where date(dataAgendamento) = date(current_date) and stAgendamento = 'CONFIRMADO' order by dataAgendamento", Agendamento.class);
-	    return query.getResultList();
+		TypedQuery<Agendamento> query = getGerenciadorDeEntidade().createQuery("select a from Agendamento a where date(dataAgendamento) = date(current_date) and stAgendamento = :stAgendamentoConfirmado order by dataAgendamento", Agendamento.class);
+		query.setParameter("stAgendamentoConfirmado", StatusAgendamentoEnum.CONFIRMADO.toString());
+		return query.getResultList();
 	}
 
 	@Override
