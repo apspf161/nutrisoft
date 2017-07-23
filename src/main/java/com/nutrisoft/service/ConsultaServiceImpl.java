@@ -60,6 +60,8 @@ public class ConsultaServiceImpl implements ConsultaService {
 		DietaNutricional dietaNutricional = consulta.getDietaNutricional();
 		dietaNutricional.setConsulta(consulta);
 		this.dietaNutricionalDAO.salvar(dietaNutricional);
+		
+//		atualizar dado laboratorial
 	}
 	
 	@Override

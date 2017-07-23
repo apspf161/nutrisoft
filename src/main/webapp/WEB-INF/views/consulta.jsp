@@ -179,6 +179,10 @@
 		
 		Outros campos da dieta...
 		
+		<h4>Dieta Nutricional</h4>
+				
+		Dados laboratoriais...
+		
 		<div class="form-group">
 			<input type="submit" class="btn" value="<spring:message text="Salvar Consulta"/>" />
 		</div>
