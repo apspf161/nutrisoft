@@ -20,11 +20,11 @@ public class AgendamentoDAOImpl extends RepositorioGenericoDados<Agendamento, In
 	
 	@Override
 	public List<Agendamento> listarAgendamentosDeHoje() {
-		TypedQuery<Agendamento> query = getGerenciadorDeEntidade().createQuery("select a from Agendamento a where date(dataAgendamento) = date(current_date) and stAgendamento = :stAgendamentoConfirmado order by dataAgendamento", Agendamento.class);
-		query.setParameter("stAgendamentoConfirmado", StatusAgendamentoEnum.CONFIRMADO.toString());
+		TypedQuery<Agendamento> query = getGerenciadorDeEntidade().createQuery("select a from Agendamento a where date(a.dataAgendamento) = date(current_date) and a.statusAgendamento = :stAgendamentoConfirmado order by a.dataAgendamento", Agendamento.class);
+		query.setParameter("stAgendamentoConfirmado", StatusAgendamentoEnum.CONFIRMADO);
 		return query.getResultList();
 	}
-
+	
 	@Override
 	public Agendamento getAgendamentoById(int id) {
 		return this.obterPorId(id);
