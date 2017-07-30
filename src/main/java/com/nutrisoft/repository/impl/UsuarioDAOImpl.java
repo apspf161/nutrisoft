@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.nutrisoft.model.Usuario;
@@ -15,8 +13,8 @@ import com.nutrisoft.repository.UsuarioDAO;
 @Repository
 public class UsuarioDAOImpl extends RepositorioGenericoDados<Usuario, Integer> implements UsuarioDAO {
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 
 	public UsuarioDAOImpl() {
 		super(Usuario.class);

@@ -2,6 +2,7 @@ package com.nutrisoft.repository;
 
 import java.util.List;
 
+import com.nutrisoft.model.Cliente;
 import com.nutrisoft.model.Consulta;
 
 public interface ConsultaDAO {
@@ -17,4 +18,6 @@ public interface ConsultaDAO {
 	public List<Consulta> obterTodasAsConsultas();
 
 	public List<Consulta> filtrarPagamentos(Consulta consulta);
+	
+	public List<Consulta> listarConsultasAnteriores(Cliente cliente);
 }

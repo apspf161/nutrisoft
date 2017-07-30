@@ -50,13 +50,13 @@ public class Agendamento {
 	private TipoConsultaEnum tipoConsulta;
 
 	@ManyToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "idNutricionista", nullable=false)
+	@JoinColumn(name = "idNutricionista", nullable=false, insertable = false, updatable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Nutricionista nutricionista;
 
 
 	@ManyToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "idCliente", nullable=false)
+	@JoinColumn(name = "idCliente", nullable=false, insertable = false, updatable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Cliente cliente;
 

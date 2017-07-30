@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,7 +20,8 @@ public class AvaliacaoAlimentar implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idAvaliacao;
-	
+
+	@MapsId
 	@OneToOne(mappedBy="avaliacaoAlimentar")
 	@JoinColumn(name="idConsulta")
 	private Consulta consulta;

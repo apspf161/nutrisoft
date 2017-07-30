@@ -25,7 +25,7 @@
 					<td>${agendamento.dataAgendamento}</td>
 					<td>${agendamento.nutricionista.nome}</td>
 					<td>${agendamento.cliente.nome}</td>
-					<td>${agendamento.tipoConsulta}</td>
+					<td>${agendamento.tipoConsulta.formatado}</td>
 					<td><a href="<c:url value='/consulta/add?idAgendamento=${agendamento.idAgendamento}' />" >Iniciar Consulta</a></td>
 				</tr>
 			</c:forEach>
