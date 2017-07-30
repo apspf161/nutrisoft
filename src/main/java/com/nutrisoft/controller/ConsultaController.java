@@ -3,7 +3,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
-
 import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Antropometria;
 import com.nutrisoft.model.AvaliacaoAlimentar;
@@ -30,7 +28,7 @@ import com.nutrisoft.service.ConsultaService;
 @Controller
 @RequestMapping("/consulta")
 public class ConsultaController {
-
+	
 	@Autowired
 	private ConsultaService consultaService;
 
@@ -58,7 +56,7 @@ public class ConsultaController {
 		agendamento.setCliente(cliente);
 		consulta.setAgendamento(agendamento);
 		consulta.setPago(true);
-
+		
 		List<Consulta> listaPagamento = consultaService.filtrarListaPagamentos(consulta);
 
 		redirectAttrs.addFlashAttribute("pagamento", listaPagamento);
@@ -89,7 +87,7 @@ public class ConsultaController {
 		mv.addObject("listaPagamento", listaPagamento);
 		return mv;
 	}
-
+	
 	@RequestMapping(value = "/filtraListaClientesParaPagamento/{txtNome}/{txtCPF}", method = RequestMethod.GET)
 	public ModelAndView filtraListaClientesParaPagamento(@PathVariable String txtNome, @PathVariable String txtCPF, Model model, RedirectAttributes redirectAttrs) {
 
@@ -106,9 +104,9 @@ public class ConsultaController {
 		agendamento.setCliente(cliente);
 		consulta.setAgendamento(agendamento);
 		consulta.setPago(false);
-
+		
 		List<Consulta> listaCliente = consultaService.filtrarListaPagamentos(consulta);
-
+		
 		redirectAttrs.addFlashAttribute("cliente", listaCliente);
 
 		return new ModelAndView("redirect:/consulta/listaClientesParaPagamento");
@@ -153,7 +151,7 @@ public class ConsultaController {
 	public ModelAndView agendarConsulta(Model model, HttpServletRequest request) {
 
 		ModelAndView mv = new ModelAndView("efetuarPagamento");
-
+	
 		Consulta consulta = new Consulta();
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		if (flashMap != null) 
@@ -169,7 +167,7 @@ public class ConsultaController {
 
 		return mv;
 	}
-
+	
 	@RequestMapping(value = "/efetuarPagamento", method = RequestMethod.POST)
 	public ModelAndView efetuarPagamentoSubmit(@ModelAttribute("consulta") Consulta consulta, BindingResult result, Model model, RedirectAttributes redirectAttrs) {
 
@@ -193,30 +191,42 @@ public class ConsultaController {
 		model.addObject("consultas", consultaService.listConsultas());
 		return model;
 	}
-
+//
+//	@RequestMapping("/remove/{id}")
+//	public String removeConsulta(@PathVariable("id") int id){
+//		this.consultaService.removeConsulta(id);
+//		return "redirect:/consulta";
+//	}
+//	
+//	@RequestMapping("/edit/{id}")
+//	public String editConsulta(@PathVariable("id") int id, Model model){
+//		model.addAttribute("consulta", this.consultaService.getConsultaById(id));
+//		return "listConsulta";
+//	}
+	
 	@RequestMapping("/listarAgendamentosDeHoje")
 	public String listarAgendamentosDeHoje(Model model) {
 		model.addAttribute("agendamentos", this.agendamentoService.listarAgendamentosDeHoje());
 		return "listarAgendamentosDeHoje";
 	}
-
+	
 	@RequestMapping(value= "/add", method = RequestMethod.GET)
 	public String iniciarConsulta(@RequestParam Integer idAgendamento, Model model) {
 		Consulta consulta = new Consulta();
-
+		
 		Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
 		consulta.setAgendamento(agendamento);
 		consulta.setAntropometria(new Antropometria());
 		consulta.setAvaliacaoAlimentar(new AvaliacaoAlimentar());
 		consulta.setDietaNutricional(new DietaNutricional());
 		model.addAttribute("consulta", consulta);
-
+		
 		List<Consulta> consultasAnteriores = this.consultaService.listarConsultasAnteriores(agendamento.getCliente());
 		model.addAttribute("consultasAnteriores", consultasAnteriores);
-
+		
 		return "consulta";
 	}
-
+	
 	@RequestMapping(value= "/add", method = RequestMethod.POST)
 	public String addConsulta(@ModelAttribute("consulta") Consulta consulta) throws Exception {
 		this.consultaService.addConsulta(consulta);
