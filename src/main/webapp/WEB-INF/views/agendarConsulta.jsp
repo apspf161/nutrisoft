@@ -30,7 +30,9 @@ $("#formPrc").validate({
 	<div class="container" id="container">
 
 		<c:import url="/WEB-INF/views/menu.jsp"></c:import>
-
+		
+		<c:set var = "campoDesabilitado" value="${not inclusao ? 'disabled=disabled' : ''}"/>
+		
 		<form:form action="agendamento/agendarConsulta" id="form" commandName="agendamento" method="post" class="simple_form form-horizontal" style="margin-top: 50px;">
 			<div id="page-content-wrapper">
 				<div class="panel panel-primary">
@@ -81,7 +83,7 @@ $("#formPrc").validate({
 						<div class="form-group row">
 							<label for="example-text-input" class="col-xs-4 col-form-label"><fmt:message key="AG004" /></label>
 							<div class="col-xs-12">
-								<select class="form-control" required="required" name="nutricionista.idPessoa" disabled="${not inclusao ? 'disabled' : ''}">
+								<select class="form-control" required="required" name="nutricionista.idPessoa" ${campoDesabilitado} >
 									<option value=""><fmt:message key="AG004" /></option>
 									<c:forEach items="${nutricionistas}" var="nutri">
 										<option value="${nutri.idPessoa}"	${nutri.idPessoa == agendamento.nutricionista.idPessoa ? 'selected="selected"' : '' }>${nutri.nome }</option>
@@ -93,8 +95,8 @@ $("#formPrc").validate({
 						<div class="form-group form-inline row">
 							<div class="col-xs-12">
 								<label for="example-text-input"><fmt:message key="AG011" /></label>
-								<input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="P"  disabled="${not inclusao ? 'disabled' : ''}" checked="${tipoConsulta == 'P' ? 'checked' : '' }" required="required"><fmt:message key="AG008" />
-							    <input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="A"  disabled="${not inclusao ? 'disabled' : ''}" checked="${tipoConsulta == 'A' ? 'checked' : '' }" ><fmt:message key="AG009" />
+								<input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="PRIMEIRA_VEZ"  ${campoDesabilitado} checked="${tipoConsulta == 'P' ? 'checked' : '' }" required="required"><fmt:message key="AG008" />
+							    <input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="ACOMPANHAMENTO"  ${campoDesabilitado} checked="${tipoConsulta == 'A' ? 'checked' : '' }" ><fmt:message key="AG009" />
 
 							</div>
 						</div>
@@ -102,18 +104,7 @@ $("#formPrc").validate({
 						<div class="form-group row">
 						  <label  for="example-text-input" class="col-xs-4 col-form-label"><fmt:message key="AG010" /></label>
 						  <div class="col-xs-12">
-<%-- 								<div id="datetimepicker1" class="input-append date">
-								  <input data-format="dd/MM/yyyy hh:mm" value="${dataAgendamento}" name="dataAgendamento" id="dataAgendamento" type="text"></input>
-								  <span class="add-on">
-								    <!-- <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i> -->
-								    <span class="glyphicon glyphicon-calendar" ></span>
-								  </span>
-								    					  <div class="col-xs-12">
-								<div id="datetimepicker1" class="input-append date">
-								  <input value="${dataAgendamento}" name="dataAgendamento" id="dataAgendamento" type="datetime-local"></input>
-								</div>
-								</div> --%>
-								<div class="input-group date form_datetime col-md-5" data-date-format="dd/mm/yyyy hh:ii" data-link-field="dtp_input1">
+								<div class="input-group date form_datetime col-md-5" data-date-format="dd/mm/yyyy hh:ii" data-link-field="dtp_input1" data-link-format="yyyy-MM-dd'T'HH:mm:ss.SSSZ">
 				                    <input class="form-control" size="16" type="text" value="<fmt:formatDate pattern='dd/MM/yyyy hh:mm' value='${agendamento.dataAgendamento}' />"  name="dataAgendamento" id="dataAgendamento" readonly>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                </div>
@@ -127,6 +118,8 @@ $("#formPrc").validate({
 					</div>
 				</div>
 			</div>
+			
+			<input type="hidden" name="identificador" value="${agendamento.idAgendamento}" />
 		</form:form>
 	</div>
 

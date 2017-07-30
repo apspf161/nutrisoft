@@ -17,9 +17,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.model.enums.TipoConsultaEnum;
 
@@ -32,7 +35,7 @@ public class Agendamento {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idAgendamento;
-	
+	 
 	@Column(name="dataAgendamento")
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
@@ -40,27 +43,46 @@ public class Agendamento {
 	
 	@Column(name="stAgendamento")
 	@Enumerated(EnumType.STRING)
-	private StatusAgendamentoEnum statusAgendamento;
-	
+	private StatusAgendamentoEnum stAgendamento;
+
 	@Column(name="tipoConsulta")
 	@Enumerated(EnumType.STRING)
 	private TipoConsultaEnum tipoConsulta;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idNutricionista", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Nutricionista nutricionista;
 
-	
+
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idCliente", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Cliente cliente;
 
-//	@PrePersist
-//	protected void onCreate() {
-//		estadoAgendamento = EstadoAgendamento.MARCADA;
-//	}
+	@Transient
+	private AgendamentoState currentState;
+	
+	@Transient
+	private AgendamentoState marcadoState;
+
+	@Transient
+	private AgendamentoState confirmadoState;
+
+	@Transient
+	private AgendamentoState canceladoState;
+
+	@Transient
+	private AgendamentoState realizadoState;
+
+	public Agendamento()
+	{
+		this.marcadoState = new AgendamentoMarcadoState(this);
+		this.confirmadoState = new AgendamentoConfirmadoState(this);
+		this.canceladoState = new AgendamentoCanceladoState(this);
+		this.realizadoState = new AgendamentoRealizadoState(this);
+		this.currentState = this.marcadoState;
+	}
 
 	public Integer getIdAgendamento() {
 		return idAgendamento;
@@ -78,13 +100,13 @@ public class Agendamento {
 		this.dataAgendamento = dataAgendamento;
 	}
 
-	public StatusAgendamentoEnum getStatusAgendamento() {
+/*	public StatusAgendamentoEnum getStatusAgendamento() {
 		return statusAgendamento;
 	}
 
 	public void setStatusAgendamento(StatusAgendamentoEnum statusAgendamento) {
 		this.statusAgendamento = statusAgendamento;
-	}
+	}*/
 
 	public Nutricionista getNutricionista() {
 		return nutricionista;
@@ -109,4 +131,73 @@ public class Agendamento {
 	public void setTipoConsulta(TipoConsultaEnum tipoConsulta) {
 		this.tipoConsulta = tipoConsulta;
 	}
+
+	public void marcar() {
+		currentState.marcar(this);
+	}
+
+	public void confirmar() {
+		currentState.confirmar(this);
+	}
+
+	public void cancelar() {
+		currentState.cancelar(this);
+	}
+
+	public void realizarConsulta() {
+		currentState.realizarConsulta(this);
+	}
+
+	public AgendamentoState getCurrentState() {
+		return currentState;
+	}
+
+	public void setCurrentState(AgendamentoState currentState) {
+		this.currentState = currentState;
+	}
+
+	public StatusAgendamentoEnum getStAgendamento() {
+		StatusAgendamentoEnum stAgendamento = null;
+		
+		if(this.getCurrentState() instanceof AgendamentoMarcadoState)
+		{
+			stAgendamento = StatusAgendamentoEnum.MARCADO;
+		} else if(this.getCurrentState() instanceof AgendamentoConfirmadoState)
+		{
+			stAgendamento = StatusAgendamentoEnum.CONFIRMADO;
+		} else if(this.getCurrentState() instanceof AgendamentoCanceladoState)
+		{
+			stAgendamento = StatusAgendamentoEnum.CANCELADO;
+		} else if(this.getCurrentState() instanceof AgendamentoRealizadoState)
+		{
+			stAgendamento = StatusAgendamentoEnum.REALIZADO;
+		} else {
+			stAgendamento = StatusAgendamentoEnum.MARCADO;
+		}
+
+		return stAgendamento;
+	}
+
+	public void setStAgendamento(StatusAgendamentoEnum stAgendamento) {
+		this.stAgendamento = stAgendamento;
+		
+		switch (stAgendamento) {
+		case MARCADO:
+			this.currentState = this.marcadoState;
+			break;
+		case CONFIRMADO:
+			this.currentState = this.confirmadoState;
+			break;
+		case CANCELADO:
+			this.currentState = this.canceladoState;
+			break;
+		case REALIZADO:
+			this.currentState = this.realizadoState;
+			break;
+		default:
+			this.currentState = this.marcadoState;
+			break;
+		}
+	}
+
 }

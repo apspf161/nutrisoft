@@ -30,13 +30,13 @@ $(document).ready(function() {
 	$("#btnFiltrarCliente").click(function() {
 		var txtNome = $("input[name='txtNome']").val();
 		var txtCPF = $("input[name='txtCPF']").val();
-		
-		txtNome = txtNome.length === 0 ? "x$x" : txtNome;
-		txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
-		
-	    if(txtNome.length === 0 || txtNome.length === 0){
+
+	    if(txtNome.length === 0 && txtCPF.length === 0){
 	    	alert("Preencha os campos para pesquisa.")
 	    } else {
+			txtNome = txtNome.length === 0 ? "x$x" : txtNome;
+			txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
+			
 	    	$(this).attr("href", "agendamento/filtraListaClientesParaAgendamento/"+txtNome+"/"+txtCPF );
 	    }
 	});
@@ -47,9 +47,8 @@ $(document).ready(function() {
 	
 	$("#btnFiltrarConsulta").click(function() {
 		var txtData = $("input[name='txtData']").val();
-		txtData = txtData.length === 0 ? "x$x" : txtData;
 		
-	    if(txtData.length === 0 || txtData.length === 0){
+	    if(txtData.length === 0 ){
 	    	alert("Preencha os campos para pesquisa.")
 	    } else {
 			var dia = txtData.substring(0,2);

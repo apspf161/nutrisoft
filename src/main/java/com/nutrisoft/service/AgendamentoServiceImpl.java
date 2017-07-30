@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.nutrisoft.model.Agendamento;
+import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.repository.AgendamentoDAO;
 
 @Service
@@ -20,6 +21,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void addAgendamento(Agendamento agendamento) {
+		agendamento.setStAgendamento(StatusAgendamentoEnum.MARCADO);
 		this.agendamentoDAO.salvar(agendamento);
 	}
 
@@ -53,14 +55,14 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
 	@Override
 	public void confirmarConsulta(Agendamento agendamento) {
-		// TODO Auto-generated method stub
-		
+		agendamento.setStAgendamento(StatusAgendamentoEnum.CONFIRMADO);
+		this.agendamentoDAO.alterar(agendamento);
 	}
 
 	@Override
 	public void cancelarAgendamento(Agendamento agendamento) {
-		// TODO Auto-generated method stub
-		
+		agendamento.setStAgendamento(StatusAgendamentoEnum.CANCELADO);
+		this.agendamentoDAO.alterar(agendamento);
 	}	
 
 	public List<Agendamento> listarAgendamentosDeHoje() {

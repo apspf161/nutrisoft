@@ -28,7 +28,7 @@ public class ConsultaServiceImpl implements ConsultaService {
 	public void addConsulta(Consulta consulta) {
 		Agendamento agendamento = this.agendamentoDAO.getAgendamentoById(consulta.getAgendamento().getIdAgendamento());
 		
-		agendamento.setStatusAgendamento(StatusAgendamentoEnum.REALIZADO);
+		agendamento.setStAgendamento(StatusAgendamentoEnum.REALIZADO);
 		this.agendamentoDAO.salvar(agendamento);
 		
 		this.consultaDAO.salvar(consulta);

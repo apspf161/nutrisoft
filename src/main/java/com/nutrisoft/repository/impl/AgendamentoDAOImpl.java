@@ -1,5 +1,6 @@
 package com.nutrisoft.repository.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.nutrisoft.model.Agendamento;
+import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.repository.AgendamentoDAO;
 import com.nutrisoft.repository.RepositorioGenericoDados;
 
@@ -52,13 +54,31 @@ public class AgendamentoDAOImpl extends RepositorioGenericoDados<Agendamento, In
 		{
 			mapeamentoAtributos.put("nome", agendamento.getCliente().getNome());
 		}*/
-		
+		/*
 		if(agendamento.getDataAgendamento() != null)
 		{
-			mapeamentoAtributos.put("dataAgendamento", agendamento.getDataAgendamento());
-		}
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+			//SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+			String ds2 = sdf1.format(agendamento.getDataAgendamento());
+			System.out.println(ds2); //will be 30/06/2007
+			
+			mapeamentoAtributos.put("date(dataAgendamento)", ds2);
+		}*/
 
-		return this.obterPorCriteriosLikeOrEquals(mapeamentoAtributos);
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		String data = sdf1.format(agendamento.getDataAgendamento());
+				
+		String sql = "SELECT agendamento ";
+		sql += "FROM Agendamento agendamento \n";
+		//sql += "INNER JOIN Nutricionista nutricionista ON agendamento.idNutricionista = nutricionista.idNutricionista \n";
+		//sql += "INNER JOIN Cliente cliente ON agendamento.idCliente = cliente.idCliente \n";
+		sql += "WHERE date(dataAgendamento) = '"+data+"' \n";
+		sql += "AND stAgendamento = '"+StatusAgendamentoEnum.MARCADO+"'  \n";
+		sql += "ORDER BY dataAgendamento";
+		
+	    TypedQuery<Agendamento> query = getGerenciadorDeEntidade().createQuery(sql, Agendamento.class);
+	    return query.getResultList();
+//		return this.obterPorCriteriosLikeOrEquals(mapeamentoAtributos);
 	}
 	
 	@Override

@@ -54,7 +54,7 @@ public class AgendamentoController {
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdfData, false));
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdfDataHora, false));
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -66,23 +66,9 @@ public class AgendamentoController {
 	public ModelAndView filtraListaAdesao(@PathVariable String txtData, Model model, RedirectAttributes redirectAttrs) throws ParseException {
 
 		Agendamento agendamento = new Agendamento();
-		//txtData = txtData.replaceAll("-", "/");
-		//Verifica se foi preenchido um text padrão para casos em que o usuário não preencher o campo.
-		txtData = ("x$x").equals(txtData) ? null : txtData;
-	
-	   /* SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-	    Date data = sdf.parse(txtData);*/
-	/*
-		String dia = txtData.substring(0,2);
-		String mes = txtData.substring(2,4);
-		String ano = txtData.substring(4);*/
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		agendamento.setDataAgendamento(sdf1.parse(txtData));
 		
-	/*	Date dt = new Date(txtData);
-		
-		DateFormat dF = DateFormat.getDateInstance(DateFormat.SHORT);
-		Date date = dF.parse(txtData);
-		System.out.println(date);*/
-		//agendamento.setDataAgendamento(new SimpleDateFormat("yyyy-MM-dd").parse(txtData));
 		List<Agendamento> listaAgendamento = agendamentoService.filtrarListaAgendamentos(agendamento);
 
 		redirectAttrs.addFlashAttribute("agendamento", listaAgendamento);
@@ -202,6 +188,7 @@ public class AgendamentoController {
 		}
 
 		
+		mv.addObject("inclusao", agendamento.getIdAgendamento() == null || agendamento.getIdAgendamento() == 0 ? true : false);
 		
 		List<Nutricionista> listaNutricionistas = nutricionistaService.listNutricionistas();
 		agendamento.setCliente(cliente);
@@ -266,8 +253,6 @@ public class AgendamentoController {
 			{
 				redirectAttrs.addFlashAttribute("error", "Erro ao Confirmar um Agendamento");
 			}
-
-			
 		}
 		catch(Exception e){
 			redirectAttrs.addFlashAttribute("error", "Erro ao Confirmar um Agendamento");
@@ -299,19 +284,6 @@ public class AgendamentoController {
 		return new ModelAndView("redirect:/agendamento/listaAgendamento");	
 	}
 	
-
-	@RequestMapping("/remove/{id}")
-	public String removePerson(@PathVariable("id") int id){
-		this.agendamentoService.removeAgendamento(id);
-		return "redirect:/agendamento";
-	}
-
-	@RequestMapping("/edit/{id}")
-	public String editPerson(@PathVariable("id") int id, Model model){
-		model.addAttribute("consulta", this.agendamentoService.getAgendamentoById(id));
-		return "agendamento";
-	}
-
 	public AgendamentoService getAgendamentoService() {
 		return agendamentoService;
 	}

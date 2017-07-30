@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nutrisoft.model.Usuario;
 import com.nutrisoft.repository.UsuarioDAO;
 
+
 @Service
 @Transactional(propagation=Propagation.NOT_SUPPORTED)
 public class UsuarioServiceImpl implements UsuarioService {
@@ -29,7 +30,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateUsuario(Usuario usuario) {
-		//Quando se tenta fazer um merge em um objeto não gerenciado e há um registro na tabela usuario e nutricionista ao mesmo tempo, ocorre uma WrongClassException. Ela não ocorre caso o objeto seja gerenciado.
+		//Quando se tenta fazer um merge em um objeto nï¿½o gerenciado e hï¿½ um registro na tabela usuario e nutricionista ao mesmo tempo, ocorre uma WrongClassException. Ela nï¿½o ocorre caso o objeto seja gerenciado.
 		Usuario usuarioBanco = this.usuarioDAO.obterPorIdUsuario(usuario.getIdPessoa());
 		BeanUtils.copyProperties(usuario, usuarioBanco);
 		this.usuarioDAO.alterar(usuarioBanco);
