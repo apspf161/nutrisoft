@@ -78,7 +78,7 @@ public class ConsultaDAOImpl extends RepositorioGenericoDados<Consulta, Integer>
 
 	@Override
 	public List<Consulta> listarConsultasAnteriores(Cliente cliente) {
-		TypedQuery<Consulta> query = getGerenciadorDeEntidade().createQuery("select c from Consulta c where c.agendamento.cliente.idPessoa = :idCliente and c.agendamento.statusAgendamento = :stAgendamentoRealizado order by dataAgendamento", Consulta.class);
+		TypedQuery<Consulta> query = getGerenciadorDeEntidade().createQuery("select c from Consulta c where c.agendamento.cliente.idPessoa = :idCliente and c.agendamento.stAgendamento = :stAgendamentoRealizado order by dataAgendamento", Consulta.class);
 		query.setParameter("idCliente", cliente.getIdPessoa());
 		query.setParameter("stAgendamentoRealizado", StatusAgendamentoEnum.REALIZADO);
 	    return query.getResultList();

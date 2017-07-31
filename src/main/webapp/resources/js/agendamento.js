@@ -13,7 +13,8 @@ $(document).ready(function() {
 		todayHighlight: 1,
 		startView: 2,
 		forceParse: 0,
-        showMeridian: 0
+        showMeridian: 0,
+        pickerPosition: 'top-left'
     });
 
     $('.form_datetime_dtp').datetimepicker({
@@ -24,7 +25,8 @@ $(document).ready(function() {
 		todayHighlight: 1,
 		startView: 2,
 		minView: 2,
-		forceParse: 0
+		forceParse: 0,
+		pickerPosition: 'top-left'
     }); 	
     
 	$("#btnFiltrarCliente").click(function() {

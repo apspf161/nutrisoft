@@ -9,12 +9,12 @@ $(document).ready(function() {
 		var txtNome = $("input[name='txtNome']").val();
 		var txtCPF = $("input[name='txtCPF']").val();
 		
-		txtNome = txtNome.length === 0 ? "x$x" : txtNome;
-		txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
-		
-	    if(txtNome.length === 0 || txtNome.length === 0){
+	    if(txtNome.length === 0 && txtCPF.length === 0){
 	    	alert("Preencha os campos para pesquisa.")
 	    } else {
+	    	txtNome = txtNome.length === 0 ? "x$x" : txtNome;
+			txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
+			
 	    	$(this).attr("href", "consulta/filtraListaClientesParaPagamento/"+txtNome+"/"+txtCPF );
 	    }
 	});
@@ -23,12 +23,12 @@ $(document).ready(function() {
 		var txtNome = $("input[name='txtNome']").val();
 		var txtCPF = $("input[name='txtCPF']").val();
 		
-		txtNome = txtNome.length === 0 ? "x$x" : txtNome;
-		txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
-		
-	    if(txtNome.length === 0 || txtNome.length === 0){
+	    if(txtNome.length === 0 || txtCPF.length === 0){
 	    	alert("Preencha os campos para pesquisa.")
 	    } else {
+			txtNome = txtNome.length === 0 ? "x$x" : txtNome;
+			txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
+			
 	    	$(this).attr("href", "consulta/filtraListaPagamento/"+txtNome+"/"+txtCPF );
 	    }
 	});
