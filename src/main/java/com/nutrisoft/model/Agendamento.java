@@ -2,7 +2,6 @@ package com.nutrisoft.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -50,13 +49,13 @@ public class Agendamento {
 	@Enumerated(EnumType.STRING)
 	private TipoConsultaEnum tipoConsulta;
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER) 
+	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idNutricionista", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Nutricionista nutricionista;
 
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER) 
+	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idCliente", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Cliente cliente;
