@@ -45,13 +45,13 @@ public class AgendamentoController {
 	@Autowired
 	private NutricionistaService nutricionistaService;
 
-	@Autowired
-	private ValidacaoUtil validacaoUtil;
-
-	private static final DateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
+//	@Autowired
+//	private ValidacaoUtil validacaoUtil;
+//
+//	private static final DateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
 	private static final DateFormat sdfDataHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	private static final DateFormat sdfDataBD = new SimpleDateFormat("yyyy-MM-dd");
-	
+//	private static final DateFormat sdfDataBD = new SimpleDateFormat("yyyy-MM-dd");
+//	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdfDataHora, false));

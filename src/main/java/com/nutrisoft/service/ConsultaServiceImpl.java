@@ -1,7 +1,9 @@
 package com.nutrisoft.service;
 
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -12,18 +14,23 @@ import com.nutrisoft.model.Antropometria;
 import com.nutrisoft.model.AvaliacaoAlimentar;
 import com.nutrisoft.model.Cliente;
 import com.nutrisoft.model.Consulta;
+import com.nutrisoft.model.DadoLaboratorial;
 import com.nutrisoft.model.DietaNutricional;
 import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.repository.AgendamentoDAO;
 import com.nutrisoft.repository.AntropometriaDAO;
 import com.nutrisoft.repository.AvaliacaoAlimentarDAO;
 import com.nutrisoft.repository.ConsultaDAO;
+import com.nutrisoft.repository.DadoLaboratorialDAO;
 import com.nutrisoft.repository.DietaNutricionalDAO;
 
 @Service
 @Transactional(propagation=Propagation.NOT_SUPPORTED)
 public class ConsultaServiceImpl implements ConsultaService {
 
+	@Autowired
+	private DadoLaboratorialDAO dadoLaboratorialDAO;
+	
 	@Autowired
 	private AgendamentoDAO agendamentoDAO;
 	
@@ -42,8 +49,9 @@ public class ConsultaServiceImpl implements ConsultaService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void addConsulta(Consulta consulta) {
-	Agendamento agendamento = this.agendamentoDAO.getAgendamentoById(consulta.getAgendamento().getIdAgendamento());
+		DadoLaboratorial dadoLaboratorialTela = consulta.getAgendamento().getCliente().getDadoLaboratorial();
 		
+		Agendamento agendamento = this.agendamentoDAO.getAgendamentoById(consulta.getAgendamento().getIdAgendamento());
 		agendamento.setStAgendamento(StatusAgendamentoEnum.REALIZADO);
 		this.agendamentoDAO.salvar(agendamento);
 		
@@ -61,7 +69,19 @@ public class ConsultaServiceImpl implements ConsultaService {
 		dietaNutricional.setConsulta(consulta);
 		this.dietaNutricionalDAO.salvar(dietaNutricional);
 		
-//		atualizar dado laboratorial
+		DadoLaboratorial dadoLaboratorial = agendamento.getCliente().getDadoLaboratorial();
+		if (dadoLaboratorial != null) {
+			BeanUtils.copyProperties(dadoLaboratorialTela, dadoLaboratorial);
+			dadoLaboratorial.setIdCliente(agendamento.getCliente().getIdPessoa());
+			dadoLaboratorial.setCliente(agendamento.getCliente());
+			dadoLaboratorial.setData(new Date());
+			dadoLaboratorialDAO.alterar(dadoLaboratorial);
+		} else {
+			dadoLaboratorialTela.setIdCliente(agendamento.getCliente().getIdPessoa());
+			dadoLaboratorialTela.setCliente(agendamento.getCliente());
+			dadoLaboratorialTela.setData(new Date());
+			dadoLaboratorialDAO.salvar(dadoLaboratorialTela);
+		}
 	}
 	
 	@Override
@@ -101,5 +121,4 @@ public class ConsultaServiceImpl implements ConsultaService {
 	public List<Consulta> listarConsultasAnteriores(Cliente cliente) {
 		return this.consultaDAO.listarConsultasAnteriores(cliente);
 	}
-
 }

@@ -36,7 +36,7 @@ public class Cliente extends Pessoa {
 	private String exameLaboratorial;
 	
 	@OneToOne
-	@PrimaryKeyJoinColumn(name="idConsulta")
+	@PrimaryKeyJoinColumn(name="idCliente")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private DadoLaboratorial dadoLaboratorial;
 

@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,12 +17,11 @@ import javax.persistence.TemporalType;
 public class DadoLaboratorial implements Serializable {
 	
 	private static final long serialVersionUID = -3313922299356432720L;
-
+	
 	@Id
 	@Column(name="idCliente")
 	private Integer idCliente;
 	
-	@MapsId
 	@OneToOne(mappedBy="dadoLaboratorial")
 	@JoinColumn(name="idCliente")
 	private Cliente cliente;
@@ -88,6 +86,22 @@ public class DadoLaboratorial implements Serializable {
 	private Float linfocitos;
 
 	private Float metamielocitos;
+
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public Date getData() {
 		return data;
@@ -328,5 +342,4 @@ public class DadoLaboratorial implements Serializable {
 	public void setMetamielocitos(Float metamielocitos) {
 		this.metamielocitos = metamielocitos;
 	}
-
 }
