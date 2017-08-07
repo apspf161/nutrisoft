@@ -54,12 +54,14 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void confirmarConsulta(Agendamento agendamento) {
 		agendamento.setStAgendamento(StatusAgendamentoEnum.CONFIRMADO);
 		this.agendamentoDAO.alterar(agendamento);
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void cancelarAgendamento(Agendamento agendamento) {
 		agendamento.setStAgendamento(StatusAgendamentoEnum.CANCELADO);
 		this.agendamentoDAO.alterar(agendamento);

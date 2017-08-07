@@ -30,7 +30,6 @@ import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.service.AgendamentoService;
 import com.nutrisoft.service.ClienteService;
 import com.nutrisoft.service.NutricionistaService;
-import com.nutrisoft.util.ValidacaoUtil;
 
 @Controller
 @RequestMapping("/agendamento")
@@ -244,8 +243,7 @@ public class AgendamentoController {
 
 		try{
 			if (idAgendamento != null) {
-				Agendamento agendamento = new Agendamento();
-				agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
+				Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
 				this.agendamentoService.confirmarConsulta(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Agendamento confirmado com sucesso.");
 			}
