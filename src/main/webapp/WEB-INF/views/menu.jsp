@@ -33,7 +33,7 @@
 				<sec:authorize access="hasAuthority('nutricionista') ">
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Consultas <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/consulta">Nova Consulta</a></li>
+							<li><a href="${pageContext.request.contextPath}/consulta/listarAgendamentosDeHoje">Nova Consulta</a></li>
 							<li><a href="${pageContext.request.contextPath}/consulta">Histórico de Consultas</a></li>
 						</ul>
 					</li>
