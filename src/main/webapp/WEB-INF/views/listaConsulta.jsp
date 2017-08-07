@@ -7,29 +7,38 @@
 	<title>Consultas</title>
 </head>
 <body>
-	<div class="page-header">
-		<h3>Consultas</h3>
-	</div>
-	
-	<c:if test="${!empty consultas}">
-		<table class="table">
-			<tr>
-				<th>Data / Hora</th>
-				<th>Nutricionista</th>
-				<th>Cliente</th>
-				<th>Valor</th>
-				<th>Pago</th>
-			</tr>
-			<c:forEach items="${consultas}" var="consulta">
+	<header>
+		<c:import url="/WEB-INF/views/header.jsp"></c:import>
+	</header>
+
+	<div class="container" id="container">
+		<c:import url="/WEB-INF/views/menu.jsp"></c:import>
+		
+		<div class="page-header">
+			<h3>Consultas</h3>
+		</div>
+		
+		<c:if test="${!empty consultas}">
+			<table class="table">
 				<tr>
-					<td>${consulta.agendamento.dataAgendamento}</td>
-					<td>${consulta.agendamento.nutricionista.nome}</td>
-					<td>${consulta.agendamento.cliente.nome}</td>
-					<td>${consulta.valor}</td>
-					<td>${consulta.pago}</td>
+					<th>Data / Hora</th>
+					<th>Nutricionista</th>
+					<th>Cliente</th>
+					<th>Valor</th>
+					<th>Pago</th>
 				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
+				<c:forEach items="${consultas}" var="consulta">
+					<tr>
+						<td>${consulta.agendamento.dataAgendamento}</td>
+						<td>${consulta.agendamento.nutricionista.nome}</td>
+						<td>${consulta.agendamento.cliente.nome}</td>
+						<td>${consulta.valor}</td>
+						<td>${consulta.pago}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
+		
+	</div>
 </body>
 </html>
