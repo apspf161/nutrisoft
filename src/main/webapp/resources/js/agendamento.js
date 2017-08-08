@@ -13,8 +13,11 @@ $(document).ready(function() {
 		todayHighlight: 1,
 		startView: 2,
 		forceParse: 0,
-        showMeridian: 0,
-        pickerPosition: 'top-left'
+        pickerPosition: 'top-left',
+        minuteStep:30,
+        daysOfWeekDisabled:[0,6],
+    	hoursDisabled: '0,1,2,3,4,5,6,7,8,19,20,21,22,23',
+    	startDate:new Date()
     });
 
     $('.form_datetime_dtp').datetimepicker({
@@ -26,7 +29,11 @@ $(document).ready(function() {
 		startView: 2,
 		minView: 2,
 		forceParse: 0,
-		pickerPosition: 'top-left'
+		pickerPosition: 'top-left',
+		minuteStep:30,
+        daysOfWeekDisabled:[0,6],
+    	hoursDisabled: '0,1,2,3,4,5,6,7,8,19,20,21,22,23'
+    	//, startDate:new Date()
     }); 	
     
 	$("#btnFiltrarCliente").click(function() {

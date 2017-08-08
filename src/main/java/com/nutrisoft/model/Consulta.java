@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
@@ -70,7 +69,7 @@ public class Consulta implements Serializable {
 	@PrimaryKeyJoinColumn(name="idConsulta")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private AvaliacaoAlimentar avaliacaoAlimentar;
-
+	
 //	@PrePersist
 //	protected void onCreate() {
 //		data = new Date();
@@ -155,4 +154,13 @@ public class Consulta implements Serializable {
 	public void setAvaliacaoAlimentar(AvaliacaoAlimentar avaliacaoAlimentar) {
 		this.avaliacaoAlimentar = avaliacaoAlimentar;
 	}
+
+	public String getFormaPgto() {
+		return formaPgto;
+	}
+
+	public void setFormaPgto(String formaPgto) {
+		this.formaPgto = formaPgto;
+	}
+
 }

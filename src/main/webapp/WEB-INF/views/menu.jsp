@@ -33,17 +33,17 @@
 				<sec:authorize access="hasAuthority('nutricionista') ">
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Consultas <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/consulta">Nova Consulta</a></li>
+							<li><a href="${pageContext.request.contextPath}/consulta/listarAgendamentosDeHoje">Nova Consulta</a></li>
 							<li><a href="${pageContext.request.contextPath}/consulta">Histórico de Consultas</a></li>
 						</ul>
 					</li>
-					<li><a href="${pageContext.request.contextPath}/consulta/grafico">Gráfico de Evolução</a></li>
+					<li><a href="${pageContext.request.contextPath}/consulta/consultaRelEvolucaoCliente">Gráfico de Evolução</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relatórios <span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="${pageContext.request.contextPath}/relatorios">Evolução do Cliente</a></li>
-							<li><a href="${pageContext.request.contextPath}/relatorios">Atendimentos</a></li>
-							<li><a href="${pageContext.request.contextPath}/relatorios">Agendamentos</a></li>
-							<li><a href="${pageContext.request.contextPath}/relatorios">Pagamentos de Consultas</a></li>
+							<li><a href="${pageContext.request.contextPath}/consulta/consultaRelEvolucaoCliente">Evolução do Cliente</a></li>
+							<li><a href="${pageContext.request.contextPath}/consulta/consultaRelAtendimentos">Atendimentos</a></li>
+							<li><a href="${pageContext.request.contextPath}/agendamento/consultaRelAgendamentos">Agendamentos</a></li>
+							<li><a href="${pageContext.request.contextPath}/consulta/consultaRelPagamentos">Pagamentos de Consultas</a></li>
 						</ul>
 					</li>
 				</sec:authorize>

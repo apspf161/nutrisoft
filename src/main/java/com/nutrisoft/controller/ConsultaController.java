@@ -1,5 +1,6 @@
 package com.nutrisoft.controller;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,10 @@ import com.nutrisoft.model.AvaliacaoAlimentar;
 import com.nutrisoft.model.Cliente;
 import com.nutrisoft.model.Consulta;
 import com.nutrisoft.model.DietaNutricional;
+import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.service.AgendamentoService;
 import com.nutrisoft.service.ConsultaService;
+import com.nutrisoft.service.NutricionistaService;
 
 @Controller
 @RequestMapping("/consulta")
@@ -34,6 +37,9 @@ public class ConsultaController {
 
 	@Autowired
 	private AgendamentoService agendamentoService;
+
+	@Autowired
+	private NutricionistaService nutricionistaService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView menuConsulta() {
@@ -232,4 +238,149 @@ public class ConsultaController {
 		this.consultaService.addConsulta(consulta);
 		return "redirect:listarAgendamentosDeHoje";
 	}
+	
+	@RequestMapping(value="/historico/{idConsulta}", method=RequestMethod.GET)
+	public ModelAndView exibirHistoricoConsulta(@PathVariable("idConsulta") int idConsulta) {
+		return new ModelAndView("historicoConsulta", "historicoConsulta", consultaService.getConsultaById(idConsulta));
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/consultaRelAtendimentos", method = RequestMethod.GET)
+	public ModelAndView consultaRelAtendimentos(Model model, HttpServletRequest request) {
+
+		ModelAndView mv = new ModelAndView("consultaRelAtendimentos");
+
+		List<Consulta> listaAtendimentos = new ArrayList<Consulta>();
+		List<Nutricionista> listaNutricionistas = nutricionistaService.listNutricionistas();
+
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		if (flashMap != null) 
+		{
+			listaAtendimentos = (List<Consulta>) model.asMap().get("atendimentos");
+			mv.addObject("error", (String) model.asMap().get("error"));	
+			mv.addObject("success", (String) model.asMap().get("success"));
+		}
+		else
+		{
+			//Não pode carregar nenhuma lista até o usuário buscar no filtro
+		}
+
+		mv.addObject("atendimentos", listaAtendimentos);
+		mv.addObject("nutricionistas", listaNutricionistas);
+
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/filtraRelatorioAtendimentos/{txtDataInicial}/{txtDataFinal}/{cmbNutricionista}", method = RequestMethod.GET)
+	public ModelAndView filtraRelatorioAtendimentos(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable Integer cmbNutricionista, Model model, RedirectAttributes redirectAttrs) throws ParseException {
+
+		Consulta consulta = new Consulta();
+				
+		Agendamento agendamento = new Agendamento();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
+		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
+
+		if(txtDataInicial != null && txtDataFinal != null )
+		{
+			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
+			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
+		}
+		
+		Nutricionista nutricionista = new Nutricionista();
+		nutricionista.setIdPessoa(cmbNutricionista);
+		agendamento.setNutricionista(nutricionista);
+		consulta.setAgendamento(agendamento);
+		
+		List<Consulta> listaAtendimentos = consultaService.filtrarListaRelatorioAtendimento(consulta);
+
+		redirectAttrs.addFlashAttribute("atendimentos", listaAtendimentos);
+
+		return new ModelAndView("redirect:/consulta/consultaRelAtendimentos");
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/consultaRelPagamentos", method = RequestMethod.GET)
+	public ModelAndView consultaRelPagamentos(Model model, HttpServletRequest request) {
+
+		ModelAndView mv = new ModelAndView("consultaRelPagamentos");
+
+		List<Consulta> listaPagamentos = new ArrayList<Consulta>();
+		List<Nutricionista> listaNutricionistas = nutricionistaService.listNutricionistas();
+
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		if (flashMap != null) 
+		{
+			listaPagamentos = (List<Consulta>) model.asMap().get("pagamentos");
+			mv.addObject("error", (String) model.asMap().get("error"));	
+			mv.addObject("success", (String) model.asMap().get("success"));
+		}
+		else
+		{
+			//Não pode carregar nenhuma lista até o usuário buscar no filtro
+		}
+
+		mv.addObject("pagamentos", listaPagamentos);
+		mv.addObject("nutricionistas", listaNutricionistas);
+
+		return mv;
+	}
+
+	@RequestMapping(value = "/filtraRelatorioPagamentos/{txtDataInicial}/{txtDataFinal}/{cmbNutricionista}/{txtValor}", method = RequestMethod.GET)
+	public ModelAndView filtraRelatorioPagamentos(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable Integer cmbNutricionista, Model model, RedirectAttributes redirectAttrs) throws ParseException {
+
+		Consulta consulta = new Consulta();
+				
+		Agendamento agendamento = new Agendamento();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
+		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
+
+		if(txtDataInicial != null && txtDataFinal != null )
+		{
+			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
+			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
+		}
+		
+		Nutricionista nutricionista = new Nutricionista();
+		nutricionista.setIdPessoa(cmbNutricionista);
+		agendamento.setNutricionista(nutricionista);
+		consulta.setAgendamento(agendamento);
+		
+		List<Consulta> listaPagamentos = consultaService.filtrarListaRelatorioAtendimento(consulta);
+
+		redirectAttrs.addFlashAttribute("pagamentos", listaPagamentos);
+
+		return new ModelAndView("redirect:/consulta/consultaRelPagamentos");
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/consultaRelEvolucaoCliente", method = RequestMethod.GET)
+	public ModelAndView consultaRelEvolucaoCliente(Model model, HttpServletRequest request) {
+
+		ModelAndView mv = new ModelAndView("consultaRelEvolucaoCliente");
+
+		List<Consulta> listaEvolucoes = new ArrayList<Consulta>();
+
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		if (flashMap != null) 
+		{
+			listaEvolucoes = (List<Consulta>) model.asMap().get("evolucoes");
+			mv.addObject("error", (String) model.asMap().get("error"));	
+			mv.addObject("success", (String) model.asMap().get("success"));
+		}
+		else
+		{
+			//Não pode carregar nenhuma lista até o usuário buscar no filtro
+		}
+
+		mv.addObject("evolucoes", listaEvolucoes);
+
+		return mv;
+	}
+
 }

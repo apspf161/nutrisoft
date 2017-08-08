@@ -105,7 +105,7 @@ $("#formPrc").validate({
 						  <label  for="example-text-input" class="col-xs-4 col-form-label"><fmt:message key="AG010" /></label>
 						  <div class="col-xs-12">
 								<div class="input-group date form_datetime col-md-5" data-date-format="dd/mm/yyyy hh:ii" data-link-field="dtp_input1" data-link-format="yyyy-MM-dd'T'HH:mm:ss.SSSZ">
-				                    <input class="form-control" size="16" type="text" value="<fmt:formatDate pattern='dd/MM/yyyy hh:mm' value='${agendamento.dataAgendamento}' />"  name="dataAgendamento" id="dataAgendamento" readonly>
+				                    <input class="form-control" size="16" type="text" value="<fmt:formatDate pattern='dd/MM/yyyy HH:mm' value='${agendamento.dataAgendamento}' />"  name="dataAgendamento" id="dataAgendamento" readonly>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                </div>
   						  </div>
@@ -119,7 +119,9 @@ $("#formPrc").validate({
 				</div>
 			</div>
 			
-			<input type="hidden" name="identificador" value="${agendamento.idAgendamento}" />
+			<input type="hidden" name="nutricionista.idPessoa" value="${agendamento.nutricionista.idPessoa}" />
+			<input type="hidden" name="idAgendamento" value="${agendamento.idAgendamento}" />
+			
 		</form:form>
 	</div>
 

@@ -23,4 +23,6 @@ public interface AgendamentoService {
 	void cancelarAgendamento(Agendamento agendamento);
 
 	public List<Agendamento> listarAgendamentosDeHoje();
+	
+	List<Agendamento> filtrarListaRelatorioAgendamento(Agendamento agendamento);
 }

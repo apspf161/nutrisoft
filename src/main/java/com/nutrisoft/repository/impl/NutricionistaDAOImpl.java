@@ -50,7 +50,7 @@ public class NutricionistaDAOImpl extends RepositorioGenericoDados<Nutricionista
 	}
 
 	@Override
-	public Nutricionista obterPorId(Integer id) {
-		return obterPorId(id);
+	public Nutricionista obterPorIdNutricionista(Integer id) {
+		return this.obterPorId(id);
 	}
 }

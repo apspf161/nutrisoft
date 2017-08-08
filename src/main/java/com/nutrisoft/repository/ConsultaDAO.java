@@ -20,4 +20,6 @@ public interface ConsultaDAO {
 	public List<Consulta> filtrarPagamentos(Consulta consulta);
 	
 	public List<Consulta> listarConsultasAnteriores(Cliente cliente);
+
+	public List<Consulta> listarRelatorioAtendimento(Consulta consulta);
 }

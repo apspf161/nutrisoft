@@ -2,7 +2,6 @@ package com.nutrisoft.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -50,13 +49,13 @@ public class Agendamento {
 	@Enumerated(EnumType.STRING)
 	private TipoConsultaEnum tipoConsulta;
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER) 
+	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idNutricionista", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Nutricionista nutricionista;
 
 
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER) 
+	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idCliente", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Cliente cliente;
@@ -76,6 +75,15 @@ public class Agendamento {
 	@Transient
 	private AgendamentoState realizadoState;
 
+	@Transient
+	private Date dataPeriodoInicial;
+	
+	@Transient
+	private Date dataPeriodoFinal;
+
+	@Transient
+	private String turnoAgendamento;
+	
 	public Agendamento()
 	{
 		this.marcadoState = new AgendamentoMarcadoState(this);
@@ -199,6 +207,30 @@ public class Agendamento {
 			this.currentState = this.marcadoState;
 			break;
 		}
+	}
+
+	public Date getDataPeriodoInicial() {
+		return dataPeriodoInicial;
+	}
+
+	public void setDataPeriodoInicial(Date dataPeriodoInicial) {
+		this.dataPeriodoInicial = dataPeriodoInicial;
+	}
+
+	public Date getDataPeriodoFinal() {
+		return dataPeriodoFinal;
+	}
+
+	public void setDataPeriodoFinal(Date dataPeriodoFinal) {
+		this.dataPeriodoFinal = dataPeriodoFinal;
+	}
+
+	public String getTurnoAgendamento() {
+		return turnoAgendamento;
+	}
+
+	public void setTurnoAgendamento(String turnoAgendamento) {
+		this.turnoAgendamento = turnoAgendamento;
 	}
 
 }

@@ -26,11 +26,11 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Cliente;
+import com.nutrisoft.model.Consulta;
 import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.service.AgendamentoService;
 import com.nutrisoft.service.ClienteService;
 import com.nutrisoft.service.NutricionistaService;
-import com.nutrisoft.util.ValidacaoUtil;
 
 @Controller
 @RequestMapping("/agendamento")
@@ -45,12 +45,12 @@ public class AgendamentoController {
 	@Autowired
 	private NutricionistaService nutricionistaService;
 
-	@Autowired
-	private ValidacaoUtil validacaoUtil;
+	//@Autowired
+	/*private ValidacaoUtil validacaoUtil;*/
 
-	private static final DateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
+	/*private static final DateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");*/
 	private static final DateFormat sdfDataHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	private static final DateFormat sdfDataBD = new SimpleDateFormat("yyyy-MM-dd");
+	/*private static final DateFormat sdfDataBD = new SimpleDateFormat("yyyy-MM-dd");*/
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
@@ -162,7 +162,7 @@ public class AgendamentoController {
 		Agendamento agendamento = agendamentoService.getAgendamentoById(idAgendamento);
 		redirectAttrs.addFlashAttribute("agendamento", agendamento);
 		redirectAttrs.addFlashAttribute("cliente", agendamento.getCliente());
-
+		
 		return new ModelAndView("redirect:/agendamento/agendarConsulta");
 	}
 	
@@ -173,14 +173,18 @@ public class AgendamentoController {
 		ModelAndView mv = new ModelAndView("agendarConsulta");
 		Agendamento agendamento = new Agendamento();
 		Cliente cliente = new Cliente();
+		Nutricionista nutricionista = new Nutricionista();
+		
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		
 		if (flashMap != null) 
 		{
 			agendamento = (Agendamento) model.asMap().get("agendamento");
 			cliente = (Cliente) model.asMap().get("cliente");
+			//nutricionista = (Nutricionista) model.asMap().get("nutricionista");
 			
 			agendamento = agendamento == null ? new Agendamento() : agendamento;
+			nutricionista = nutricionista == null ? new Nutricionista() : nutricionista;
 		}
 		else
 		{
@@ -192,7 +196,8 @@ public class AgendamentoController {
 		
 		List<Nutricionista> listaNutricionistas = nutricionistaService.listNutricionistas();
 		agendamento.setCliente(cliente);
-
+		//agendamento.setNutricionista(nutricionista);
+		
 		mv.addObject("nutricionistas", listaNutricionistas);
 		mv.addObject("agendamento", agendamento);
 
@@ -211,8 +216,8 @@ public class AgendamentoController {
 				this.agendamentoService.addAgendamento(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Consulta agendada para o dia "+ data +".");
 			} else {
-				this.agendamentoService.updateAgendamento(agendamento);
 				url = "redirect:/agendamento/listaAgendamento";
+				this.agendamentoService.updateAgendamento(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Consulta alterada para o dia "+ data +".");
 			}
 		}
@@ -244,9 +249,8 @@ public class AgendamentoController {
 
 		try{
 			if (idAgendamento != null) {
-				Agendamento agendamento = new Agendamento();
-				agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
-				this.agendamentoService.confirmarConsulta(agendamento);
+				Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
+ 				this.agendamentoService.confirmarConsulta(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Agendamento confirmado com sucesso.");
 			}
 			else
@@ -267,9 +271,8 @@ public class AgendamentoController {
 
 		try{
 			if (idAgendamento != null) {
-				Agendamento agendamento = new Agendamento();
-				agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
-				this.agendamentoService.cancelarAgendamento(agendamento);
+				Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
+ 				this.agendamentoService.cancelarAgendamento(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Agendamento cancelado com sucesso.");
 			} 
 			else
@@ -283,6 +286,64 @@ public class AgendamentoController {
 		
 		return new ModelAndView("redirect:/agendamento/listaAgendamento");	
 	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/consultaRelAgendamentos", method = RequestMethod.GET)
+	public ModelAndView consultaRelAgendamentos(Model model, HttpServletRequest request) {
+
+		ModelAndView mv = new ModelAndView("consultaRelAgendamentos");
+
+		List<Consulta> listaAgendamentos = new ArrayList<Consulta>();
+		List<Nutricionista> listaNutricionistas = nutricionistaService.listNutricionistas();
+
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		if (flashMap != null) 
+		{
+			listaAgendamentos = (List<Consulta>) model.asMap().get("agendamentos");
+			mv.addObject("error", (String) model.asMap().get("error"));	
+			mv.addObject("success", (String) model.asMap().get("success"));
+		}
+		else
+		{
+			//Não pode carregar nenhuma lista até o usuário buscar no filtro
+		}
+
+		mv.addObject("agendamentos", listaAgendamentos);
+		mv.addObject("nutricionistas", listaNutricionistas);
+
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/filtraRelatorioAgendamentos/{txtDataInicial}/{txtDataFinal}/{cmbNutricionista}/{cmbTurno}", method = RequestMethod.GET)
+	public ModelAndView filtraRelatorioAgendamentos(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable Integer cmbNutricionista, @PathVariable String cmbTurno, Model model, RedirectAttributes redirectAttrs) throws ParseException {
+				
+		Agendamento agendamento = new Agendamento();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
+		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
+		cmbTurno = ("0").equals(cmbTurno) ? null : cmbTurno;
+		
+		if(txtDataInicial != null && txtDataFinal != null )
+		{
+			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
+			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
+		}
+		
+		Nutricionista nutricionista = new Nutricionista();
+		nutricionista.setIdPessoa(cmbNutricionista);
+		agendamento.setNutricionista(nutricionista);
+		
+		agendamento.setTurnoAgendamento(cmbTurno);
+				
+		List<Agendamento> listaAgendamentos = agendamentoService.filtrarListaRelatorioAgendamento(agendamento);
+
+		redirectAttrs.addFlashAttribute("agendamentos", listaAgendamentos);
+
+		return new ModelAndView("redirect:/agendamento/consultaRelAgendamentos");
+	}
+
 	
 	public AgendamentoService getAgendamentoService() {
 		return agendamentoService;

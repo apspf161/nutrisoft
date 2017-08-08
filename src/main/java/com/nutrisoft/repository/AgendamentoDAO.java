@@ -21,4 +21,6 @@ public interface AgendamentoDAO {
 	public List<Agendamento> listarAgendamentosDeHoje();
 	
 	public Agendamento getAgendamentoById(int id);
+
+	List<Agendamento> listarRelatorioAgendamento(Agendamento agendamento);
 }

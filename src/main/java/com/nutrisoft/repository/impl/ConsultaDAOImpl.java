@@ -1,5 +1,6 @@
 package com.nutrisoft.repository.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,5 +83,40 @@ public class ConsultaDAOImpl extends RepositorioGenericoDados<Consulta, Integer>
 		query.setParameter("idCliente", cliente.getIdPessoa());
 		query.setParameter("stAgendamentoRealizado", StatusAgendamentoEnum.REALIZADO);
 	    return query.getResultList();
+	}
+	
+	@Override
+	public List<Consulta> listarRelatorioAtendimento(Consulta consulta) {
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		String sql = "", sqlCondicao = "";
+		
+		sql += "SELECT c ";
+		sql += "FROM Consulta c \n";
+		sql += "WHERE ";
+
+		if(consulta.getAgendamento().getNutricionista().getIdPessoa() != 0)
+		{
+			sqlCondicao += "c.agendamento.nutricionista.idPessoa = '"+ consulta.getAgendamento().getNutricionista().getIdPessoa()+"'  \n";	
+		}
+		
+		if(consulta.getAgendamento().getDataPeriodoFinal() != null)
+		{
+			String dataInicio = sdf1.format(consulta.getAgendamento().getDataPeriodoInicial());
+			String dataFim = sdf1.format(consulta.getAgendamento().getDataPeriodoFinal());
+			
+			if(sqlCondicao.length() != 0)
+			{
+				sqlCondicao += "AND ";	
+			}
+			
+			sqlCondicao += "date(c.agendamento.dataAgendamento) BETWEEN '"+dataInicio+"' AND '"+dataFim+"' \n";
+		}
+		
+		sql += sqlCondicao;
+		sql += "ORDER BY c.agendamento.dataAgendamento";
+		
+		TypedQuery<Consulta> query = getGerenciadorDeEntidade().createQuery(sql, Consulta.class);
+		return query.getResultList();
 	}
 }
