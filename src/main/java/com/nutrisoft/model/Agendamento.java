@@ -157,23 +157,23 @@ public class Agendamento {
 	}
 
 	public StatusAgendamentoEnum getStAgendamento() {
-		StatusAgendamentoEnum stAgendamento = null;
-		
-		if(this.getCurrentState() instanceof AgendamentoMarcadoState)
-		{
-			stAgendamento = StatusAgendamentoEnum.MARCADO;
-		} else if(this.getCurrentState() instanceof AgendamentoConfirmadoState)
-		{
-			stAgendamento = StatusAgendamentoEnum.CONFIRMADO;
-		} else if(this.getCurrentState() instanceof AgendamentoCanceladoState)
-		{
-			stAgendamento = StatusAgendamentoEnum.CANCELADO;
-		} else if(this.getCurrentState() instanceof AgendamentoRealizadoState)
-		{
-			stAgendamento = StatusAgendamentoEnum.REALIZADO;
-		} else {
-			stAgendamento = StatusAgendamentoEnum.MARCADO;
-		}
+//		StatusAgendamentoEnum stAgendamento = null;
+//		
+//		if(this.getCurrentState() instanceof AgendamentoMarcadoState)
+//		{
+//			stAgendamento = StatusAgendamentoEnum.MARCADO;
+//		} else if(this.getCurrentState() instanceof AgendamentoConfirmadoState)
+//		{
+//			stAgendamento = StatusAgendamentoEnum.CONFIRMADO;
+//		} else if(this.getCurrentState() instanceof AgendamentoCanceladoState)
+//		{
+//			stAgendamento = StatusAgendamentoEnum.CANCELADO;
+//		} else if(this.getCurrentState() instanceof AgendamentoRealizadoState)
+//		{
+//			stAgendamento = StatusAgendamentoEnum.REALIZADO;
+//		} else {
+//			stAgendamento = StatusAgendamentoEnum.MARCADO;
+//		}
 
 		return stAgendamento;
 	}

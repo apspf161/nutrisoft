@@ -8,6 +8,6 @@ public enum TipoConsultaEnum {
 	ACOMPANHAMENTO;
 	
 	public String getFormatado() {
-		return StringUtils.capitalize(this.toString().toLowerCase());
+		return StringUtils.capitalize(this.toString().toLowerCase().replace("_", " "));
 	}
 }
