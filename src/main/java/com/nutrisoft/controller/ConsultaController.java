@@ -232,4 +232,9 @@ public class ConsultaController {
 		this.consultaService.addConsulta(consulta);
 		return "redirect:listarAgendamentosDeHoje";
 	}
+
+	@RequestMapping(value="/historico/{idConsulta}", method=RequestMethod.GET)
+	public ModelAndView exibirHistoricoConsulta(@PathVariable("idConsulta") int idConsulta) {
+		return new ModelAndView("historicoConsulta", "historicoConsulta", consultaService.getConsultaById(idConsulta));
+	}
 }

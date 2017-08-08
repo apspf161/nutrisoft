@@ -51,17 +51,13 @@
 					<tr>
 						<th>Data / Hora</th>
 						<th>Nutricionista</th>
-						<th>Valor</th>
-						<th>Pago</th>
 						<th>Ações</th>
 					</tr>
 					<c:forEach items="${consultasAnteriores}" var="consulta">
 						<tr>
 							<td>${consulta.agendamento.dataAgendamento}</td>
 							<td>${consulta.agendamento.nutricionista.nome}</td>
-							<td>${consulta.valor}</td>
-							<td>${consulta.pago}</td>
-							<td>exibir botáo de consultar aqui...</td>
+							<td><a href="<c:url value='/consulta/historico/${consulta.idConsulta}' />" >Visualizar</a></td>
 						</tr>
 					</c:forEach>
 				</table>
