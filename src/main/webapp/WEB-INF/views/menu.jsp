@@ -55,6 +55,7 @@
 							<li><a href="${pageContext.request.contextPath}/consulta/listaPagamento">Consultar Pagamentos</a></li>
 						</ul>
 					</li>
+					<li><a href="${pageContext.request.contextPath}/cliente">Cliente</a></li>
 				</sec:authorize>
 				
 				<sec:authorize access="hasAuthority('administrador') ">
