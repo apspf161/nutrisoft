@@ -382,5 +382,4 @@ public class ConsultaController {
 
 		return mv;
 	}
-
 }
