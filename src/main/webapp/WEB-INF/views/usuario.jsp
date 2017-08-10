@@ -12,7 +12,7 @@
 		<h3>Novo Usuário</h3>
 	</div>
 	
-	<c:url var="addAction" value="/usuario/add" ></c:url>
+	<c:url var="addAction" value="/usuario/incluirUsuario" ></c:url>
 
 	<form:form action="${addAction}" commandName="usuario" method="POST">
 	

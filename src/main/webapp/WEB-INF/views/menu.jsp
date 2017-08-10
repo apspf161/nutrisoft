@@ -55,11 +55,12 @@
 							<li><a href="${pageContext.request.contextPath}/consulta/listaPagamento">Consultar Pagamentos</a></li>
 						</ul>
 					</li>
-					<li><a href="${pageContext.request.contextPath}/cliente">Cliente</a></li>
+					<li><a href="${pageContext.request.contextPath}/cliente/listaCliente">Cliente</a></li>
 				</sec:authorize>
 				
 				<sec:authorize access="hasAuthority('administrador') ">
-					<li><a href="${pageContext.request.contextPath}/usuario">Usuários</a></li>
+					<li><a href="${pageContext.request.contextPath}/usuario/listaUsuario">Usuários</a></li>
+					<%-- <li><a href="${pageContext.request.contextPath}/cliente/listaCliente">Cliente</a></li> --%>
 				</sec:authorize>
 				<li><a href="<c:url value="j_spring_security_logout" />">Sair</a></li>
 			</ul>

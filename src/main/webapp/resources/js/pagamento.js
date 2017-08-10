@@ -10,7 +10,10 @@ $(document).ready(function() {
 		var txtCPF = $("input[name='txtCPF']").val();
 		
 	    if(txtNome.length === 0 && txtCPF.length === 0){
-	    	alert("Preencha os campos para pesquisa.")
+	    	$(".alert-danger").addClass("show");
+		    $(".alert-danger").removeClass("hide");
+		    $(".alert-danger").removeAttr("style")
+			$("#alertError").text("Preencha os campos para pesquisa.");
 	    } else {
 	    	txtNome = txtNome.length === 0 ? "x$x" : txtNome;
 			txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
@@ -23,8 +26,11 @@ $(document).ready(function() {
 		var txtNome = $("input[name='txtNome']").val();
 		var txtCPF = $("input[name='txtCPF']").val();
 		
-	    if(txtNome.length === 0 || txtCPF.length === 0){
-	    	alert("Preencha os campos para pesquisa.")
+	    if(txtNome.length === 0 && txtCPF.length === 0){
+	    	$(".alert-danger").addClass("show");
+			$(".alert-danger").removeClass("hide");
+			$(".alert-danger").removeAttr("style")
+			$("#alertError").text("Preencha os campos para pesquisa.");
 	    } else {
 			txtNome = txtNome.length === 0 ? "x$x" : txtNome;
 			txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
@@ -142,151 +148,7 @@ $(document).ready(function() {
 	        } );
 	    } );
 	}
-	
-/*	$('#formPrc').on('keyup keypress', function(e) {
-		
-		  var keyCode = e.keyCode || e.which;
-		  		  
-		  if (keyCode === 13) { 
-		    e.preventDefault();
-		    return false;
-		  }
-	});*/
 });
-
-
-function carregaBotoes()
-{
-	$('a#btnConfirmar').on('click', function(e) {
-		idSelecionado = $("#idAgendamento").val();
-		if(idSelecionado === 0 || idSelecionado === "" )
-		{
-		    $(".alert-danger").addClass("show");
-		    $(".alert-danger").removeClass("hide");
-		    $(".alert-danger").removeAttr("style")
-			$("#alertError").text("Selecione uma linha!");
-			return false;
-		}
-		else
-		{
-			$("[data-toggle=confirmation]").confirmation({
-				container:"body",
-				btnOkClass:"btn btn-sm btn-success",
-				btnCancelClass:"btn btn-sm btn-danger",
-				href:"agendamento/alterarAgendamento/"+idSelecionado
-			});		
-		}
-	});
-	/*	
-	$('a#btnConfirmar').confirmation({
-		onConfirm: function(e, element) {				
-			if($("#idAgendamento").val() === 0 || $("#idAgendamento").val() === "" )
-			{
-				alert("Selecione uma linha!");
-				e.preventDefault(); 
-				e.stopPropagation();
-			}	
-		}, 
-		title : "Deseja confirmar o agendamento selecionado?",
-		placement: "top",
-		href: "agendamento/alterarAgendamento/"+idSelecionado
-	});
-
-	$('a#btnConfirmar').confirmation({
-		onConfirm: function(e, element) { 
-			idSelecionado = $("#idAgendamento").val();
-			if(idSelecionado === 0 || idSelecionado === "" )
-			{
-				alert("Selecione uma linha!");
-				e.preventDefault(); 
-				e.stopPropagation();
-			}	
-		}, 
-		href:"agendamento/alterarAgendamento/"+idSelecionado
-	});
-*/
-
-
-	$('a#btnAlterar').on('click', function(){
-		idSelecionado = $("#idAgendamento").val();		
-		if(idSelecionado === 0 || idSelecionado === "" )
-		{
-			alert("Selecione uma linha!");
-			return false;
-		}
-		else
-		{
-			alert('btnAlterar='+idSelecionado);
-		    $(this).attr("href", "agendamento/alterarAgendamento/"+idSelecionado);
-		}
-	});
-	
-
-	$('a#btnCancelar').on('click', function(){
-		idSelecionado = $("#idAgendamento").val();		
-		if(idSelecionado === 0 || idSelecionado === "" )
-		{
-			alert("Selecione uma linha!");
-			return false;
-		}
-		else
-		{
-			alert('btnCancelar='+idSelecionado);
-			confirmar(idSelecionado);
-		}
-	});
-
-}
-
-
-/**
- * Confirma o agendamento selecionado
- * @param idAgendamento
- */
-function confirmar($identificador) 
-{
-	alert("OI!");
-	/*var _self = this;
-
-	if( confirm(  "Deseja confirmar o agendamento selecionado?"  ) )
-	{
-		$("div#divLoading").show();
-		
-		$.ajax({
-			'dataType': 'json',
-			'type': 'POST',
-			'url': 'interno/metadado/removerMetadado',
-			'data': {
-				idMetadado : $identificador
-			},
-			'success': function (validacao, textStatus, jqXHR) {
-								
-				if(!validacao.valido)
-				{
-					var mensagemError = "";
-					
-					for (var i = 0; i < validacao.errosGerais.length; i++) 
-					{
-						mensagemError += validacao.errosGerais[i] + " <br />";
-					}
-					$("#conteudo-lista-error" ).show();
-					$("#conteudo-lista-error" ).html ( mensagemError );
-				}
-				else
-				{
-					 varDataTable.row('.selected').remove().draw( false );
-					 $("#conteudo-lista-success" ).show();
-					 $("#conteudo-lista-success" ).html ( validacao.mensagem );
-				}
-				
-				$("div#divLoading").hide();
-			},
-			'error' : function (jqXHR, textStatus, errorThrown) {
-				$("div#divLoading").hide();
-			}
-		});
-	}*/
-}
 
 function formatRowDetail ( d ) {
 	

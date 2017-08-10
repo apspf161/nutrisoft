@@ -41,7 +41,10 @@ $(document).ready(function() {
 		var txtCPF = $("input[name='txtCPF']").val();
 
 	    if(txtNome.length === 0 && txtCPF.length === 0){
-	    	alert("Preencha os campos para pesquisa.")
+	    	 $(".alert-danger").addClass("show");
+		    $(".alert-danger").removeClass("hide");
+		    $(".alert-danger").removeAttr("style")
+			$("#alertError").text("Preencha os campos para pesquisa.");
 	    } else {
 			txtNome = txtNome.length === 0 ? "x$x" : txtNome;
 			txtCPF = txtCPF.length === 0 ? "x$x" : txtCPF;
@@ -58,7 +61,10 @@ $(document).ready(function() {
 		var txtData = $("input[name='txtData']").val();
 		
 	    if(txtData.length === 0 ){
-	    	alert("Preencha os campos para pesquisa.")
+	    	$(".alert-danger").addClass("show");
+		    $(".alert-danger").removeClass("hide");
+		    $(".alert-danger").removeAttr("style")
+			$("#alertError").text("Preencha os campos para pesquisa.");
 	    } else {
 			var dia = txtData.substring(0,2);
 			var mes = txtData.substring(3,5);
@@ -259,56 +265,6 @@ function carregaBotoes()
 		}
 	});
 
-}
-
-
-/**
- * Confirma o agendamento selecionado
- * @param idAgendamento
- */
-function confirmar($identificador) 
-{
-	alert("OI!");
-	/*var _self = this;
-
-	if( confirm(  "Deseja confirmar o agendamento selecionado?"  ) )
-	{
-		$("div#divLoading").show();
-		
-		$.ajax({
-			'dataType': 'json',
-			'type': 'POST',
-			'url': 'interno/metadado/removerMetadado',
-			'data': {
-				idMetadado : $identificador
-			},
-			'success': function (validacao, textStatus, jqXHR) {
-								
-				if(!validacao.valido)
-				{
-					var mensagemError = "";
-					
-					for (var i = 0; i < validacao.errosGerais.length; i++) 
-					{
-						mensagemError += validacao.errosGerais[i] + " <br />";
-					}
-					$("#conteudo-lista-error" ).show();
-					$("#conteudo-lista-error" ).html ( mensagemError );
-				}
-				else
-				{
-					 varDataTable.row('.selected').remove().draw( false );
-					 $("#conteudo-lista-success" ).show();
-					 $("#conteudo-lista-success" ).html ( validacao.mensagem );
-				}
-				
-				$("div#divLoading").hide();
-			},
-			'error' : function (jqXHR, textStatus, errorThrown) {
-				$("div#divLoading").hide();
-			}
-		});
-	}*/
 }
 
 function formatRowDetail ( d ) {
