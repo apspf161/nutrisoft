@@ -12,9 +12,4 @@ public class AntropometriaDAOImpl extends RepositorioGenericoDados<Antropometria
 	public AntropometriaDAOImpl() {
 		super(Antropometria.class);
 	}
-
-	@Override
-	public void salvar(Antropometria antropometria){
-		super.salvar(antropometria);
-	}
 }

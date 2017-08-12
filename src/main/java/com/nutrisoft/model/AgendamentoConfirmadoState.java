@@ -7,7 +7,7 @@ public class AgendamentoConfirmadoState implements AgendamentoState {
 	public AgendamentoConfirmadoState(){  }
 	 
     public AgendamentoConfirmadoState(final Agendamento agendamento){
-    	agendamento.setCurrentState(new AgendamentoConfirmadoState());
+//    	agendamento.setCurrentState(new AgendamentoConfirmadoState());
     }
     
 	@Override

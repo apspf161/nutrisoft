@@ -2,6 +2,7 @@ package com.nutrisoft.service;
 
 import java.util.List;
 
+import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.model.Usuario;
 
 public interface UsuarioService {
@@ -16,4 +17,6 @@ public interface UsuarioService {
 	Usuario getUsuarioById(int id);
 	
 	Usuario getUsuarioByLoginSenha(String login, String senha);
+	
+	Nutricionista getNutricionistaByLogin(String login);
 }

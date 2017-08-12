@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="sec"
@@ -38,11 +39,14 @@
 		<div class="form-group row">
 			<div class="col-xs-6">
 	    		<label>Valor</label>
-				<p class="form-control-static"><c:out value="${historicoConsulta.valor}" /></p>
+				<p class="form-control-static">R$ <fmt:formatNumber pattern="##0.00" value="${historicoConsulta.valor}" /></p>
 			</div>
 			<div class="col-xs-6">
 	    		<label>Pago</label>
-				<p class="form-control-static"><c:out value="${historicoConsulta.pago}" /></p>
+				<p class="form-control-static">
+					<c:if test="${historicoConsulta.pago}">Sim</c:if>
+					<c:if test="${!historicoConsulta.pago}">Não</c:if>
+				</p>
 			</div>
 		</div> 
 		<div class="form-group row">
@@ -214,13 +218,16 @@
 		<div class="form-group row">
 			<div class="col-xs-12">
 	    		<label>Motivo da Alteração</label>
-				<p class="form-control-static"><c:out value="${historicoConsulta.avaliacaoAlimentar.alteracaoApetite}" /></p>
+				<p class="form-control-static"><c:out value="${historicoConsulta.avaliacaoAlimentar.motivoAlteracao}" /></p>
 			</div>
 		</div>
 		<div class="form-group row">
 			<div class="col-xs-4">
 	    		<label>Belisca Entre Refeição</label>
-				<p class="form-control-static"><c:out value="${historicoConsulta.avaliacaoAlimentar.beliscaEntreRefeicao}" /></p>
+				<p class="form-control-static">
+					<c:if test="${historicoConsulta.avaliacaoAlimentar.beliscaEntreRefeicao}">Sim</c:if>
+					<c:if test="${!historicoConsulta.avaliacaoAlimentar.beliscaEntreRefeicao}">Não</c:if>
+				</p>
 			</div>
 			<div class="col-xs-4">
 	    		<label>Quantidade de Água diária</label>
@@ -234,7 +241,10 @@
 		<div class="form-group row">
 			<div class="col-xs-6">
 	    		<label>Ingere líquido durante as refeições</label>
-				<p class="form-control-static"><c:out value="${historicoConsulta.avaliacaoAlimentar.ingereLiquidoRefeicao}" /></p>
+	    		<p class="form-control-static">
+					<c:if test="${historicoConsulta.avaliacaoAlimentar.ingereLiquidoRefeicao}">Sim</c:if>
+					<c:if test="${!historicoConsulta.avaliacaoAlimentar.ingereLiquidoRefeicao}">Não</c:if>
+				</p>
 			</div>
 			<div class="col-xs-6">
 	    		<label>Quantidade de Líquido durante as refeições</label>
@@ -244,7 +254,10 @@
 		<div class="form-group row">
 			<div class="col-xs-4">
 	    		<label>Usa Suplemento?</label>
-	    		<p class="form-control-static"><c:out value="${historicoConsulta.avaliacaoAlimentar.usaSuplemento}" /></p>
+	    		<p class="form-control-static">
+					<c:if test="${historicoConsulta.avaliacaoAlimentar.usaSuplemento}">Sim</c:if>
+					<c:if test="${!historicoConsulta.avaliacaoAlimentar.usaSuplemento}">Não</c:if>
+				</p>
 			</div>
 			<div class="col-xs-8">
 	    		<label>Indicação de Uso do Suplemento</label>
@@ -350,7 +363,7 @@
 			</div>
 		</div>
 		
-		<h4>Dados Laboratoriais <c:if test="${consulta.agendamento.cliente.dadoLaboratorial.data != null}">(Última Atualização: <c:out value="${consulta.agendamento.cliente.dadoLaboratorial.data}" />)</c:if></h4>
+		<h4>Dados Laboratoriais <c:if test="${consulta.agendamento.cliente.dadoLaboratorial.data != null}">(Última Atualização: <fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${consulta.agendamento.cliente.dadoLaboratorial.data}" />)</c:if></h4>
 		
 		<div class="form-group row">
 			<div class="col-xs-3">

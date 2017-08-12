@@ -31,19 +31,19 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Cliente getClienteById(int id) {
-		return this.clienteDAO.obterPorIdCliente(id);
+		return this.clienteDAO.obterPorId(id);
 	}
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void removeCliente(int id) {
-		Cliente cliente = clienteDAO.obterPorIdCliente(id);
+		Cliente cliente = clienteDAO.obterPorId(id);
 		this.clienteDAO.excluir(cliente);
 	}
 
 	@Override
 	public List<Cliente> listClientes() {
-		return this.clienteDAO.obterTodosOsClientes();
+		return this.clienteDAO.obterTodos();
 	}
 	
 	@Override

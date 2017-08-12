@@ -12,9 +12,4 @@ public class AvaliacaoAlimentarDAOImpl extends RepositorioGenericoDados<Avaliaca
 	public AvaliacaoAlimentarDAOImpl() {
 		super(AvaliacaoAlimentar.class);
 	}
-
-	@Override
-	public void salvar(AvaliacaoAlimentar antropometria){
-		super.salvar(antropometria);
-	}
 }

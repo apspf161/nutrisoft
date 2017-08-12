@@ -121,7 +121,7 @@ public class ConsultaServiceImpl implements ConsultaService {
 	public List<Consulta> listarConsultasAnteriores(Cliente cliente) {
 		return this.consultaDAO.listarConsultasAnteriores(cliente);
 	}
-
+	
 	@Override
 	public List<Consulta> filtrarListaRelatorioAtendimento(Consulta consulta) {
 		return this.consultaDAO.listarRelatorioAtendimento(consulta);

@@ -26,12 +26,10 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Cliente;
-import com.nutrisoft.model.Consulta;
 import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.service.AgendamentoService;
 import com.nutrisoft.service.ClienteService;
 import com.nutrisoft.service.NutricionistaService;
-import com.nutrisoft.util.ValidacaoUtil;
 
 @Controller
 @RequestMapping("/agendamento")
@@ -46,13 +44,13 @@ public class AgendamentoController {
 	@Autowired
 	private NutricionistaService nutricionistaService;
 
-	@Autowired
-	private ValidacaoUtil validacaoUtil;
-
-	private static final DateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
+//	@Autowired
+//	private ValidacaoUtil validacaoUtil;
+//
+//	private static final DateFormat sdfData = new SimpleDateFormat("dd/MM/yyyy");
 	private static final DateFormat sdfDataHora = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-	private static final DateFormat sdfDataBD = new SimpleDateFormat("yyyy-MM-dd");
-	
+//	private static final DateFormat sdfDataBD = new SimpleDateFormat("yyyy-MM-dd");
+//	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdfDataHora, false));
@@ -245,8 +243,7 @@ public class AgendamentoController {
 
 		try{
 			if (idAgendamento != null) {
-				Agendamento agendamento = new Agendamento();
-				agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
+				Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
 				this.agendamentoService.confirmarConsulta(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Agendamento confirmado com sucesso.");
 			}
@@ -283,30 +280,6 @@ public class AgendamentoController {
 		}
 		
 		return new ModelAndView("redirect:/agendamento/listaAgendamento");	
-	}
-	
-	public AgendamentoService getAgendamentoService() {
-		return agendamentoService;
-	}
-
-	public void setAgendamentoService(AgendamentoService agendamentoService) {
-		this.agendamentoService = agendamentoService;
-	}
-
-	public ClienteService getClienteService() {
-		return clienteService;
-	}
-
-	public void setClienteService(ClienteService clienteService) {
-		this.clienteService = clienteService;
-	}
-
-	public NutricionistaService getNutricionistaService() {
-		return nutricionistaService;
-	}
-
-	public void setNutricionistaService(NutricionistaService nutricionistaService) {
-		this.nutricionistaService = nutricionistaService;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -364,5 +337,4 @@ public class AgendamentoController {
 
 		return new ModelAndView("redirect:/agendamento/consultaRelAgendamentos");
 	}
-
 }

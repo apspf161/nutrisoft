@@ -28,7 +28,6 @@ public abstract class RepositorioGenericoDados<T, TipoId> implements Repositorio
 	@PersistenceContext
 	private EntityManager gerenciadorDeEntidade;
 	private Class<T> clazz;
-	private Class<T> clazz_;
 
 	public RepositorioGenericoDados(Class<T> clazz) {
 		this.clazz = clazz;

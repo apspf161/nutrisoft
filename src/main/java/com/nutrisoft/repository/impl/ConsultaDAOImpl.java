@@ -84,7 +84,7 @@ public class ConsultaDAOImpl extends RepositorioGenericoDados<Consulta, Integer>
 		query.setParameter("stAgendamentoRealizado", StatusAgendamentoEnum.REALIZADO);
 	    return query.getResultList();
 	}
-	
+
 	@Override
 	public List<Consulta> listarRelatorioAtendimento(Consulta consulta) {
 		

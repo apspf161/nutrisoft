@@ -2,6 +2,7 @@ package com.nutrisoft.repository;
 
 import java.util.List;
 
+import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.model.Usuario;
 
 public interface UsuarioDAO {
@@ -12,10 +13,11 @@ public interface UsuarioDAO {
 	
 	void alterar(Usuario usuario);
 	
-	Usuario obterPorIdUsuario(Integer id);
+	Usuario obterPorId(Integer id);
 	
-	List<Usuario> obterTodosOsUsuarios();
+	List<Usuario> obterTodos();
 	
 	Usuario getUsuarioByLoginSenha(String login, String senha);
 	
+	Nutricionista getNutricionistaByLogin(String login);
 }

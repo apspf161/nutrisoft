@@ -31,6 +31,7 @@ public class DadoLaboratorial implements Serializable {
 
 	private Float acidoUrico;
 
+//	@NumberFormat(pattern = "#0.0")
 	private Float creatinina;
 
 	private Float ferritina;
@@ -90,7 +91,7 @@ public class DadoLaboratorial implements Serializable {
 	public Integer getIdCliente() {
 		return idCliente;
 	}
-
+	
 	public void setIdCliente(Integer idCliente) {
 		this.idCliente = idCliente;
 	}

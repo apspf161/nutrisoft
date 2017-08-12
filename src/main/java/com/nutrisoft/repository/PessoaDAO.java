@@ -14,5 +14,5 @@ public interface PessoaDAO {
 	
 	Pessoa obterPorId(Integer id);
 	
-	List<Pessoa> obterTodasAsPessoas();	
+	List<Pessoa> obterTodos();	
 }

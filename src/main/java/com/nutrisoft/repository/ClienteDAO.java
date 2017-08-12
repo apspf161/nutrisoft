@@ -12,9 +12,9 @@ public interface ClienteDAO {
 	
 	void alterar(Cliente cliente);
 	
-	Cliente obterPorIdCliente(Integer id);
+	Cliente obterPorId(Integer id);
 	
-	List<Cliente> obterTodosOsClientes();
+	List<Cliente> obterTodos();
 
 	List<Cliente> filtrarClientes(Cliente cliente);
 }

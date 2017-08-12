@@ -12,9 +12,9 @@ public interface NutricionistaDAO {
 	
 	void alterar(Nutricionista nutricionista);
 	
-	Nutricionista obterPorIdNutricionista(Integer id);
+	Nutricionista obterPorId(Integer id);
 	
-	List<Nutricionista> obterTodasAsNutricionistas();
+	List<Nutricionista> obterTodos();
 	
 	List<Nutricionista> buscarFiltroListaNutricionista(Nutricionista nutricionista);
 }
