@@ -12,9 +12,4 @@ public class DietaNutricionalDAOImpl extends RepositorioGenericoDados<DietaNutri
 	public DietaNutricionalDAOImpl() {
 		super(DietaNutricional.class);
 	}
-
-	@Override
-	public void salvar(DietaNutricional dietaNutricional){
-		super.salvar(dietaNutricional);
-	}
 }

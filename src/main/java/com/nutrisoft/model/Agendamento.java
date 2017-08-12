@@ -54,26 +54,25 @@ public class Agendamento {
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Nutricionista nutricionista;
 
-
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "idCliente", nullable=false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
 	private Cliente cliente;
 
-	@Transient
-	private AgendamentoState currentState;
-	
-	@Transient
-	private AgendamentoState marcadoState;
-
-	@Transient
-	private AgendamentoState confirmadoState;
-
-	@Transient
-	private AgendamentoState canceladoState;
-
-	@Transient
-	private AgendamentoState realizadoState;
+//	@Transient
+//	private AgendamentoState currentState;
+//	
+//	@Transient
+//	private AgendamentoState marcadoState;
+//
+//	@Transient
+//	private AgendamentoState confirmadoState;
+//
+//	@Transient
+//	private AgendamentoState canceladoState;
+//
+//	@Transient
+//	private AgendamentoState realizadoState;
 
 	@Transient
 	private Date dataPeriodoInicial;
@@ -84,14 +83,14 @@ public class Agendamento {
 	@Transient
 	private String turnoAgendamento;
 	
-	public Agendamento()
-	{
-		this.marcadoState = new AgendamentoMarcadoState(this);
-		this.confirmadoState = new AgendamentoConfirmadoState(this);
-		this.canceladoState = new AgendamentoCanceladoState(this);
-		this.realizadoState = new AgendamentoRealizadoState(this);
-		this.currentState = this.marcadoState;
-	}
+//	public Agendamento()
+//	{
+//		this.marcadoState = new AgendamentoMarcadoState(this);
+//		this.confirmadoState = new AgendamentoConfirmadoState(this);
+//		this.canceladoState = new AgendamentoCanceladoState(this);
+//		this.realizadoState = new AgendamentoRealizadoState(this);
+//		this.currentState = this.marcadoState;
+//	}
 
 	public Integer getIdAgendamento() {
 		return idAgendamento;
@@ -141,29 +140,29 @@ public class Agendamento {
 		this.tipoConsulta = tipoConsulta;
 	}
 
-	public void marcar() {
-		currentState.marcar(this);
-	}
-
-	public void confirmar() {
-		currentState.confirmar(this);
-	}
-
-	public void cancelar() {
-		currentState.cancelar(this);
-	}
-
-	public void realizarConsulta() {
-		currentState.realizarConsulta(this);
-	}
-
-	public AgendamentoState getCurrentState() {
-		return currentState;
-	}
-
-	public void setCurrentState(AgendamentoState currentState) {
-		this.currentState = currentState;
-	}
+//	public void marcar() {
+//		currentState.marcar(this);
+//	}
+//
+//	public void confirmar() {
+//		currentState.confirmar(this);
+//	}
+//
+//	public void cancelar() {
+//		currentState.cancelar(this);
+//	}
+//
+//	public void realizarConsulta() {
+//		currentState.realizarConsulta(this);
+//	}
+//
+//	public AgendamentoState getCurrentState() {
+//		return currentState;
+//	}
+//
+//	public void setCurrentState(AgendamentoState currentState) {
+//		this.currentState = currentState;
+//	}
 
 	public StatusAgendamentoEnum getStAgendamento() {
 //		StatusAgendamentoEnum stAgendamento = null;
@@ -190,23 +189,23 @@ public class Agendamento {
 	public void setStAgendamento(StatusAgendamentoEnum stAgendamento) {
 		this.stAgendamento = stAgendamento;
 		
-		switch (stAgendamento) {
-		case MARCADO:
-			this.currentState = this.marcadoState;
-			break;
-		case CONFIRMADO:
-			this.currentState = this.confirmadoState;
-			break;
-		case CANCELADO:
-			this.currentState = this.canceladoState;
-			break;
-		case REALIZADO:
-			this.currentState = this.realizadoState;
-			break;
-		default:
-			this.currentState = this.marcadoState;
-			break;
-		}
+//		switch (stAgendamento) {
+//		case MARCADO:
+//			this.currentState = this.marcadoState;
+//			break;
+//		case CONFIRMADO:
+//			this.currentState = this.confirmadoState;
+//			break;
+//		case CANCELADO:
+//			this.currentState = this.canceladoState;
+//			break;
+//		case REALIZADO:
+//			this.currentState = this.realizadoState;
+//			break;
+//		default:
+//			this.currentState = this.marcadoState;
+//			break;
+//		}
 	}
 
 	public Date getDataPeriodoInicial() {

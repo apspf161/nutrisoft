@@ -12,14 +12,4 @@ public class DadoLaboratorialDAOImpl extends RepositorioGenericoDados<DadoLabora
 	public DadoLaboratorialDAOImpl() {
 		super(DadoLaboratorial.class);
 	}
-
-	@Override
-	public void salvar(DadoLaboratorial dadoLaboratorial){
-		super.salvar(dadoLaboratorial);
-	}
-
-	@Override
-	public void alterar(DadoLaboratorial dadoLaboratorial){
-		super.alterar(dadoLaboratorial);
-	}
 }

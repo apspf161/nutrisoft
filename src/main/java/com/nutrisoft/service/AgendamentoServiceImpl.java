@@ -2,7 +2,6 @@ package com.nutrisoft.service;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,8 +21,10 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	
 	@Autowired
 	private AgendamentoDAO agendamentoDAO;
+	
 	@Autowired
 	private ClienteDAO clienteDAO;
+	
 	@Autowired
 	private NutricionistaDAO nutricionistaDAO;
 	
@@ -37,15 +38,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateAgendamento(Agendamento agendamento) {
-		
 		Agendamento agendamentoBanco = this.agendamentoDAO.obterPorIdAgendamento(agendamento.getIdAgendamento());
-		Cliente cliente = clienteDAO.obterPorIdCliente(agendamento.getCliente().getIdPessoa());
-		Nutricionista nutricionista = nutricionistaDAO.obterPorIdNutricionista(agendamento.getNutricionista().getIdPessoa());
-		
-		agendamento.setCliente(cliente);
-		agendamento.setNutricionista(nutricionista);		
-		
-		BeanUtils.copyProperties(agendamento, agendamentoBanco);
+		agendamentoBanco.setDataAgendamento(agendamento.getDataAgendamento());
 		this.agendamentoDAO.alterar(agendamentoBanco);
 	}
 
@@ -63,7 +57,7 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 
 	@Override
 	public List<Agendamento> listaAgendamentos() {
-		return this.agendamentoDAO.obterTodosOsAgendamentos();
+		return this.agendamentoDAO.obterTodos();
 	}	
 
 	@Override
@@ -76,8 +70,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	public void confirmarConsulta(Agendamento agendamento) {
 		
 		Agendamento agendamentoBanco = this.agendamentoDAO.obterPorIdAgendamento(agendamento.getIdAgendamento());
-		Cliente cliente = clienteDAO.obterPorIdCliente(agendamentoBanco.getCliente().getIdPessoa());
-		Nutricionista nutricionista = nutricionistaDAO.obterPorIdNutricionista(agendamentoBanco.getNutricionista().getIdPessoa());
+		Cliente cliente = clienteDAO.obterPorId(agendamentoBanco.getCliente().getIdPessoa());
+		Nutricionista nutricionista = nutricionistaDAO.obterPorId(agendamentoBanco.getNutricionista().getIdPessoa());
 
 		agendamentoBanco.setStAgendamento(StatusAgendamentoEnum.CONFIRMADO);
 		agendamentoBanco.setCliente(cliente);
@@ -89,8 +83,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void cancelarAgendamento(Agendamento agendamento) {
-		Cliente cliente = clienteDAO.obterPorIdCliente(agendamento.getCliente().getIdPessoa());
-		Nutricionista nutricionista = nutricionistaDAO.obterPorIdNutricionista(agendamento.getNutricionista().getIdPessoa());
+		Cliente cliente = clienteDAO.obterPorId(agendamento.getCliente().getIdPessoa());
+		Nutricionista nutricionista = nutricionistaDAO.obterPorId(agendamento.getNutricionista().getIdPessoa());
 		
 		agendamento.setCliente(cliente);
 		agendamento.setNutricionista(nutricionista);		
@@ -99,8 +93,8 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 		this.agendamentoDAO.alterar(agendamento);
 	}	
 
-	public List<Agendamento> listarAgendamentosDeHoje() {
-		return this.agendamentoDAO.listarAgendamentosDeHoje();
+	public List<Agendamento> listarAgendamentosNutricionistaDeHoje(Nutricionista nutricionista) {
+		return this.agendamentoDAO.listarAgendamentosNutricionistaDeHoje(nutricionista);
 	}
 
 	@Override

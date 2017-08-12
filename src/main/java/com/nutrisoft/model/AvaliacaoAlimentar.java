@@ -11,6 +11,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.NumberFormat;
+
 @Entity
 @Table(name="Avaliacao_Alimentar")
 public class AvaliacaoAlimentar implements Serializable {
@@ -49,13 +51,16 @@ public class AvaliacaoAlimentar implements Serializable {
 	private String alteracaoApetite;
 	
 	private String motivoAlteracao;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float qtdAguaDia;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float qtdLiquidoDia;
 	
 	private Boolean ingereLiquidoRefeicao;
-	
+
+	@NumberFormat(pattern = "#0,00")
 	private Float qtdLiquidoRefeicao;
 	
 	private Boolean usaSuplemento;
@@ -71,17 +76,23 @@ public class AvaliacaoAlimentar implements Serializable {
 	private String gorduraPreparoRefeicao;
 	
 	private Integer nrPessoasCozinha;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float qtdSal;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float qtdGordura;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float totSalMes;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float totSalDia;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float totOleoDia;
-	
+
+	@NumberFormat(pattern = "#0,0")
 	private Float totalOleoMes;
 
 	public char getStAcompanhamentoNutricional() {

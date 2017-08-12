@@ -7,7 +7,7 @@ public class AgendamentoRealizadoState implements AgendamentoState {
 	public AgendamentoRealizadoState(){}
 	
     public AgendamentoRealizadoState(Agendamento agendamento){
-        agendamento.setCurrentState(new AgendamentoRealizadoState());
+//        agendamento.setCurrentState(new AgendamentoRealizadoState());
     }
     
 	@Override

@@ -3,6 +3,7 @@ package com.nutrisoft.repository;
 import java.util.List;
 
 import com.nutrisoft.model.Agendamento;
+import com.nutrisoft.model.Nutricionista;
 
 public interface AgendamentoDAO {
 
@@ -14,13 +15,13 @@ public interface AgendamentoDAO {
 	
 	Agendamento obterPorIdAgendamento(Integer id);
 	
-	List<Agendamento> obterTodosOsAgendamentos();
+	List<Agendamento> obterTodos();
 	
 	List<Agendamento> filtrarAgendamentos(Agendamento agendamento);
 	
-	public List<Agendamento> listarAgendamentosDeHoje();
+	List<Agendamento> listarAgendamentosNutricionistaDeHoje(Nutricionista nutricionista);
 	
-	public Agendamento getAgendamentoById(int id);
+	Agendamento getAgendamentoById(int id);
 
 	List<Agendamento> listarRelatorioAgendamento(Agendamento agendamento);
 }

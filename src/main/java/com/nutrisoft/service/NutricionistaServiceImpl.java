@@ -31,18 +31,18 @@ public class NutricionistaServiceImpl implements NutricionistaService {
 
 	@Override
 	public Nutricionista getNutricionistaById(int id) {
-		return this.nutricionistaDAO.obterPorIdNutricionista(id);
+		return this.nutricionistaDAO.obterPorId(id);
 	}
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void removeNutricionista(int id) {
-		Nutricionista nutricionista = nutricionistaDAO.obterPorIdNutricionista(id);
+		Nutricionista nutricionista = nutricionistaDAO.obterPorId(id);
 		this.nutricionistaDAO.excluir(nutricionista);
 	}
 
 	@Override
 	public List<Nutricionista> listNutricionistas() {
-		return this.nutricionistaDAO.obterTodasAsNutricionistas();
+		return this.nutricionistaDAO.obterTodos();
 	}	
 }

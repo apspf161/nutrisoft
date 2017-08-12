@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
@@ -39,14 +40,23 @@
 					<th>Cliente</th>
 					<th>Valor</th>
 					<th>Pago</th>
+					<th>Ações</th>
 				</tr>
 				<c:forEach items="${consultas}" var="consulta">
 					<tr>
-						<td>${consulta.agendamento.dataAgendamento}</td>
+						<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${consulta.agendamento.dataAgendamento}" /></td>
 						<td>${consulta.agendamento.nutricionista.nome}</td>
 						<td>${consulta.agendamento.cliente.nome}</td>
-						<td>${consulta.valor}</td>
-						<td>${consulta.pago}</td>
+						<td>
+							<c:if test="${not empty consulta.valor}">
+								R$ <fmt:formatNumber pattern="#.00" value="${consulta.valor}" />
+							</c:if>
+						</td>
+						<td>
+							<c:if test="${consulta.pago}">Sim</c:if>
+							<c:if test="${!consulta.pago}">Não</c:if>
+						</td>
+						<td><a href="<c:url value='/consulta/historico/${consulta.idConsulta}' />" >Visualizar</a></td>
 					</tr>
 				</c:forEach>
 			</table>

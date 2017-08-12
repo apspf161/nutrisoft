@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.model.Usuario;
 import com.nutrisoft.repository.UsuarioDAO;
 
@@ -23,7 +24,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public void addUsuario(Usuario usuario) {
-		
 		this.usuarioDAO.salvar(usuario);
 	}
 
@@ -31,14 +31,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateUsuario(Usuario usuario) {
 		//Quando se tenta fazer um merge em um objeto n�o gerenciado e h� um registro na tabela usuario e nutricionista ao mesmo tempo, ocorre uma WrongClassException. Ela n�o ocorre caso o objeto seja gerenciado.
-		Usuario usuarioBanco = this.usuarioDAO.obterPorIdUsuario(usuario.getIdPessoa());
+		Usuario usuarioBanco = this.usuarioDAO.obterPorId(usuario.getIdPessoa());
 		BeanUtils.copyProperties(usuario, usuarioBanco);
 		this.usuarioDAO.alterar(usuarioBanco);
 	}
 
 	@Override
 	public Usuario getUsuarioById(int id) {
-		return this.usuarioDAO.obterPorIdUsuario(id);
+		return this.usuarioDAO.obterPorId(id);
 	}
 	
 	@Override
@@ -51,23 +51,23 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
+	public Nutricionista getNutricionistaByLogin(String login) {
+		try {
+			return this.usuarioDAO.getNutricionistaByLogin(login);
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+	
+	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void removeUsuario(int id) {
-		Usuario usuario = usuarioDAO.obterPorIdUsuario(id);
+		Usuario usuario = usuarioDAO.obterPorId(id);
 		this.usuarioDAO.excluir(usuario);
 	}
 
 	@Override
 	public List<Usuario> listUsuarios() {
-		return this.usuarioDAO.obterTodosOsUsuarios();
+		return this.usuarioDAO.obterTodos();
 	}	
-	
-	public UsuarioDAO getUsuarioDAO() {
-		return usuarioDAO;
-	}
-
-
-	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
-		this.usuarioDAO = usuarioDAO;
-	}
 }

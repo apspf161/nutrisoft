@@ -1,10 +1,13 @@
 package com.nutrisoft.controller;
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
+
 import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Antropometria;
 import com.nutrisoft.model.AvaliacaoAlimentar;
@@ -27,6 +31,7 @@ import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.service.AgendamentoService;
 import com.nutrisoft.service.ConsultaService;
 import com.nutrisoft.service.NutricionistaService;
+import com.nutrisoft.service.UsuarioService;
 
 @Controller
 @RequestMapping("/consulta")
@@ -37,6 +42,9 @@ public class ConsultaController {
 
 	@Autowired
 	private AgendamentoService agendamentoService;
+
+	@Autowired
+	private UsuarioService usuarioSerice;
 
 	@Autowired
 	private NutricionistaService nutricionistaService;
@@ -197,22 +205,11 @@ public class ConsultaController {
 		model.addObject("consultas", consultaService.listConsultas());
 		return model;
 	}
-//
-//	@RequestMapping("/remove/{id}")
-//	public String removeConsulta(@PathVariable("id") int id){
-//		this.consultaService.removeConsulta(id);
-//		return "redirect:/consulta";
-//	}
-//	
-//	@RequestMapping("/edit/{id}")
-//	public String editConsulta(@PathVariable("id") int id, Model model){
-//		model.addAttribute("consulta", this.consultaService.getConsultaById(id));
-//		return "listConsulta";
-//	}
 	
 	@RequestMapping("/listarAgendamentosDeHoje")
-	public String listarAgendamentosDeHoje(Model model) {
-		model.addAttribute("agendamentos", this.agendamentoService.listarAgendamentosDeHoje());
+	public String listarAgendamentosDeHoje(Model model, Principal principal) {
+		Nutricionista nutricionista = usuarioSerice.getNutricionistaByLogin(principal.getName());
+		model.addAttribute("agendamentos", this.agendamentoService.listarAgendamentosNutricionistaDeHoje(nutricionista));
 		return "listarAgendamentosDeHoje";
 	}
 	

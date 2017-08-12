@@ -31,17 +31,20 @@ public class Consulta implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idConsulta;
 	
-	@Column(name = "pesoCliente", precision = 4, scale = 1)  
+	@Column(name = "pesoCliente", precision = 4, scale = 1)
+	@NumberFormat(pattern = "##0,0")
 	private Float pesoCliente;
 	
-	@Column(name = "meta", precision = 4, scale = 1)  
+	@Column(name = "meta", precision = 4, scale = 1)
+	@NumberFormat(pattern = "##0,0")
 	private Float meta;	
 
 	@Column(name = "valor", precision = 5, scale = 2)
 	@NumberFormat(pattern = "#.###,###")
 	private Float valor;
 
-	@Column(name = "calorias")  
+	@Column(name = "calorias")
+	@NumberFormat(pattern = "###0")
 	private Float calorias;
 	
 	@Column(name="pago",nullable = false)
@@ -69,11 +72,6 @@ public class Consulta implements Serializable {
 	@PrimaryKeyJoinColumn(name="idConsulta")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private AvaliacaoAlimentar avaliacaoAlimentar;
-	
-//	@PrePersist
-//	protected void onCreate() {
-//		data = new Date();
-//	}
 
 	public Integer getIdConsulta() {
 		return idConsulta;
@@ -162,5 +160,4 @@ public class Consulta implements Serializable {
 	public void setFormaPgto(String formaPgto) {
 		this.formaPgto = formaPgto;
 	}
-
 }
