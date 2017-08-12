@@ -1,12 +1,12 @@
 package com.nutrisoft.model;
 
-public interface AgendamentoState {
+public abstract class AgendamentoState {
 
-	public void marcar(Agendamento agendamento);
+	public void marcar(Agendamento agendamento) throws Exception { }
 	
-	public void confirmar(Agendamento agendamento);
+	public void confirmar(Agendamento agendamento) { }
 	
-	public void cancelar(Agendamento agendamento);
+	public void cancelar(Agendamento agendamento)  { }
 	
-	public void realizarConsulta(Agendamento agendamento);
+	public void realizarConsulta(Agendamento agendamento) { }
 }

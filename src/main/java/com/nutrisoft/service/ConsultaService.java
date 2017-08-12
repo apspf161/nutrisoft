@@ -7,7 +7,7 @@ import com.nutrisoft.model.Consulta;
 
 public interface ConsultaService {
 	
-	public void addConsulta(Consulta consulta);
+	public void addConsulta(Consulta consulta) throws Exception;
 	
 	public void updateConsulta(Consulta consulta);
 	

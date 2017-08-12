@@ -207,6 +207,7 @@ public class AgendamentoController {
 			String data = sdfDataHora.format(agendamento.getDataAgendamento());
 			
 			if (agendamento.getIdAgendamento() == null) {
+				agendamento.marcar();
 				this.agendamentoService.addAgendamento(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Consulta agendada para o dia "+ data +".");
 			} else {
@@ -244,6 +245,7 @@ public class AgendamentoController {
 		try{
 			if (idAgendamento != null) {
 				Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
+				agendamento.confirmar();
 				this.agendamentoService.confirmarConsulta(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Agendamento confirmado com sucesso.");
 			}
@@ -267,6 +269,7 @@ public class AgendamentoController {
 			if (idAgendamento != null) {
 				Agendamento agendamento = new Agendamento();
 				agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
+				agendamento.cancelar();
 				this.agendamentoService.cancelarAgendamento(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Agendamento cancelado com sucesso.");
 			} 
