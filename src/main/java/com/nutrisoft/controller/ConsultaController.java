@@ -382,4 +382,35 @@ public class ConsultaController {
 
 		return mv;
 	}
+	
+	@RequestMapping(value = "/filtraRelatorioEvolucao/{txtDataInicial}/{txtDataFinal}/{txtNome}", method = RequestMethod.GET)
+	public ModelAndView filtraRelatorioEvolucao(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable String txtNome, Model model, RedirectAttributes redirectAttrs) throws ParseException {
+
+		Consulta consulta = new Consulta();
+		Agendamento agendamento = new Agendamento();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
+		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
+
+		if(txtDataInicial != null && txtDataFinal != null )
+		{
+			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
+			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
+		}
+		
+		Cliente cliente = new Cliente();
+		//Verifica se foi preenchido um text padrão para casos em que o usuário não preencher o campo.
+		txtNome = ("x$x").equals(txtNome) ? null : txtNome;
+		cliente.setNome(txtNome);
+		agendamento.setCliente(cliente);
+		consulta.setAgendamento(agendamento);
+		
+		List<Consulta> listaConsulta = consultaService.filtrarListaEvolucaoCliente(consulta);
+
+		redirectAttrs.addFlashAttribute("evolucoes", listaConsulta);
+		
+		return new ModelAndView("redirect:/consulta/consultaRelEvolucaoCliente");
+	}
+
 }

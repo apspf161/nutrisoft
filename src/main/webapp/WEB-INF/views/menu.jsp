@@ -55,12 +55,24 @@
 							<li><a href="${pageContext.request.contextPath}/consulta/listaPagamento">Consultar Pagamentos</a></li>
 						</ul>
 					</li>
-					<li><a href="${pageContext.request.contextPath}/cliente/listaCliente">Cliente</a></li>
+					
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="${pageContext.request.contextPath}/cliente/incluirCliente">Incluir Cliente</a></li>
+							<li><a href="${pageContext.request.contextPath}/cliente/listaCliente">Consultar Cliente</a></li>
+						</ul>
+					</li>
+					
+					<li><a href=""></a></li>
 				</sec:authorize>
 				
 				<sec:authorize access="hasAuthority('administrador') ">
-					<li><a href="${pageContext.request.contextPath}/usuario/listaUsuario">Usuários</a></li>
-					<%-- <li><a href="${pageContext.request.contextPath}/cliente/listaCliente">Cliente</a></li> --%>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="${pageContext.request.contextPath}/usuario/incluirUsuario">Incluir Usuário</a></li>
+							<li><a href="${pageContext.request.contextPath}/usuario/listaUsuario">Consultar Usuário</a></li>
+						</ul>
+					</li>
 				</sec:authorize>
 				<li><a href="<c:url value="j_spring_security_logout" />">Sair</a></li>
 			</ul>

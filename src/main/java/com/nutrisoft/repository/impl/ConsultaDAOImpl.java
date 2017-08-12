@@ -119,4 +119,39 @@ public class ConsultaDAOImpl extends RepositorioGenericoDados<Consulta, Integer>
 		TypedQuery<Consulta> query = getGerenciadorDeEntidade().createQuery(sql, Consulta.class);
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Consulta> listarEvolucaoCliente(Consulta consulta) {
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		String sql = "", sqlCondicao = "";
+		
+		sql += "SELECT c ";
+		sql += "FROM Consulta c \n";
+		sql += "WHERE ";
+
+		if(consulta.getAgendamento().getCliente().getNome() != null)
+		{
+			sqlCondicao += "c.agendamento.cliente.nome like '%"+ consulta.getAgendamento().getCliente().getNome()+" %'  \n";	
+		}
+		
+		if(consulta.getAgendamento().getDataPeriodoFinal() != null)
+		{
+			String dataInicio = sdf1.format(consulta.getAgendamento().getDataPeriodoInicial());
+			String dataFim = sdf1.format(consulta.getAgendamento().getDataPeriodoFinal());
+			
+			if(sqlCondicao.length() != 0)
+			{
+				sqlCondicao += "AND ";	
+			}
+			
+			sqlCondicao += "date(c.agendamento.dataAgendamento) BETWEEN '"+dataInicio+"' AND '"+dataFim+"' \n";
+		}
+		
+		sql += sqlCondicao;
+		sql += "ORDER BY c.agendamento.dataAgendamento";
+		
+		TypedQuery<Consulta> query = getGerenciadorDeEntidade().createQuery(sql, Consulta.class);
+		return query.getResultList();
+	}
 }

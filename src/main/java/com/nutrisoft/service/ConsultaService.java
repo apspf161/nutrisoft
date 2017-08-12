@@ -25,4 +25,6 @@ public interface ConsultaService {
 
 	public List<Consulta> filtrarListaRelatorioAtendimento(Consulta consulta);
 
+	public List<Consulta> filtrarListaEvolucaoCliente(Consulta consulta);
+
 }

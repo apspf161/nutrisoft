@@ -1,6 +1,6 @@
 var idSelecionado = 0;
 var dataTableCliente;
-var dataTableConsulta;
+var dataTableClienteMedidas;
 $(document).ready(function() {
 	
 	$("#txtData").keypress(function(event) {event.preventDefault();});
@@ -12,7 +12,7 @@ $(document).ready(function() {
 	 }, function(start, end, label) {
 		 $('#txtData').val(start.format('DD/MM/YYYY') + " - " + end.format('DD/MM/YYYY'));
 	 });
-	
+
 	$("#btnFiltrarRelAtendimentos").click(function() {
 		var txtData = $("input[name='txtData']").val();
 		var cmbNutricionista = $("select[name='cmbNutricionista']").val();
@@ -91,6 +91,46 @@ $(document).ready(function() {
 	    	window.location.href = $(this).attr('href');
 	    }
 	});	
+	
+	$("#btnFiltrarRelEvolucao").click(function() {
+		var txtData = $("input[name='txtData']").val();
+		var txtNome = $("input[name='txtNome']").val();
+		
+		if(txtData.length === 0 && txtNome.length == 0 ){
+			$("#alertError").removeClass("hide").addClass( "show" ).css( "opacity" , 1).show().text("Preencha pelo menos um dos campos para pesquisa.");
+	    } else {
+	    	
+	    	var txtDataInicial = "";
+			var txtDataFinal = "";
+		
+	    	if(txtData.length === 0)
+    		{
+				txtDataInicial = "x$x";
+				txtDataFinal = "x$x";    		
+    		} 
+	    	else 
+	    	{
+		    	var datas = txtData.split(" - ");
+		    	var datasI = datas[0];
+		    	var datasF = datas[1];
+		    	
+		    	var diaI = datasI.substring(0,2);
+				var mesI = datasI.substring(3,5);
+				var anoI = datasI.substring(6);
+				
+				var diaF = datasF.substring(0,2);
+				var mesF = datasF.substring(3,5);
+				var anoF = datasF.substring(6);
+				
+				var txtDataInicial = anoI + "-" + mesI + "-" + diaI;
+				var txtDataFinal = anoF + "-" + mesF + "-" + diaF;
+    		}
+	    	
+	    	$(this).attr("href", "consulta/filtraRelatorioEvolucao/"+txtDataInicial+"/"+txtDataFinal+"/"+txtNome );
+	    	window.location.href = $(this).attr('href');
+	    }
+	});	
+
 
 	$("#btnFiltrarRelPagamentos").click(function() {
 		var txtData = $("input[name='txtData']").val();
@@ -247,7 +287,7 @@ $(document).ready(function() {
 	{
 		dataTableCliente = $('#content-table-evolucao').DataTable(
 		{
-			dom: 'Bti',
+			dom: 'Bt',
 			buttons: [
 	            {
 	            	text: 'Imprimir',
@@ -278,7 +318,37 @@ $(document).ready(function() {
 					  next:     "Próxima",
 					  last:     "Última",
 				  }
-	        }
+	        },
+	        "rowReorder": {
+	        	dataSrc: 0
+	        },
+	        "ordering": false
+		});
+		
+		dataTableClienteMedidas = $('#content-table-medidas').DataTable(
+		{
+			dom: '<"clear">t',
+			"language": {
+			  	  processing:	"Processando...",
+				  search:		"Pesquisar:",
+				  lengthMenu:	"Exibir _MENU_ registros por página",
+				  info:         "Exibindo _START_ &agrave; _END_ de _TOTAL_ registros",
+				  infoEmpty:    "Nenhum registro encontrado",
+				  infoFiltered: "(filtrado de um total de _MAX_ registros)",
+				  infoPostFix:  "",
+				  zeroRecords:  "Sem registro",
+				  emptyTable:   "Sem registro",
+				  paginate: {
+					  first:    "Primeira",
+					  previous: "Anterior",
+					  next:     "Próxima",
+					  last:     "Última",
+				  }
+	        },
+	        "rowReorder": {
+	        	dataSrc: 0
+	        },
+	        "ordering": false
 		});
 	}
 	

@@ -1,4 +1,8 @@
 package com.nutrisoft.controller;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Cliente;
+import com.nutrisoft.model.Consulta;
+import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.model.Usuario;
 import com.nutrisoft.service.ClienteService;
 

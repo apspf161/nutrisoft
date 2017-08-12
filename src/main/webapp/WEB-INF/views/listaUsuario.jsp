@@ -66,9 +66,8 @@
 							</tr>
 							<tr id="buttons">
 								<td class="result" colspan="5">
-									<a id="btnInclui" href="<c:url value='/usuario/incluirUsuario' />" class="btn btn-sm btn-default"><i class="icon-plus icon-white"></i> Incluir</a>
-									<a id="btnAlterar" class="btn btn-sm btn-default" ><i class="icon-plus"></i> Alterar </a>
-									<a id="btnExcluir" class="btn btn-sm btn-default"  data-toggle="confirmation-excluir"><i class="icon-eye-open"></i> Excluir </a>
+									<a id="btnAlterar" class="btn btn-sm btn-default" ><i class="icon-plus"></i> Alterar Usuário </a>
+									<a id="btnExcluir" class="btn btn-sm btn-default"  data-toggle="confirmation-excluir"><i class="icon-eye-open"></i> Excluir Usuário</a>
 								</td>
 							</tr>
 						</tfoot>
