@@ -70,7 +70,6 @@
 
 	<!-- Configuração do message source do sistema -->
 	<beans:bean id="mensagens" class="com.nutrisoft.util.MessageResourceUTF" />
-	<beans:bean id="validacaoUtil" class="com.nutrisoft.util.ValidacaoUtil" />
 	
 	<beans:bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

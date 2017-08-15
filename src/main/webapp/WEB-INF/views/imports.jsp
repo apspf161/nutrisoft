@@ -17,6 +17,7 @@
 
 <script src="resources/js/jquery.min.js"></script>
 <script src="resources/js/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="resources/js/jquery-ui.min.js"></script>
 <script src="resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="resources/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script src="resources/js/locales/bootstrap-datetimepicker.pt-BR.js" charset="UTF-8"></script>

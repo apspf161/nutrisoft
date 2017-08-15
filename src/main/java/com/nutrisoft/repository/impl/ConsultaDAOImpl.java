@@ -123,32 +123,32 @@ public class ConsultaDAOImpl extends RepositorioGenericoDados<Consulta, Integer>
 	@Override
 	public List<Consulta> listarEvolucaoCliente(Consulta consulta) {
 		
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		String sql = "", sqlCondicao = "";
+		String sql = "";
 		
 		sql += "SELECT c ";
 		sql += "FROM Consulta c \n";
 		sql += "WHERE ";
 
-		if(consulta.getAgendamento().getCliente().getNome() != null)
+		if(consulta.getAgendamento().getCliente().getIdPessoa() != 0)
 		{
-			sqlCondicao += "c.agendamento.cliente.nome like '%"+ consulta.getAgendamento().getCliente().getNome()+" %'  \n";	
+			sql += "c.agendamento.cliente.idPessoa = "+ consulta.getAgendamento().getCliente().getIdPessoa()+"  \n";	
 		}
+
+		sql += "ORDER BY c.agendamento.dataAgendamento";
 		
-		if(consulta.getAgendamento().getDataPeriodoFinal() != null)
-		{
-			String dataInicio = sdf1.format(consulta.getAgendamento().getDataPeriodoInicial());
-			String dataFim = sdf1.format(consulta.getAgendamento().getDataPeriodoFinal());
-			
-			if(sqlCondicao.length() != 0)
-			{
-				sqlCondicao += "AND ";	
-			}
-			
-			sqlCondicao += "date(c.agendamento.dataAgendamento) BETWEEN '"+dataInicio+"' AND '"+dataFim+"' \n";
-		}
+		TypedQuery<Consulta> query = getGerenciadorDeEntidade().createQuery(sql, Consulta.class);
+		return query.getResultList();
+	}
+	
+	@Override
+	public List<Consulta> listarGraficoEvolucaoCliente(Cliente cliente) {
 		
-		sql += sqlCondicao;
+		String sql = "";
+		
+		sql += "SELECT c ";
+		sql += "FROM Consulta c \n";
+		sql += "WHERE ";
+		sql += "c.agendamento.cliente.idPessoa= "+ cliente.getIdPessoa()+" \n";	
 		sql += "ORDER BY c.agendamento.dataAgendamento";
 		
 		TypedQuery<Consulta> query = getGerenciadorDeEntidade().createQuery(sql, Consulta.class);

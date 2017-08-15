@@ -101,4 +101,9 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	public List<Agendamento> filtrarListaRelatorioAgendamento(Agendamento agendamento) {
 		return this.agendamentoDAO.listarRelatorioAgendamento(agendamento);
 	}
+
+	@Override
+	public List<Cliente> filtrarListaClienteRelatorioEvolucao(Agendamento agendamento) {
+		return this.agendamentoDAO.listarClienteRelatorioEvolucao(agendamento);
+	}
 }

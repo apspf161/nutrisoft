@@ -352,5 +352,44 @@ $(document).ready(function() {
 		});
 	}
 	
+	if($("#content-table-clientes").length > 0) 
+	{
+		dataTableCliente = $('#content-table-clientes').DataTable(
+		{
+			"dom": 'ti',
+			"language": {
+			  	  processing:	"Processando...",
+				  search:		"Pesquisar:",
+				  lengthMenu:	"Exibir _MENU_ registros por página",
+				  info:         "Exibindo _START_ &agrave; _END_ de _TOTAL_ registros",
+				  infoEmpty:    "Nenhum registro encontrado",
+				  infoFiltered: "(filtrado de um total de _MAX_ registros)",
+				  infoPostFix:  "",
+				  zeroRecords:  "Sem registro",
+				  emptyTable:   "Sem registro",
+				  paginate: {
+					  first:    "Primeira",
+					  previous: "Anterior",
+					  next:     "Próxima",
+					  last:     "Última",
+				  }
+	        },
+	        "columnDefs": [ {"targets": [ 0 ], "visible": false } ]
+		});
+		
+		$('#content-table-clientes tbody').on( 'click', 'tr', function () {
+	        if ( $(this).hasClass('selected') ) {
+	            $(this).removeClass('selected');
+	        }
+	        else {
+	        	dataTableCliente.$('tr.selected').removeClass('selected');
+	            $(this).addClass('selected');
+	            idSelecionado = dataTableCliente.row( this ).data()[0];
+	            $(this).attr("href", "consulta/montaEvolucaoPorCliente/"+idSelecionado);
+	            window.location.href = $(this).attr('href');
+	        }
+	    });
+	}
+
 	
 });

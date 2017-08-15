@@ -29,6 +29,7 @@ import com.nutrisoft.model.Consulta;
 import com.nutrisoft.model.DietaNutricional;
 import com.nutrisoft.model.Nutricionista;
 import com.nutrisoft.service.AgendamentoService;
+import com.nutrisoft.service.ClienteService;
 import com.nutrisoft.service.ConsultaService;
 import com.nutrisoft.service.NutricionistaService;
 import com.nutrisoft.service.UsuarioService;
@@ -36,7 +37,10 @@ import com.nutrisoft.service.UsuarioService;
 @Controller
 @RequestMapping("/consulta")
 public class ConsultaController {
-	
+
+	@Autowired
+	private ClienteService clienteService;
+
 	@Autowired
 	private ConsultaService consultaService;
 
@@ -70,7 +74,7 @@ public class ConsultaController {
 		agendamento.setCliente(cliente);
 		consulta.setAgendamento(agendamento);
 		consulta.setPago(true);
-		
+
 		List<Consulta> listaPagamento = consultaService.filtrarListaPagamentos(consulta);
 
 		redirectAttrs.addFlashAttribute("pagamento", listaPagamento);
@@ -101,7 +105,7 @@ public class ConsultaController {
 		mv.addObject("listaPagamento", listaPagamento);
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/filtraListaClientesParaPagamento/{txtNome}/{txtCPF}", method = RequestMethod.GET)
 	public ModelAndView filtraListaClientesParaPagamento(@PathVariable String txtNome, @PathVariable String txtCPF, Model model, RedirectAttributes redirectAttrs) {
 
@@ -118,9 +122,9 @@ public class ConsultaController {
 		agendamento.setCliente(cliente);
 		consulta.setAgendamento(agendamento);
 		consulta.setPago(false);
-		
+
 		List<Consulta> listaCliente = consultaService.filtrarListaPagamentos(consulta);
-		
+
 		redirectAttrs.addFlashAttribute("cliente", listaCliente);
 
 		return new ModelAndView("redirect:/consulta/listaClientesParaPagamento");
@@ -165,7 +169,7 @@ public class ConsultaController {
 	public ModelAndView agendarConsulta(Model model, HttpServletRequest request) {
 
 		ModelAndView mv = new ModelAndView("efetuarPagamento");
-	
+
 		Consulta consulta = new Consulta();
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		if (flashMap != null) 
@@ -181,7 +185,7 @@ public class ConsultaController {
 
 		return mv;
 	}
-	
+
 	@RequestMapping(value = "/efetuarPagamento", method = RequestMethod.POST)
 	public ModelAndView efetuarPagamentoSubmit(@ModelAttribute("consulta") Consulta consulta, BindingResult result, Model model, RedirectAttributes redirectAttrs) {
 
@@ -197,7 +201,7 @@ public class ConsultaController {
 		}
 		return new ModelAndView("redirect:/agendamento/listaClientesParaAgendamento");	
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView listConsulta() {
 		ModelAndView model = new ModelAndView("listaConsulta");
@@ -205,42 +209,42 @@ public class ConsultaController {
 		model.addObject("consultas", consultaService.listConsultas());
 		return model;
 	}
-	
+
 	@RequestMapping("/listarAgendamentosDeHoje")
 	public String listarAgendamentosDeHoje(Model model, Principal principal) {
 		Nutricionista nutricionista = usuarioSerice.getNutricionistaByLogin(principal.getName());
 		model.addAttribute("agendamentos", this.agendamentoService.listarAgendamentosNutricionistaDeHoje(nutricionista));
 		return "listarAgendamentosDeHoje";
 	}
-	
+
 	@RequestMapping(value= "/add", method = RequestMethod.GET)
 	public String iniciarConsulta(@RequestParam Integer idAgendamento, Model model) {
 		Consulta consulta = new Consulta();
-		
+
 		Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
 		consulta.setAgendamento(agendamento);
 		consulta.setAntropometria(new Antropometria());
 		consulta.setAvaliacaoAlimentar(new AvaliacaoAlimentar());
 		consulta.setDietaNutricional(new DietaNutricional());
 		model.addAttribute("consulta", consulta);
-		
+
 		List<Consulta> consultasAnteriores = this.consultaService.listarConsultasAnteriores(agendamento.getCliente());
 		model.addAttribute("consultasAnteriores", consultasAnteriores);
-		
+
 		return "consulta";
 	}
-	
+
 	@RequestMapping(value= "/add", method = RequestMethod.POST)
 	public String addConsulta(@ModelAttribute("consulta") Consulta consulta) throws Exception {
 		this.consultaService.addConsulta(consulta);
 		return "redirect:listarAgendamentosDeHoje";
 	}
-	
+
 	@RequestMapping(value="/historico/{idConsulta}", method=RequestMethod.GET)
 	public ModelAndView exibirHistoricoConsulta(@PathVariable("idConsulta") int idConsulta) {
 		return new ModelAndView("historicoConsulta", "historicoConsulta", consultaService.getConsultaById(idConsulta));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/consultaRelAtendimentos", method = RequestMethod.GET)
 	public ModelAndView consultaRelAtendimentos(Model model, HttpServletRequest request) {
@@ -267,16 +271,16 @@ public class ConsultaController {
 
 		return mv;
 	}
-	
-	
+
+
 	@RequestMapping(value = "/filtraRelatorioAtendimentos/{txtDataInicial}/{txtDataFinal}/{cmbNutricionista}", method = RequestMethod.GET)
 	public ModelAndView filtraRelatorioAtendimentos(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable Integer cmbNutricionista, Model model, RedirectAttributes redirectAttrs) throws ParseException {
 
 		Consulta consulta = new Consulta();
-				
+
 		Agendamento agendamento = new Agendamento();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
 		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
 
@@ -285,12 +289,12 @@ public class ConsultaController {
 			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
 			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
 		}
-		
+
 		Nutricionista nutricionista = new Nutricionista();
 		nutricionista.setIdPessoa(cmbNutricionista);
 		agendamento.setNutricionista(nutricionista);
 		consulta.setAgendamento(agendamento);
-		
+
 		List<Consulta> listaAtendimentos = consultaService.filtrarListaRelatorioAtendimento(consulta);
 
 		redirectAttrs.addFlashAttribute("atendimentos", listaAtendimentos);
@@ -330,10 +334,10 @@ public class ConsultaController {
 	public ModelAndView filtraRelatorioPagamentos(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable Integer cmbNutricionista, Model model, RedirectAttributes redirectAttrs) throws ParseException {
 
 		Consulta consulta = new Consulta();
-				
+
 		Agendamento agendamento = new Agendamento();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
 		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
 
@@ -342,12 +346,12 @@ public class ConsultaController {
 			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
 			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
 		}
-		
+
 		Nutricionista nutricionista = new Nutricionista();
 		nutricionista.setIdPessoa(cmbNutricionista);
 		agendamento.setNutricionista(nutricionista);
 		consulta.setAgendamento(agendamento);
-		
+
 		List<Consulta> listaPagamentos = consultaService.filtrarListaRelatorioAtendimento(consulta);
 
 		redirectAttrs.addFlashAttribute("pagamentos", listaPagamentos);
@@ -360,13 +364,12 @@ public class ConsultaController {
 	public ModelAndView consultaRelEvolucaoCliente(Model model, HttpServletRequest request) {
 
 		ModelAndView mv = new ModelAndView("consultaRelEvolucaoCliente");
-
-		List<Consulta> listaEvolucoes = new ArrayList<Consulta>();
+		List<Cliente> listaCliente = new ArrayList<Cliente>();
 
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
 		if (flashMap != null) 
 		{
-			listaEvolucoes = (List<Consulta>) model.asMap().get("evolucoes");
+			listaCliente = (List<Cliente>) model.asMap().get("cliente");
 			mv.addObject("error", (String) model.asMap().get("error"));	
 			mv.addObject("success", (String) model.asMap().get("success"));
 		}
@@ -375,18 +378,18 @@ public class ConsultaController {
 			//Não pode carregar nenhuma lista até o usuário buscar no filtro
 		}
 
-		mv.addObject("evolucoes", listaEvolucoes);
+		mv.addObject("listaCliente", listaCliente);
 
 		return mv;
 	}
-	
+
+
 	@RequestMapping(value = "/filtraRelatorioEvolucao/{txtDataInicial}/{txtDataFinal}/{txtNome}", method = RequestMethod.GET)
 	public ModelAndView filtraRelatorioEvolucao(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable String txtNome, Model model, RedirectAttributes redirectAttrs) throws ParseException {
 
-		Consulta consulta = new Consulta();
 		Agendamento agendamento = new Agendamento();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		
+
 		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
 		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
 
@@ -395,19 +398,56 @@ public class ConsultaController {
 			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
 			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
 		}
-		
+
 		Cliente cliente = new Cliente();
 		//Verifica se foi preenchido um text padrão para casos em que o usuário não preencher o campo.
 		txtNome = ("x$x").equals(txtNome) ? null : txtNome;
 		cliente.setNome(txtNome);
 		agendamento.setCliente(cliente);
-		consulta.setAgendamento(agendamento);
-		
-		List<Consulta> listaConsulta = consultaService.filtrarListaEvolucaoCliente(consulta);
 
-		redirectAttrs.addFlashAttribute("evolucoes", listaConsulta);
-		
+		List<Cliente> listaCliente = agendamentoService.filtrarListaClienteRelatorioEvolucao(agendamento);
+
+		redirectAttrs.addFlashAttribute("cliente", listaCliente);
+
 		return new ModelAndView("redirect:/consulta/consultaRelEvolucaoCliente");
 	}
+
+	@RequestMapping(value = "/montaEvolucaoPorCliente/{idCliente}", method = RequestMethod.GET)
+	public ModelAndView montaEvolucaoPorCliente(@PathVariable Integer idCliente, Model model, RedirectAttributes redirectAttrs) {
+
+		Cliente cliente = clienteService.getClienteById(idCliente);
+		redirectAttrs.addFlashAttribute("cliente", cliente);
+
+		return new ModelAndView("redirect:/consulta/relEvolucaoCliente");
+	}
+
+	@RequestMapping(value = "/relEvolucaoCliente", method = RequestMethod.GET)
+	public ModelAndView relEvolucaoCliente(Model model, HttpServletRequest request) {
+
+		ModelAndView mv = new ModelAndView("relEvolucaoCliente");
+
+		Cliente cliente = new Cliente();
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+
+		if (flashMap != null) 
+		{
+			cliente = (Cliente) model.asMap().get("cliente");
+		}
+		else
+		{
+			return new ModelAndView("redirect:/consulta/consultaRelEvolucaoCliente");	
+		}
+
+		Consulta consulta = new Consulta();
+		Agendamento agendamento = new Agendamento();
+		agendamento.setCliente(cliente);
+		consulta.setAgendamento(agendamento);
+
+		mv.addObject("evolucoes", consultaService.filtrarListaEvolucaoCliente(consulta));
+
+		return mv;
+	}
+
+
 
 }

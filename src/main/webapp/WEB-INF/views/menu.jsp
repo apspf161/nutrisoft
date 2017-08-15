@@ -37,7 +37,7 @@
 							<li><a href="${pageContext.request.contextPath}/consulta">Histórico de Consultas</a></li>
 						</ul>
 					</li>
-					<li><a href="${pageContext.request.contextPath}/consulta/consultaRelEvolucaoCliente">Gráfico de Evolução</a></li>
+					<li><a href="${pageContext.request.contextPath}/grafico/listaClientesParaGrafico">Gráfico de Evolução</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relatórios <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="${pageContext.request.contextPath}/consulta/consultaRelEvolucaoCliente">Evolução do Cliente</a></li>

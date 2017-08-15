@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,12 +53,13 @@ public class ClienteController {
 	@RequestMapping(value= "/incluirCliente", method = RequestMethod.GET)
 	public ModelAndView incluirCliente() throws Exception{
 		ModelAndView model = new ModelAndView("cliente");
-		model.addObject("cliente", new Usuario());
+		model.addObject("cliente", new Cliente());
+		model.addObject("inclusao", true);
 		return model;
 	}
-	
+
 	@RequestMapping(value= "/incluirCliente", method = RequestMethod.POST)
-	public ModelAndView incluirClienteSubmit(@ModelAttribute("cliente") Cliente cliente, Model model, RedirectAttributes redirectAttrs) throws Exception{
+	public ModelAndView incluirClienteSubmit(@ModelAttribute("cliente") Cliente cliente, BindingResult result, Model model, RedirectAttributes redirectAttrs) throws Exception{
 		
 		try{
 			if (cliente.getIdPessoa() == null) {
@@ -81,9 +83,10 @@ public class ClienteController {
 		return "redirect:/cliente";
 	}
 
-	@RequestMapping("/edit/{id}")
+	@RequestMapping("/alterarCliente/{id}")
 	public String editCliente(@PathVariable("id") int id, Model model){
 		model.addAttribute("cliente", this.clienteService.getClienteById(id));
+		model.addAttribute("inclusao", false);
 		return "cliente";
 	}
 }

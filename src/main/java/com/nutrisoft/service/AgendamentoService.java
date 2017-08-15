@@ -3,6 +3,7 @@ package com.nutrisoft.service;
 import java.util.List;
 
 import com.nutrisoft.model.Agendamento;
+import com.nutrisoft.model.Cliente;
 import com.nutrisoft.model.Nutricionista;
 
 public interface AgendamentoService {
@@ -26,4 +27,6 @@ public interface AgendamentoService {
 	List<Agendamento> listarAgendamentosNutricionistaDeHoje(Nutricionista nutricionista);
 
 	List<Agendamento> filtrarListaRelatorioAgendamento(Agendamento agendamento);
+
+	List<Cliente> filtrarListaClienteRelatorioEvolucao(Agendamento agendamento);
 }

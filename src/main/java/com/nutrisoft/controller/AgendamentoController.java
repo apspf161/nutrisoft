@@ -266,7 +266,7 @@ public class AgendamentoController {
 	public ModelAndView cancelarAgendamento(@PathVariable("idAgendamento") Integer idAgendamento, Model model, RedirectAttributes redirectAttrs) {
 
 		try{
-			if (idAgendamento != null) {
+			if (idAgendamento != 0) {
 				Agendamento agendamento = new Agendamento();
 				agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
 				agendamento.cancelar();

@@ -46,13 +46,13 @@
 						<label>Filtro </label>
 						<div class="input-group input-group-sm col-xs-4" style="margin: 10px 0 0 0;">
 							<span class="input-group-addon" id="sizing-addon3">Data</span>
-							<div class="input-group date form_datetime_dtp col-md-10" data-date-format="dd/mm/yyyy" data-link-field="dtp_input1">
+								<div class="input-group date form_datetime_dtp col-md-10" data-date-format="dd/mm/yyyy" data-link-field="dtp_input1">
 				                    <input class="form-control" size="16" type="text" name="txtData" id="txtData" readonly aria-describedby="sizing-addon3">
 									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 				                </div>
-				                <span class="input-group-btn" style="margin: 0 10px 0 0"> 
-								<a id="btnFiltrarConsulta" class="btn btn-primary btn-sm" tabindex=0 role="button">Consultar</a>
-				            </span>
+				                <span class="input-group-btn" style="margin: 0 10px 0 0; display:none;"> 
+									<a id="btnFiltrarConsulta" class="btn btn-primary btn-sm" tabindex=0 role="button" >Consultar</a>
+				            	</span>
 						</div>
 					</p>
 					

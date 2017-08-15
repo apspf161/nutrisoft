@@ -101,6 +101,7 @@ $(document).ready(function() {
 	        },
 	        //"order": [[ 1, "asc" ]],
 	        "columnDefs": [ {"targets": [ 0 ], "visible": false } ]
+	        
 		});
 		
 		$('#content-table-clientes tbody').on( 'click', 'tr', function () {
@@ -147,13 +148,15 @@ $(document).ready(function() {
 		$('#content-table-consulta tbody').on( 'click', 'tr', function () {
 	        if ( $(this).hasClass('selected') ) {
 	            $(this).removeClass('selected');
+	            idSelecionado = 0
 	        }
 	        else {
 	        	dataTableConsulta.$('tr.selected').removeClass('selected');
 	            $(this).addClass('selected');
 	            idSelecionado = dataTableConsulta.row( this ).data()[0];
-	            $("#idAgendamento").val(idSelecionado);
 	        }
+	        
+	        $("#idAgendamento").val(idSelecionado);
 	    });
 		
 	    $('#content-table-consulta tbody').on( 'click', 'tr td.details-control', function () {
@@ -200,30 +203,8 @@ $(document).ready(function() {
 
 function carregaBotoes()
 {
-	$('a#btnConfirmar').on('click', function(e) {
-		idSelecionado = $("#idAgendamento").val();
-		if(idSelecionado === 0 || idSelecionado === "" )
-		{
-		    $(".alert-danger").addClass("show");
-		    $(".alert-danger").removeClass("hide");
-		    $(".alert-danger").removeAttr("style")
-			$("#alertError").text("Selecione uma linha!");
-			return false;
-		}
-		else
-		{
-			$("[data-toggle=confirmation]").confirmation({
-				container:"body",
-				title: "Deseja confirmar o agendamento selecionado?",
-				btnOkClass:"btn btn-sm btn-success",
-				btnOkLabel:"Ok",
-				btnCancelClass:"btn btn-sm btn-danger",
-				btnCancelLabel:"Cancelar",
-				href:"agendamento/confirmarAgendamento/"+idSelecionado
-			});		
-		}
-	});
-
+	idSelecionado = $("#idAgendamento").val();
+	
 	$('a#btnAlterar').on('click', function(){
 		idSelecionado = $("#idAgendamento").val();		
 		if(idSelecionado === 0 || idSelecionado === "" )
@@ -240,31 +221,45 @@ function carregaBotoes()
 		}
 	});
 	
-
-	$('a#btnCancelar').on('click', function(){
-		idSelecionado = $("#idAgendamento").val();		
-		if(idSelecionado === 0 || idSelecionado === "" )
-		{
-		    $(".alert-danger").addClass("show");
-		    $(".alert-danger").removeClass("hide");
-		    $(".alert-danger").removeAttr("style")
-			$("#alertError").text("Selecione uma linha!");
-			return false;
-		}
-		else
-		{
-			$("[data-toggle=confirmation-cancelar]").confirmation({
-				container:"body",
-				title: "Deseja cancelar o agendamento selecionado?",
-				btnOkClass:"btn btn-sm btn-success",
-				btnOkLabel:"Ok",
-				btnCancelClass:"btn btn-sm btn-danger",
-				btnCancelLabel:"Cancelar",
-				href:"agendamento/cancelarAgendamento/"+idSelecionado
-			});		
+	$("[data-toggle=confirmation-cancelar]").confirmation({
+		container:"body",
+		title: "Deseja cancelar o agendamento selecionado?",
+		btnOkClass:"btn btn-sm btn-success",
+		btnOkLabel:"Ok",
+		btnCancelClass:"btn btn-sm btn-danger",
+		btnCancelLabel:"Cancelar",
+		href:"agendamento/cancelarAgendamento/8",
+		onConfirm:function(event, element) { 
+			if(idSelecionado === 0 || idSelecionado === "" )
+			{
+			    $(".alert-danger").addClass("show");
+			    $(".alert-danger").removeClass("hide");
+			    $(".alert-danger").removeAttr("style")
+				$("#alertError").text("Selecione uma linha!");
+			    event.preventDefault();
+			}  
 		}
 	});
-
+	
+	$("[data-toggle=confirmation]").confirmation({
+		container:"body",
+		title: "Deseja confirmar o agendamento selecionado?",
+		btnOkClass:"btn btn-sm btn-success",
+		btnOkLabel:"Ok",
+		btnCancelClass:"btn btn-sm btn-danger",
+		btnCancelLabel:"Cancelar",
+		href:"agendamento/confirmarAgendamento/"+idSelecionado,
+		onConfirm:function(event, element) { 
+			if(idSelecionado === 0 || idSelecionado === "" )
+			{
+			    $(".alert-danger").addClass("show");
+			    $(".alert-danger").removeClass("hide");
+			    $(".alert-danger").removeAttr("style")
+				$("#alertError").text("Selecione uma linha!");
+			    event.preventDefault();
+			}  
+		}
+	});		
 }
 
 function formatRowDetail ( d ) {

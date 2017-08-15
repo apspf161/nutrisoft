@@ -21,7 +21,10 @@ public class Cliente extends Pessoa {
 	private String profissao;
 
 	@Column(name="altura")
-	private Float altura;
+	private Float altura;	
+	
+	@Column(name = "motivoConsulta", columnDefinition = "TEXT")
+	private String motivoConsulta;
 	
 	@Column(name = "obs", columnDefinition = "TEXT")
 	private String obs;
@@ -94,5 +97,13 @@ public class Cliente extends Pessoa {
 
 	public void setExameLaboratorial(String exameLaboratorial) {
 		this.exameLaboratorial = exameLaboratorial;
+	}
+
+	public String getMotivoConsulta() {
+		return motivoConsulta;
+	}
+
+	public void setMotivoConsulta(String motivoConsulta) {
+		this.motivoConsulta = motivoConsulta;
 	}
 }

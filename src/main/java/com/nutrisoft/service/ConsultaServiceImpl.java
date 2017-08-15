@@ -130,4 +130,9 @@ public class ConsultaServiceImpl implements ConsultaService {
 	public List<Consulta> filtrarListaEvolucaoCliente(Consulta consulta) {
 		return this.consultaDAO.listarEvolucaoCliente(consulta);
 	}
+
+	@Override
+	public List<Consulta> filtrarListaGrafico(Cliente cliente) {
+		return this.consultaDAO.listarGraficoEvolucaoCliente(cliente);
+	}
 }
