@@ -32,7 +32,9 @@ $("#formPrc").validate({
 		<c:import url="/WEB-INF/views/menu.jsp"></c:import>
 		
 		<c:set var = "campoDesabilitado" value="${not inclusao ? 'disabled=disabled' : ''}"/>
-		
+		<c:set var = "optionPrimeiraVez" value="${agendamento.tipoConsulta == 'PRIMEIRA_VEZ' ? 'checked=checked' : '' }"/>
+		<c:set var = "optionAcompanhamento" value="${agendamento.tipoConsulta == 'ACOMPANHAMENTO' ? 'checked=checked' : '' }"/>
+				
 		<form:form action="agendamento/agendarConsulta" id="form" commandName="agendamento" method="post" class="simple_form form-horizontal" style="margin-top: 50px;">
 			<div id="page-content-wrapper">
 				<div class="panel panel-primary">
@@ -95,8 +97,8 @@ $("#formPrc").validate({
 						<div class="form-group form-inline row">
 							<div class="col-xs-12">
 								<label for="example-text-input"><fmt:message key="AG011" /></label>
-								<input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="PRIMEIRA_VEZ"  ${campoDesabilitado} checked="${tipoConsulta == 'P' ? 'checked' : '' }" required="required"><fmt:message key="AG008" />
-							    <input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="ACOMPANHAMENTO"  ${campoDesabilitado} checked="${tipoConsulta == 'A' ? 'checked' : '' }" ><fmt:message key="AG009" />
+								<input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="PRIMEIRA_VEZ"  ${campoDesabilitado} ${optionPrimeiraVez} required="required"><fmt:message key="AG008" />
+							    <input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="ACOMPANHAMENTO"  ${campoDesabilitado} ${optionAcompanhamento} ><fmt:message key="AG009" />
 
 							</div>
 						</div>

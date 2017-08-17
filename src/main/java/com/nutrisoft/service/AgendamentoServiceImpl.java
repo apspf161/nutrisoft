@@ -83,14 +83,16 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void cancelarAgendamento(Agendamento agendamento) {
+		
+		Agendamento agendamentoBanco = this.agendamentoDAO.obterPorIdAgendamento(agendamento.getIdAgendamento());
 		Cliente cliente = clienteDAO.obterPorId(agendamento.getCliente().getIdPessoa());
 		Nutricionista nutricionista = nutricionistaDAO.obterPorId(agendamento.getNutricionista().getIdPessoa());
 		
-		agendamento.setCliente(cliente);
-		agendamento.setNutricionista(nutricionista);		
+		agendamentoBanco.setCliente(cliente);
+		agendamentoBanco.setNutricionista(nutricionista);		
+		agendamentoBanco.setStAgendamento(StatusAgendamentoEnum.CANCELADO);
 		
-		agendamento.setStAgendamento(StatusAgendamentoEnum.CANCELADO);
-		this.agendamentoDAO.alterar(agendamento);
+		this.agendamentoDAO.alterar(agendamentoBanco);
 	}	
 
 	public List<Agendamento> listarAgendamentosNutricionistaDeHoje(Nutricionista nutricionista) {

@@ -154,6 +154,47 @@ $(document).ready(function() {
 	        	dataTableConsulta.$('tr.selected').removeClass('selected');
 	            $(this).addClass('selected');
 	            idSelecionado = dataTableConsulta.row( this ).data()[0];
+	            
+	            $("[data-toggle=confirmation]").confirmation({
+	        		container:"body",
+	        		title: "Deseja confirmar o agendamento selecionado?",
+	        		btnOkClass:"btn btn-sm btn-success",
+	        		btnOkLabel:"Ok",
+	        		btnCancelClass:"btn btn-sm btn-danger",
+	        		btnCancelLabel:"Cancelar",
+	        		href: "agendamento/confirmarAgendamento/"+idSelecionado,
+	        		onConfirm:function(event, element) { 
+	        			if(idSelecionado === 0 || idSelecionado === "" )
+	        			{
+	        			    $(".alert-danger").addClass("show");
+	        			    $(".alert-danger").removeClass("hide");
+	        			    $(".alert-danger").removeAttr("style")
+	        				$("#alertError").text("Selecione uma linha!");
+	        			    event.preventDefault();
+	        			}  
+	        		}
+	        	});		
+
+	            $("[data-toggle=confirmation-cancelar]").confirmation({
+	        		container:"body",
+	        		singleton: true,
+	        		title: "Deseja cancelar o agendamento selecionado?",
+	        		btnOkClass:"btn btn-sm btn-success",
+	        		btnOkLabel:"Ok",
+	        		btnCancelClass:"btn btn-sm btn-danger",
+	        		btnCancelLabel:"Cancelar",
+	        		href: "agendamento/cancelarAgendamento/"+idSelecionado,
+	        		onConfirm:function(event, element) { 
+	        			if(idSelecionado === 0 || idSelecionado === "" )
+	        			{
+	        			    $(".alert-danger").addClass("show");
+	        			    $(".alert-danger").removeClass("hide");
+	        			    $(".alert-danger").removeAttr("style")
+	        				$("#alertError").text("Selecione uma linha!");
+	        			    event.preventDefault();
+	        			}  
+	        		}
+	        	});
 	        }
 	        
 	        $("#idAgendamento").val(idSelecionado);
@@ -189,15 +230,6 @@ $(document).ready(function() {
 	    } );
 	}
 	
-/*	$('#formPrc').on('keyup keypress', function(e) {
-		
-		  var keyCode = e.keyCode || e.which;
-		  		  
-		  if (keyCode === 13) { 
-		    e.preventDefault();
-		    return false;
-		  }
-	});*/
 });
 
 
@@ -220,46 +252,6 @@ function carregaBotoes()
 		    $(this).attr("href", "agendamento/alterarAgendamento/"+idSelecionado);
 		}
 	});
-	
-	$("[data-toggle=confirmation-cancelar]").confirmation({
-		container:"body",
-		title: "Deseja cancelar o agendamento selecionado?",
-		btnOkClass:"btn btn-sm btn-success",
-		btnOkLabel:"Ok",
-		btnCancelClass:"btn btn-sm btn-danger",
-		btnCancelLabel:"Cancelar",
-		href:"agendamento/cancelarAgendamento/8",
-		onConfirm:function(event, element) { 
-			if(idSelecionado === 0 || idSelecionado === "" )
-			{
-			    $(".alert-danger").addClass("show");
-			    $(".alert-danger").removeClass("hide");
-			    $(".alert-danger").removeAttr("style")
-				$("#alertError").text("Selecione uma linha!");
-			    event.preventDefault();
-			}  
-		}
-	});
-	
-	$("[data-toggle=confirmation]").confirmation({
-		container:"body",
-		title: "Deseja confirmar o agendamento selecionado?",
-		btnOkClass:"btn btn-sm btn-success",
-		btnOkLabel:"Ok",
-		btnCancelClass:"btn btn-sm btn-danger",
-		btnCancelLabel:"Cancelar",
-		href:"agendamento/confirmarAgendamento/"+idSelecionado,
-		onConfirm:function(event, element) { 
-			if(idSelecionado === 0 || idSelecionado === "" )
-			{
-			    $(".alert-danger").addClass("show");
-			    $(".alert-danger").removeClass("hide");
-			    $(".alert-danger").removeAttr("style")
-				$("#alertError").text("Selecione uma linha!");
-			    event.preventDefault();
-			}  
-		}
-	});		
 }
 
 function formatRowDetail ( d ) {

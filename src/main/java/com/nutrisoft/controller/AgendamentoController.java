@@ -243,7 +243,7 @@ public class AgendamentoController {
 	public ModelAndView efetuarPagamentoSubmit(@PathVariable("idAgendamento") Integer idAgendamento, Model model, RedirectAttributes redirectAttrs) {
 
 		try{
-			if (idAgendamento != null) {
+			if (idAgendamento != 0) {
 				Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
 				agendamento.confirmar();
 				this.agendamentoService.confirmarConsulta(agendamento);
@@ -267,8 +267,7 @@ public class AgendamentoController {
 
 		try{
 			if (idAgendamento != 0) {
-				Agendamento agendamento = new Agendamento();
-				agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
+				Agendamento agendamento = this.agendamentoService.getAgendamentoById(idAgendamento);
 				agendamento.cancelar();
 				this.agendamentoService.cancelarAgendamento(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Agendamento cancelado com sucesso.");
