@@ -57,11 +57,11 @@
 							<span class="input-group-addon" id="sizing-addon3">Valor Pendente</span>
 							<div class="input-group date col-md-10">
 				            	<input class="form-control" size="20" type="text" name="txtValor" id="txtValor" />
-			                </div>
-
-							<span class="input-group-btn" style="margin: 0 10px 0 0"> 
-								<a id="btnFiltrarRelPagamentos" class="btn btn-primary btn-sm" tabindex=0 role="button">Consultar</a>
-							</span>
+				                
+								<span class="input-group-btn" style="margin: 0 10px 0 0"> 
+									<a id="btnFiltrarRelPagamentos" class="btn btn-primary btn-sm" tabindex=0 role="button">Consultar</a>
+								</span>
+							</div>
 						</div>
 					</p>
 				</div>	

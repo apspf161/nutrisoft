@@ -10,25 +10,22 @@
 <html>
 <head>
 <c:import url="/WEB-INF/views/imports.jsp" />
+
+<c:set value="show" var="classError"></c:set>
+
+<c:if test="${empty error}"> 
+  <c:set value="hide" var="classError"></c:set>
+</c:if> 
+
+
 </head>
 <body>
 	<c:import url="/WEB-INF/views/header.jsp"></c:import>
 	<section>
 
-		<div class="alert alert-success alert-dismissible"
-			style="display: none; margin-top: 10px;" id="myAlert">
-			<a href="#" class="close">&times;</a> <strong>Confira seu
-				e-mail! </strong>O endereço indicado receberá um e-mail com instruções de
-			como criar uma nova senha.
-		</div>
-
 		<div class="login-card">
-			<c:if test="${not empty error}">
-				<div class="alert alert-danger">
-					<c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-				</div>
-			</c:if>
-
+			<div class="alert alert-danger ${classError}" id="alertError"><c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" /></div>
+			
 			<form action="${pageContext.request.contextPath}/j_spring_security_check" class="form-signin"  method="POST" >
 			  
 				<!-- commandName="usuario"> -->

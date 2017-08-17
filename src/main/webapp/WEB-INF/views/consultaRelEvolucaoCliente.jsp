@@ -44,12 +44,12 @@
 							<div class="input-group date col-md-10">
 								<input class="form-control" size="20" type="text" name="txtData"
 									id="txtData">
-							</div>
-							<div class="input-group date col-md-2">
+							
 							<span class="input-group-btn" style="margin: 0 10px 0 0"> 
 								<a id="btnFiltrarRelEvolucao" class="btn btn-primary btn-sm" tabindex=0 role="button">Consultar</a>
 							</span>
 							</div>
+							
 						</div>
 					</p>
 					

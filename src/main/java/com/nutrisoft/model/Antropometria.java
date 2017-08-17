@@ -65,8 +65,10 @@ public class Antropometria implements Serializable {
 
 	private Integer suparaliaca;
 	
-	private Integer somatorio;
-
+	private Float percGordura;
+	
+	private String classifPercGordura;
+	
 	public Float getPesoUsual() {
 		return pesoUsual;
 	}
@@ -211,14 +213,6 @@ public class Antropometria implements Serializable {
 		this.suparaliaca = suparaliaca;
 	}
 
-	public Integer getSomatorio() {
-		return somatorio;
-	}
-
-	public void setSomatorio(Integer somatorio) {
-		this.somatorio = somatorio;
-	}
-
 	public Integer getIdAntropometria() {
 		return idAntropometria;
 	}
@@ -233,5 +227,21 @@ public class Antropometria implements Serializable {
 
 	public void setConsulta(Consulta consulta) {
 		this.consulta = consulta;
+	}
+
+	public Float getPercGordura() {
+		return percGordura;
+	}
+
+	public void setPercGordura(Float percGordura) {
+		this.percGordura = percGordura;
+	}
+
+	public String getClassifPercGordura() {
+		return classifPercGordura;
+	}
+
+	public void setClassifPercGordura(String classifPercGordura) {
+		this.classifPercGordura = classifPercGordura;
 	}
 }

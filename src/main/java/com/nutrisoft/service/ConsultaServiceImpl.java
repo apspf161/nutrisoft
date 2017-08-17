@@ -112,8 +112,13 @@ public class ConsultaServiceImpl implements ConsultaService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void efetuarPagamento(Consulta consulta) {
-		this.consultaDAO.alterar(consulta);		
+		Consulta consultaBD = this.consultaDAO.obterPorIdConsulta(consulta.getIdConsulta());
+		consultaBD.setValor(consulta.getValor());
+		consultaBD.setFormaPgto(consulta.getFormaPgto());
+		consultaBD.setPago(true);
+		this.consultaDAO.alterar(consultaBD);		
 	}	
 	
 	@Override

@@ -96,7 +96,7 @@ $("#formPrc").validate({
 			    
 						<div class="form-group form-inline row">
 							<div class="col-xs-12">
-								<label for="example-text-input"><fmt:message key="AG011" /></label>
+								<label for="example-text-input"><fmt:message key="AG011" /></label>${agendamento.tipoConsulta}
 								<input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="PRIMEIRA_VEZ"  ${campoDesabilitado} ${optionPrimeiraVez} required="required"><fmt:message key="AG008" />
 							    <input class="form-check-input" type="radio" name="tipoConsulta" id="tipoConsulta" value="ACOMPANHAMENTO"  ${campoDesabilitado} ${optionAcompanhamento} ><fmt:message key="AG009" />
 

@@ -1,17 +1,25 @@
 package com.nutrisoft.controller;
 import java.security.Principal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomBooleanEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +60,22 @@ public class ConsultaController {
 
 	@Autowired
 	private NutricionistaService nutricionistaService;
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+
+		DecimalFormat decimalFormat = new DecimalFormat();
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator('.');
+		decimalFormat.setDecimalFormatSymbols(symbols);
+
+		decimalFormat.setMaximumIntegerDigits(5);
+		decimalFormat.setMaximumFractionDigits(2);
+		binder.registerCustomEditor(Float.class, new CustomNumberEditor(Float.class, decimalFormat, true));
+		
+		binder.registerCustomEditor(Boolean.class, new CustomBooleanEditor(false));
+	} 
+
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView menuConsulta() {
@@ -166,7 +190,7 @@ public class ConsultaController {
 
 
 	@RequestMapping(value = "/efetuarPagamento", method = RequestMethod.GET)
-	public ModelAndView agendarConsulta(Model model, HttpServletRequest request) {
+	public ModelAndView efetuarPagamento(Model model, HttpServletRequest request) {
 
 		ModelAndView mv = new ModelAndView("efetuarPagamento");
 
@@ -199,7 +223,7 @@ public class ConsultaController {
 		catch(Exception e){
 			redirectAttrs.addFlashAttribute("error", "Erro ao Efetuar um Pagamento");
 		}
-		return new ModelAndView("redirect:/agendamento/listaClientesParaAgendamento");	
+		return new ModelAndView("redirect:/consulta/listaClientesParaPagamento");	
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

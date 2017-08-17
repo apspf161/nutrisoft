@@ -92,11 +92,8 @@ $("#formPrc").validate({
 						<div class="form-group form-inline row">
 							<div class="col-xs-12">
 								<label for="example-text-input"><fmt:message key="AG012" /></label>
-								<input class="form-check-input" type="radio" name="formaPgto"
-									id="formaPgto" value="DINHEIRO" required="required">
-								<fmt:message key="AG013" />
-								<input class="form-check-input" type="radio" name="formaPgto"
-									id="formaPgto" value="CHEQUE">
+								<input class="form-check-input" type="radio" name="formaPgto" id="formaPgto" value="DINHEIRO" required="required"><fmt:message key="AG013" /> 
+								<input class="form-check-input" type="radio" name="formaPgto" id="formaPgto" value="CHEQUE">
 								<fmt:message key="AG014" />
 							</div>
 						</div>
@@ -104,8 +101,7 @@ $("#formPrc").validate({
 						<div class="form-group row">
 							<div class="col-xs-2">
 								<label for="example-text-input"><fmt:message key="AG015" /></label>
-								<input class="form-control" id="valor" name="valor" type="text" class="currency" pattern="([0-9]{1,3}\.)?[0-9]{1,3},[0-9]{2}$" value="${valor}">
-								 <!-- <input  value="1000"  data-number-stepfactor="100"  id="c1" /> -->
+								<input class="form-control" id="valor" name="valor" type="text"  value="${valor}">
 							</div>
 						</div>
 
@@ -115,6 +111,10 @@ $("#formPrc").validate({
 					</div>
 				</div>
 			</div>
+			
+			<input type="hidden" name="idConsulta" value="${consulta.idConsulta}" />
+			<input type="hidden" name="idAgendamento" value="${consulta.agendamento.idAgendamento}" />
+			
 		</form:form>
 	</div>
 

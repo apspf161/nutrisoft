@@ -34,12 +34,7 @@ public class ConsultaDAOImpl extends RepositorioGenericoDados<Consulta, Integer>
 	public void excluir(Consulta consulta){
 		super.excluir(consulta);
 	}
-	
-	@Override
-	public void alterar(Consulta consulta){
-		super.alterar(consulta);
-	}
-	
+		
 	@Override
 	public List<Consulta> obterTodasAsConsultas() {
 		return this.obterTodos();

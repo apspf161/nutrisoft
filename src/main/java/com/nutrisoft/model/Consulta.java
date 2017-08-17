@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.NumberFormat;
 
 @Entity
@@ -47,7 +48,7 @@ public class Consulta implements Serializable {
 	@NumberFormat(pattern = "###0")
 	private Float calorias;
 	
-	@Column(name="pago",nullable = false)
+	@Column(name = "pago", columnDefinition = "BIT", length = 1)
 	private Boolean pago;
 	
 	@Column(name="formaPgto")

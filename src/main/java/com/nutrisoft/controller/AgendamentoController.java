@@ -240,7 +240,7 @@ public class AgendamentoController {
 	}
 		
 	@RequestMapping(value = "/confirmarAgendamento/{idAgendamento}", method = RequestMethod.GET)
-	public ModelAndView efetuarPagamentoSubmit(@PathVariable("idAgendamento") Integer idAgendamento, Model model, RedirectAttributes redirectAttrs) {
+	public ModelAndView confirmarAgendamento(@PathVariable("idAgendamento") Integer idAgendamento, Model model, RedirectAttributes redirectAttrs) {
 
 		try{
 			if (idAgendamento != 0) {
