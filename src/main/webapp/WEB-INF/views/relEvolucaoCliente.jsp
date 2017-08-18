@@ -70,7 +70,7 @@
 									<td><c:out value= "${hoje.year - lista.agendamento.cliente.dataNascimento.year}    "/></td>  
 									<td>${lista.antropometria.pesoDesejavel}</td>
 									<td>${lista.agendamento.cliente.altura}</td>
-									<td>${lista.imc}</td>
+									<td>${lista.imc}</td>									
 									<td>Médio</td>
 								</tr>
 							</c:forEach>

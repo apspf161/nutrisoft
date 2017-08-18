@@ -1,6 +1,7 @@
 package com.nutrisoft.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -167,9 +168,13 @@ public class Consulta implements Serializable {
 	}
 
 	public double getImc() {
+/*		
+		DecimalFormat df = new DecimalFormat("0.##");
+		String dx = df.format(valor);*/
 		
 		if(this.agendamento != null && this.agendamento.getCliente() != null){
-			return this.pesoCliente / (this.agendamento.getCliente().getAltura() * this.agendamento.getCliente().getAltura());
+			double imc = this.pesoCliente / (this.agendamento.getCliente().getAltura() * this.agendamento.getCliente().getAltura());
+			return imc;
 		} else {
 			return 0;
 		}
