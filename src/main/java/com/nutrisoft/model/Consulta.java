@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -48,7 +49,7 @@ public class Consulta implements Serializable {
 	@NumberFormat(pattern = "###0")
 	private Float calorias;
 	
-	@Column(name = "pago", columnDefinition = "BIT", length = 1)
+	@Column(name = "pago")
 	private Boolean pago;
 	
 	@Column(name="formaPgto")
@@ -74,6 +75,9 @@ public class Consulta implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private AvaliacaoAlimentar avaliacaoAlimentar;
 
+	@Transient
+	private double imc;
+	
 	public Integer getIdConsulta() {
 		return idConsulta;
 	}
@@ -160,5 +164,14 @@ public class Consulta implements Serializable {
 
 	public void setFormaPgto(String formaPgto) {
 		this.formaPgto = formaPgto;
+	}
+
+	public double getImc() {
+		
+		if(this.agendamento != null && this.agendamento.getCliente() != null){
+			return this.pesoCliente / (this.agendamento.getCliente().getAltura() * this.agendamento.getCliente().getAltura());
+		} else {
+			return 0;
+		}
 	}
 }

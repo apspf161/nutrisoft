@@ -83,21 +83,22 @@ public class ConsultaController {
 	}
 
 	@RequestMapping(value = "/filtraListaPagamento/{txtNome}/{txtCPF}", method = RequestMethod.GET)
-	public ModelAndView filtraListaAdesao(@PathVariable String txtNome, @PathVariable String txtCPF, Model model, RedirectAttributes redirectAttrs) throws ParseException {
+	public ModelAndView filtraListaPagamento(@PathVariable String txtNome, @PathVariable String txtCPF, Model model, RedirectAttributes redirectAttrs) throws ParseException {
 
 		Consulta consulta = new Consulta();
 		Agendamento agendamento = new Agendamento();
 		Cliente cliente = new Cliente();
+		Boolean valorPendente = false;
 
 		//Verifica se foi preenchido um text padrão para casos em que o usuário não preencher o campo.
 		txtNome = ("x$x").equals(txtNome) ? null : txtNome;
 		txtCPF = ("x$x").equals(txtCPF) ? null : txtCPF;
-
+		
 		cliente.setNome(txtNome);
 		cliente.setCpf(txtCPF);
 		agendamento.setCliente(cliente);
 		consulta.setAgendamento(agendamento);
-		consulta.setPago(true);
+		consulta.setPago(valorPendente);
 
 		List<Consulta> listaPagamento = consultaService.filtrarListaPagamentos(consulta);
 
@@ -318,7 +319,8 @@ public class ConsultaController {
 		nutricionista.setIdPessoa(cmbNutricionista);
 		agendamento.setNutricionista(nutricionista);
 		consulta.setAgendamento(agendamento);
-
+		consulta.setPago(null);
+		
 		List<Consulta> listaAtendimentos = consultaService.filtrarListaRelatorioAtendimento(consulta);
 
 		redirectAttrs.addFlashAttribute("atendimentos", listaAtendimentos);
@@ -354,28 +356,35 @@ public class ConsultaController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/filtraRelatorioPagamentos/{txtDataInicial}/{txtDataFinal}/{cmbNutricionista}/{txtValor}", method = RequestMethod.GET)
-	public ModelAndView filtraRelatorioPagamentos(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable Integer cmbNutricionista, Model model, RedirectAttributes redirectAttrs) throws ParseException {
+	@RequestMapping(value = "/filtraRelatorioPagamentos/{txtDataInicial}/{txtDataFinal}/{cmbNutricionista}/{cmbValor}", method = RequestMethod.GET)
+	public ModelAndView filtraRelatorioPagamentos(@PathVariable String txtDataInicial, @PathVariable String txtDataFinal, @PathVariable Integer cmbNutricionista, @PathVariable String cmbValor,  Model model, RedirectAttributes redirectAttrs) throws ParseException {
 
 		Consulta consulta = new Consulta();
 
 		Agendamento agendamento = new Agendamento();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-
+		Boolean valorPendente = null;
+		
 		txtDataInicial = ("x$x").equals(txtDataInicial) ? null : txtDataInicial;
 		txtDataFinal = ("x$x").equals(txtDataFinal) ? null : txtDataFinal;
-
+		cmbValor = ("x$x").equals(cmbValor) ? null : cmbValor;
+		
 		if(txtDataInicial != null && txtDataFinal != null )
 		{
 			agendamento.setDataPeriodoInicial(sdf1.parse(txtDataInicial));
 			agendamento.setDataPeriodoFinal(sdf1.parse(txtDataFinal));
+		}
+		
+		if(cmbValor != null){
+			valorPendente = "0".equals(cmbValor) ? false : true;
 		}
 
 		Nutricionista nutricionista = new Nutricionista();
 		nutricionista.setIdPessoa(cmbNutricionista);
 		agendamento.setNutricionista(nutricionista);
 		consulta.setAgendamento(agendamento);
-
+		consulta.setPago(valorPendente);
+		
 		List<Consulta> listaPagamentos = consultaService.filtrarListaRelatorioAtendimento(consulta);
 
 		redirectAttrs.addFlashAttribute("pagamentos", listaPagamentos);

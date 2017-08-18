@@ -94,6 +94,11 @@ public class ConsultaDAOImpl extends RepositorioGenericoDados<Consulta, Integer>
 		{
 			sqlCondicao += "c.agendamento.nutricionista.idPessoa = '"+ consulta.getAgendamento().getNutricionista().getIdPessoa()+"'  \n";	
 		}
+
+		if(consulta.getPago() != null)
+		{
+			sqlCondicao += "c.pago = "+ consulta.getPago() +"  \n";	
+		}
 		
 		if(consulta.getAgendamento().getDataPeriodoFinal() != null)
 		{

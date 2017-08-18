@@ -56,7 +56,12 @@
 						<div class="input-group input-group-sm col-xs-5" style="margin: 10px 0 0 0;">
 							<span class="input-group-addon" id="sizing-addon3">Valor Pendente</span>
 							<div class="input-group date col-md-10">
-				            	<input class="form-control" size="20" type="text" name="txtValor" id="txtValor" />
+				            	<!-- <input class="form-control" size="20" type="text" name="txtValor" id="txtValor" /> -->
+								<select class="form-control" name="cmbValor" >
+									<option value=""></option>
+									<option value="1">Sim</option>
+									<option value="0">Não</option>
+								</select>
 				                
 								<span class="input-group-btn" style="margin: 0 10px 0 0"> 
 									<a id="btnFiltrarRelPagamentos" class="btn btn-primary btn-sm" tabindex=0 role="button">Consultar</a>

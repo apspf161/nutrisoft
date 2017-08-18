@@ -135,7 +135,7 @@ $(document).ready(function() {
 	$("#btnFiltrarRelPagamentos").click(function() {
 		var txtData = $("input[name='txtData']").val();
 		var cmbNutricionista = $("select[name='cmbNutricionista']").val();
-		var txtValor = $("input[name='txtValor']").val();
+		var cmbValor = $("select[name='cmbValor']").val();
 		
 		if(txtData.length === 0 ){
 			$("#alertError").removeClass("hide").addClass( "show" ).css( "opacity" , 1).show().text("Período é um campo obrigatório.");
@@ -144,6 +144,10 @@ $(document).ready(function() {
 	    	var txtDataInicial = "";
 			var txtDataFinal = "";
 		
+			if(cmbValor.length === 0){
+				cmbValor = "x$x";
+			}
+			
 	    	if(txtData.length === 0)
     		{
 				txtDataInicial = "x$x";
@@ -167,7 +171,7 @@ $(document).ready(function() {
 				var txtDataFinal = anoF + "-" + mesF + "-" + diaF;
     		}
 	    	
-	    	$(this).attr("href", "consulta/filtraRelatorioPagamentos/"+txtDataInicial+"/"+txtDataFinal+"/"+cmbNutricionista+"/0" );
+	    	$(this).attr("href", "consulta/filtraRelatorioPagamentos/"+txtDataInicial+"/"+txtDataFinal+"/"+cmbNutricionista+"/"+cmbValor );
 	    	window.location.href = $(this).attr('href');
 	    }
 	});	

@@ -27,6 +27,8 @@
 	<c:set value="none" var="displayTable"></c:set>
 </c:if>
 
+<jsp:useBean id="hoje" class="java.util.Date" scope="request" />   
+
 </head>
 <body>
 	<c:import url="/WEB-INF/views/header.jsp"></c:import>
@@ -65,11 +67,11 @@
 									<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${lista.agendamento.dataAgendamento}" /></td>
 									<td>${lista.agendamento.nutricionista.nome}</td>
 									<td>${lista.agendamento.cliente.nome}</td>
-									<td>Idade</td>
+									<td><c:out value= "${hoje.year - lista.agendamento.cliente.dataNascimento.year}    "/></td>  
 									<td>${lista.antropometria.pesoDesejavel}</td>
 									<td>${lista.agendamento.cliente.altura}</td>
-									<td>IMC</td>
-									<td>Risco de Comorbidades</td>
+									<td>${lista.imc}</td>
+									<td>Médio</td>
 								</tr>
 							</c:forEach>
 						</tbody>
