@@ -26,17 +26,16 @@
 		<c:set var = "campoDesabilitado" value="${not inclusao ? 'disabled=disabled' : ''}"/>
 		
 		<form:form action="cliente/incluirCliente" commandName="cliente" method="POST" class="simple_form form-horizontal" style="margin-top: 50px;">
+			<form:hidden path="idPessoa" id="idPessoa" />
 			<div id="page-content-wrapper">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<c:if test="${ inclusao}"><fmt:message key='AG024' /></c:if>
 						<c:if test="${ not inclusao}"><fmt:message key='AG025' /></c:if>
-						
 						<a id="voltar" href="cliente/listaCliente" class="btn btn-info btn-xs" style="float: right;" role="button"><fmt:message key='AG026' /></a>
 					</div>
 						
 					<div class="panel-body">
-
  						<c:if test="${not empty error}">
 							<div class="alert alert-danger">${error}</div>
 						</c:if>
@@ -100,6 +99,7 @@
 							<div class="col-xs-4">
 								<form:label path="cep">CEP</form:label>
 								<form:input path="cep" cssClass="form-control" />
+
 							</div>
 						</div>
 
@@ -163,11 +163,10 @@
 						<div class="text-center" style="margin: 10px 0 20px 0;"> 
 							<button type="submit" class="btn btn-primary">Salvar</button> 
 						</div>
+					</div>
 				</div>
 			</div>
-			</div>
 			
-			<input type="hidden" name="cliente.idPessoa" id="idPessoa" value="5" />
 		</form:form>
 	</div>
 

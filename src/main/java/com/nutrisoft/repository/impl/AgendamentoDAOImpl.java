@@ -26,9 +26,19 @@ public class AgendamentoDAOImpl extends RepositorioGenericoDados<Agendamento, In
 	public List<Agendamento> filtrarAgendamentos(Agendamento agendamento) {
 		TypedQuery<Agendamento> query = getGerenciadorDeEntidade().createQuery("select a from Agendamento a where date(a.dataAgendamento) = :dataSelecionada and a.stAgendamento = :stAgendamentoMarcado order by a.dataAgendamento", Agendamento.class);
 		query.setParameter("dataSelecionada", agendamento.getDataAgendamento(), TemporalType.DATE);
-		query.setParameter("stAgendamentoMarcado", StatusAgendamentoEnum.MARCADO);
+		
+		query.setParameter("stAgendamentoMarcado", agendamento.getStAgendamento());
+		
 		return query.getResultList();
 	}
+
+	@Override
+	public List<Agendamento> filtrarListaAgendamentosExistentes(Agendamento agendamento) {
+		TypedQuery<Agendamento> query = getGerenciadorDeEntidade().createQuery("select a from Agendamento a where date(a.dataAgendamento) = :dataSelecionada order by a.dataAgendamento", Agendamento.class);
+		query.setParameter("dataSelecionada", agendamento.getDataAgendamento(), TemporalType.DATE);
+		return query.getResultList();
+	}	
+	
 
 	@Override
 	public Agendamento obterPorIdAgendamento(Integer id) {

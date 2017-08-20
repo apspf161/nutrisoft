@@ -40,522 +40,532 @@
 			<form:hidden path="idConsulta" />
 			<form:hidden path="agendamento.idAgendamento" />
 			<form:hidden path="pago" value="false" />
-			<%-- <div class="form-group row">
-				<div class="col-xs-6">
-		    		<form:label path="valor">Valor</form:label>
-					<form:input path="valor" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-6">
-		    		<form:label path="pago">Pago</form:label>
-					<form:select path="pago" cssClass="form-control">
-						<form:option value="false">Não</form:option>
-						<form:option value="true">Sim</form:option>
-					</form:select>
-				</div>
-			</div>  --%>
-						
-			<c:if test="${!empty consultasAnteriores}">
-				<div class="page-header">
-					<h4>Consultas Anteriores</h4>
-				</div>
-				
-				<table class="table">
-					<tr>
-						<th>Data / Hora</th>
-						<th>Nutricionista</th>
-						<th>Ações</th>
-					</tr>
-					<c:forEach items="${consultasAnteriores}" var="consultaAnterior">
-						<tr>
-							<td><fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${consultaAnterior.agendamento.dataAgendamento}" /></td>
-							<td>${consultaAnterior.agendamento.nutricionista.nome}</td>
-							<td><a href="<c:url value='/consulta/historico/${consultaAnterior.idConsulta}' />" >Visualizar</a></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</c:if>
+			<form:hidden path="agendamento.cliente.idade" id="idade" />
+			<form:hidden path="agendamento.cliente.sexo" id="sexo" />
 			
-			<h4>Avaliação Antropométrica</h4>
-						
-			<div class="form-group row">
-				<div class="col-xs-2">
-		    		<label>Data da Consulta</label>
-					<p class="form-control-static"><fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${consulta.agendamento.dataAgendamento}" /></p>
-				</div>
-				<div class="col-xs-4">
-		    		<label>Nome</label>
-					<p class="form-control-static"><c:out value="${consulta.agendamento.cliente.nome}" /></p>
-				</div>
-				<div class="col-xs-3">
-		    		<label>Data de Nascimento</label>
-					<p class="form-control-static"><fmt:formatDate pattern="dd/MM/yyyy" value="${consulta.agendamento.cliente.dataNascimento}" /></p>
-				</div>
-				<div class="col-xs-3">
-		    		<label>Altura</label>
-					<form:hidden path="agendamento.cliente.altura" id="altura" />
-					<p class="form-control-static"><fmt:formatNumber pattern="#.00" value="${consulta.agendamento.cliente.altura}" />m</p>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="pesoCliente">Peso Atual</form:label>
-					<form:input path="pesoCliente" cssClass="form-control maskPeso" id="peso" />
-				</div>
-				<div class="col-xs-3">
-		    		<label>IMC</label>
-		    		<p class="form-control-static" id="imc">&nbsp;</p>
-				</div>
-				<div class="col-xs-3">
-		    		<label>TMB</label>
-		    		<p class="form-control-static" id="tmb">&nbsp;</p>
-				</div>
-				<div class="col-xs-3">
-		    		<label>VET</label>
-		    		<p class="form-control-static" id="vet">&nbsp;</p>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="meta">Meta de Peso</form:label>
-					<form:input path="meta" cssClass="form-control maskPeso" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="calorias">Calorias</form:label>
-					<form:input path="calorias" cssClass="form-control maskNumerico" maxlength="4" />
-				</div>
-	    		<div class="col-xs-3">
-			    	<form:label path="antropometria.pesoUsual">Peso Usual</form:label>
-					<form:input path="antropometria.pesoUsual" cssClass="form-control maskPeso" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.pesoDesejavel">Peso Desejável</form:label>
-					<form:input path="antropometria.pesoDesejavel" cssClass="form-control maskPeso" />
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.torax">Tórax</form:label>
-					<form:input path="antropometria.torax" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.bracoRelaxado">Braço Relaxado</form:label>
-					<form:input path="antropometria.bracoRelaxado" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.bracoFletido">Braço Fletido</form:label>
-					<form:input path="antropometria.bracoFletido" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.cintura">Cintura</form:label>
-					<form:input path="antropometria.cintura" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.abdomen">Abdômen</form:label>
-					<form:input path="antropometria.abdomen" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.quadril">Quadril</form:label>
-					<form:input path="antropometria.quadril" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.coxa">Coxa</form:label>
-					<form:input path="antropometria.coxa" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.coxaProximal">Coxa Proximal</form:label>
-					<form:input path="antropometria.coxaProximal" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.panturrilha">Panturrilha</form:label>
-					<form:input path="antropometria.panturrilha" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.triciptal">Triciptal</form:label>
-					<form:input path="antropometria.triciptal" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.peitoral">Peitoral</form:label>
-					<form:input path="antropometria.peitoral" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.axilarMedia">Axilar Média</form:label>
-					<form:input path="antropometria.axilarMedia" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.coxaMedial">Coxa Medial</form:label>
-					<form:input path="antropometria.coxaMedial" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.subescapular">Subescapular</form:label>
-					<form:input path="antropometria.subescapular" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.abdominal">Abdominal</form:label>
-					<form:input path="antropometria.abdominal" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.suparaliaca">Supra Ilíaca</form:label>
-					<form:input path="antropometria.suparaliaca" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="antropometria.somatorio">Somatório</form:label>
-					<form:input path="antropometria.somatorio" cssClass="form-control maskNumerico" maxlength="11" />
-				</div>
-				<div class="col-xs-9">
-				</div>
-			</div>
-			
-			<h4>Avaliação Alimentar</h4>
-					
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="avaliacaoAlimentar.stAcompanhamentoNutricional">Fez Acompanhamento Anterior?</form:label>
-					<form:select path="avaliacaoAlimentar.stAcompanhamentoNutricional" cssClass="form-control">
-						<form:option value="N">Não</form:option>
-						<form:option value="S">Sim</form:option>
-					</form:select>
-				</div>
-				<div class="col-xs-9">
-		    		<form:label path="avaliacaoAlimentar.nutricionistaAcompanhamentoAnterior">Nome da Nutricionista</form:label>
-					<form:input path="avaliacaoAlimentar.nutricionistaAcompanhamentoAnterior" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
+			<div class="row">
 				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.objetivoAcompanhamento">Objetivo do Acompanhamento</form:label>
-					<form:input path="avaliacaoAlimentar.objetivoAcompanhamento" cssClass="form-control" maxlength="100"/>
+					<div class="card">
+						<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation" class="active"><a href="#avaliacaoAntropometrica" aria-controls="avaliacaoAntropometrica" role="tab" data-toggle="tab">Avaliação Antropométrica</a></li>
+							<li role="presentation"><a href="#avaliacaoAlimentar" aria-controls="avaliacaoAlimentar" role="tab" data-toggle="tab">Avaliação Alimentar</a></li>
+							<li role="presentation"><a href="#dietaNutricional" aria-controls="dietaNutricional" role="tab" data-toggle="tab">Dieta Nutricional</a></li>
+							<li role="presentation"><a href="#dadosLaboratoriais" aria-controls="dadosLaboratoriais" role="tab" data-toggle="tab">Dados Laboratoriais</a></li>
+							<li role="presentation"><a href="#consultasAnteriores" aria-controls="consultasAnteriores" role="tab" data-toggle="tab">Consultas Anteriores</a></li>
+						</ul>
+						<div class="tab-content">
+						    <div role="tabpanel" class="tab-pane active" id="avaliacaoAntropometrica">
+								<div class="form-group row">
+									<div class="col-xs-2">
+							    		<label>Data da Consulta</label>
+										<p class="form-control-static"><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${consulta.agendamento.dataAgendamento}" /></p>
+									</div>
+									<div class="col-xs-4">
+							    		<label>Nome</label>
+										<p class="form-control-static"><c:out value="${consulta.agendamento.cliente.nome}" /></p>
+									</div>
+									<div class="col-xs-3">
+							    		<label>Data de Nascimento</label>
+										<p class="form-control-static"><fmt:formatDate pattern="dd/MM/yyyy" value="${consulta.agendamento.cliente.dataNascimento}" /></p>
+									</div>
+									<div class="col-xs-3">
+							    		<label>Altura</label>
+										<form:hidden path="agendamento.cliente.altura" id="altura" />
+										<p class="form-control-static"><fmt:formatNumber pattern="#.00" value="${consulta.agendamento.cliente.altura}" />m</p>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="pesoCliente">Peso Atual</form:label>
+										<form:input path="pesoCliente" cssClass="form-control maskPeso" id="peso" />
+									</div>
+									<div class="col-xs-3">
+							    		<label>IMC</label>
+							    		<p class="form-control-static" id="imc"><spring:bind path="imc">${status.value}</spring:bind></p>
+									</div>
+									<div class="col-xs-3">
+							    		<label>TMB</label>
+							    		<p class="form-control-static" id="tmb"><spring:bind path="tmb">${status.value}</spring:bind></p>
+									</div>
+									<div class="col-xs-3">
+							    		<label>VET</label>
+							    		<p class="form-control-static" id="vet"><spring:bind path="vet">${status.value}</spring:bind></p>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="meta">Meta de Peso</form:label>
+										<form:input path="meta" cssClass="form-control maskPeso" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="calorias">Calorias</form:label>
+										<form:input path="calorias" cssClass="form-control maskNumerico" maxlength="4" />
+									</div>
+						    		<div class="col-xs-3">
+								    	<form:label path="antropometria.pesoUsual">Peso Usual</form:label>
+										<form:input path="antropometria.pesoUsual" cssClass="form-control maskPeso" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.pesoDesejavel">Peso Desejável</form:label>
+										<form:input path="antropometria.pesoDesejavel" cssClass="form-control maskPeso" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.torax">Tórax</form:label>
+										<form:input path="antropometria.torax" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.bracoRelaxado">Braço Relaxado</form:label>
+										<form:input path="antropometria.bracoRelaxado" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.bracoFletido">Braço Fletido</form:label>
+										<form:input path="antropometria.bracoFletido" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.cintura">Cintura</form:label>
+										<form:input path="antropometria.cintura" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.abdomen">Abdômen</form:label>
+										<form:input path="antropometria.abdomen" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.quadril">Quadril</form:label>
+										<form:input path="antropometria.quadril" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.coxa">Coxa</form:label>
+										<form:input path="antropometria.coxa" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.coxaProximal">Coxa Proximal</form:label>
+										<form:input path="antropometria.coxaProximal" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.panturrilha">Panturrilha</form:label>
+										<form:input path="antropometria.panturrilha" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.triciptal">Triciptal</form:label>
+										<form:input path="antropometria.triciptal" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.peitoral">Peitoral</form:label>
+										<form:input path="antropometria.peitoral" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.axilarMedia">Axilar Média</form:label>
+										<form:input path="antropometria.axilarMedia" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.coxaMedial">Coxa Medial</form:label>
+										<form:input path="antropometria.coxaMedial" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.subescapular">Subescapular</form:label>
+										<form:input path="antropometria.subescapular" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.abdominal">Abdominal</form:label>
+										<form:input path="antropometria.abdominal" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.suparaliaca">Supra Ilíaca</form:label>
+										<form:input path="antropometria.suparaliaca" cssClass="form-control maskNumerico" maxlength="11" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="antropometria.percGordura">% Gordura</form:label>
+										<form:input path="antropometria.percGordura" cssClass="form-control maskPercent" maxlength="11" />
+									</div>
+									<div class="col-xs-9">
+										<form:label path="antropometria.classifPercGordura">Classificação do % de Gordura</form:label>
+										<form:input path="antropometria.classifPercGordura" cssClass="form-control" />
+									</div>
+								</div>
+							</div>
+						    <div role="tabpanel" class="tab-pane" id="avaliacaoAlimentar">
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="avaliacaoAlimentar.stAcompanhamentoNutricional">Fez Acompanhamento Anterior?</form:label>
+										<form:select path="avaliacaoAlimentar.stAcompanhamentoNutricional" cssClass="form-control">
+											<form:option value="N">Não</form:option>
+											<form:option value="S">Sim</form:option>
+										</form:select>
+									</div>
+									<div class="col-xs-9">
+							    		<form:label path="avaliacaoAlimentar.nutricionistaAcompanhamentoAnterior">Nome da Nutricionista</form:label>
+										<form:input path="avaliacaoAlimentar.nutricionistaAcompanhamentoAnterior" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.objetivoAcompanhamento">Objetivo do Acompanhamento</form:label>
+										<form:input path="avaliacaoAlimentar.objetivoAcompanhamento" cssClass="form-control" maxlength="100"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.alergiaAlimentar">Alergia Alimentar</form:label>
+										<form:input path="avaliacaoAlimentar.alergiaAlimentar" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.intoleranciaAlimentar">Intolerância Alimentar</form:label>
+										<form:input path="avaliacaoAlimentar.intoleranciaAlimentar" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.preferenciaAlimentar">Preferência Alimentar</form:label>
+										<form:input path="avaliacaoAlimentar.preferenciaAlimentar" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.alimentoPreterido">Alimento Preterido</form:label>
+										<form:input path="avaliacaoAlimentar.alimentoPreterido" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-6">
+							    		<form:label path="avaliacaoAlimentar.classificacaoApetite">Classificação Apetite</form:label>
+										<form:input path="avaliacaoAlimentar.classificacaoApetite" cssClass="form-control" maxlength="20"/>
+									</div>
+									<div class="col-xs-6">
+							    		<form:label path="avaliacaoAlimentar.horarioFome">Horário de Fome</form:label>
+										<form:input path="avaliacaoAlimentar.horarioFome" cssClass="form-control" maxlength="20"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-6">
+							    		<form:label path="avaliacaoAlimentar.alteracaoApetite">Alteração de Apetite</form:label>
+										<form:input path="avaliacaoAlimentar.alteracaoApetite" cssClass="form-control" maxlength="20"/>
+									</div>
+									<div class="col-xs-6">
+							    		<form:label path="avaliacaoAlimentar.motivoAlteracao">Motivo da Alteração</form:label>
+										<form:input path="avaliacaoAlimentar.motivoAlteracao" cssClass="form-control" maxlength="20"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.beliscaEntreRefeicao">Belisca Entre Refeição</form:label>
+										<form:select path="avaliacaoAlimentar.beliscaEntreRefeicao" cssClass="form-control">
+											<form:option value="false">Não</form:option>
+											<form:option value="true">Sim</form:option>
+										</form:select>
+									</div>
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.qtdAguaDia">Quantidade de Água diária</form:label>
+										<form:input path="avaliacaoAlimentar.qtdAguaDia" cssClass="form-control maskQtdAgua" />
+									</div>
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.qtdLiquidoDia">Quantidade de Líquido diário</form:label>
+										<form:input path="avaliacaoAlimentar.qtdLiquidoDia" cssClass="form-control maskQtdAgua"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.ingereLiquidoRefeicao">Ingere líquido durante as refeições</form:label>
+										<form:select path="avaliacaoAlimentar.ingereLiquidoRefeicao" cssClass="form-control">
+											<form:option value="false">Não</form:option>
+											<form:option value="true">Sim</form:option>
+										</form:select>
+									</div>
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.qtdLiquidoRefeicao">Quantidade de Líquido durante as refeições</form:label>
+										<form:input path="avaliacaoAlimentar.qtdLiquidoRefeicao" cssClass="form-control maskQtdAgua"/>
+									</div>
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.usaSuplemento">Usa Suplemento?</form:label>
+										<form:select path="avaliacaoAlimentar.usaSuplemento" cssClass="form-control">
+											<form:option value="false">Não</form:option>
+											<form:option value="true">Sim</form:option>
+										</form:select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.indicacaoUsoSuplemento">Indicação de Uso do Suplemento</form:label>
+										<form:input path="avaliacaoAlimentar.indicacaoUsoSuplemento" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.quemPreparaRefeicao">Quem prepara as refeições?</form:label>
+										<form:input path="avaliacaoAlimentar.quemPreparaRefeicao" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.quemEscolheAlimento">Quem escolhe os alimentos?</form:label>
+										<form:input path="avaliacaoAlimentar.quemEscolheAlimento" cssClass="form-control" maxlength="50"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.formaPreparoRefeicao">Qual a forma de preparo das refeições</form:label>
+										<form:input path="avaliacaoAlimentar.formaPreparoRefeicao" cssClass="form-control" maxlength="100"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="avaliacaoAlimentar.gorduraPreparoRefeicao">Quanto de gordura é utilizado no preparo?</form:label>
+										<form:input path="avaliacaoAlimentar.gorduraPreparoRefeicao" cssClass="form-control" maxlength="30"/>
+									</div>
+								</div>
+								
+								
+								<div class="form-group row">
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.nrPessoasCozinha">Pessoas na Cozinha</form:label>
+										<form:input path="avaliacaoAlimentar.nrPessoasCozinha" cssClass="form-control maskNumber" maxlength="11"/>
+									</div>
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.qtdSal">Qtd. Sal</form:label>
+										<form:input path="avaliacaoAlimentar.qtdSal" cssClass="form-control maskQtdSal"/>
+									</div>
+									<div class="col-xs-4">
+							    		<form:label path="avaliacaoAlimentar.qtdGordura">Qtd. Gordura</form:label>
+										<form:input path="avaliacaoAlimentar.qtdGordura" cssClass="form-control maskQtdSal"/>
+									</div>
+								</div>
+								
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="avaliacaoAlimentar.totSalDia">Sal / Dia</form:label>
+										<form:input path="avaliacaoAlimentar.totSalDia" cssClass="form-control maskQtdSal"/>
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="avaliacaoAlimentar.totSalMes">Sal / Mês</form:label>
+										<form:input path="avaliacaoAlimentar.totSalMes" cssClass="form-control maskQtdSal"/>
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="avaliacaoAlimentar.totOleoDia">Óleo / dia</form:label>
+										<form:input path="avaliacaoAlimentar.totOleoDia" cssClass="form-control maskQtdOleo"/>
+									</div>
+									<div class="col-xs-3">
+							    		<form:label path="avaliacaoAlimentar.totalOleoMes">Óleo / mês</form:label>
+										<form:input path="avaliacaoAlimentar.totalOleoMes" cssClass="form-control maskQtdOleo"/>
+									</div>
+								</div>
+							</div>
+						    <div role="tabpanel" class="tab-pane" id="dietaNutricional">
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="dietaNutricional.cafeDaManha">Café da Manhã</form:label>
+										<form:textarea path="dietaNutricional.cafeDaManha" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+						    		<div class="col-xs-12">
+							    		<form:label path="dietaNutricional.lancheDaManha">Lanche da manhã</form:label>
+										<form:textarea path="dietaNutricional.lancheDaManha" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="dietaNutricional.almoco">Almoco</form:label>
+										<form:textarea path="dietaNutricional.almoco" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="dietaNutricional.lancheTarde">Lanche da tarde</form:label>
+										<form:textarea path="dietaNutricional.lancheTarde" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="dietaNutricional.jantar">Jantar</form:label>
+										<form:textarea path="dietaNutricional.jantar" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-12">
+							    		<form:label path="dietaNutricional.ceia">Ceia</form:label>
+										<form:textarea path="dietaNutricional.ceia" cssClass="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="dadosLaboratoriais">
+								<c:if test="${consulta.agendamento.cliente.dadoLaboratorial.data != null}">
+									<div class="form-group row">
+										<div class="col-xs-12">
+											(Última Atualização: <fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${consulta.agendamento.cliente.dadoLaboratorial.data}" />)
+										</div>
+									</div>
+								</c:if>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.acidoUrico">Ácido Úrico</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.acidoUrico" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.creatinina">Creatinina</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.creatinina" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.ferritina">Ferritina</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.ferritina" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.glicemiaJejum">Glicemia Jejum</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.glicemiaJejum" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.ureia">Uréia</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.ureia" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.capacFixacaoFerro">Capacidade de fixação de ferro</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.capacFixacaoFerro" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.fosfoquinase">Fosfoquinase</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.fosfoquinase" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.glicemiaPosPrandial">Glicemia pós prandial</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.glicemiaPosPrandial" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.hemoglobinaGlicada">Hemoglobina Glicada</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.hemoglobinaGlicada" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.homocisteina">Homocisteína</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.homocisteina" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.insulina">Insulina</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.insulina" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.saturacaoTransferrina">Saturação Transferrina</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.saturacaoTransferrina" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.transferrina">Transferrina</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.transferrina" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.tgo">TGO</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.tgo" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.tgp">TGP</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.tgp" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.eritrocitos">Eritrócitos</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.eritrocitos" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.hematocrito">Hematocrito</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.hematocrito" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.hemoglobina">Hemoglobina</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.hemoglobina" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.vcm">VCM</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.vcm" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.hcm">HCM</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.hcm" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.rdw">RDW</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.rdw" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.chcm">CHCM</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.chcm" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.leucocitosTotais">Leucócitos Totais</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.leucocitosTotais" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.basofilo">Basófilo</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.basofilo" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.bastonete">Bastonete</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.bastonete" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.blastos">Blastos</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.blastos" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.eosinofilos">Eosinófilos</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.eosinofilos" cssClass="form-control"/>
+									</div>
+									<div class="col-xs-3">
+										<form:label path="agendamento.cliente.dadoLaboratorial.linfocitos">Linfócitos</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.linfocitos" cssClass="form-control"/>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-xs-3">
+							    		<form:label path="agendamento.cliente.dadoLaboratorial.metamielocitos">Metamielocitos</form:label>
+										<form:input path="agendamento.cliente.dadoLaboratorial.metamielocitos" cssClass="form-control" />
+									</div>
+									<div class="col-xs-9"></div>
+								</div>
+							</div>
+						    <div role="tabpanel" class="tab-pane" id="consultasAnteriores">
+								<c:if test="${not empty consultasAnteriores}">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Data / Hora</th>
+												<th>Nutricionista</th>
+												<th>Ações</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${consultasAnteriores}" var="consultaAnterior">
+												<tr class="text-left">
+													<td><fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${consultaAnterior.agendamento.dataAgendamento}" /></td>
+													<td>${consultaAnterior.agendamento.nutricionista.nome}</td>
+													<td><a href="<c:url value='/consulta/historico/${consultaAnterior.idConsulta}' />" >Visualizar</a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</c:if>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.alergiaAlimentar">Alergia Alimentar</form:label>
-					<form:input path="avaliacaoAlimentar.alergiaAlimentar" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.intoleranciaAlimentar">Intolerância Alimentar</form:label>
-					<form:input path="avaliacaoAlimentar.intoleranciaAlimentar" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.preferenciaAlimentar">Preferência Alimentar</form:label>
-					<form:input path="avaliacaoAlimentar.preferenciaAlimentar" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.alimentoPreterido">Alimento Preterido</form:label>
-					<form:input path="avaliacaoAlimentar.alimentoPreterido" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-6">
-		    		<form:label path="avaliacaoAlimentar.classificacaoApetite">Classificação Apetite</form:label>
-					<form:input path="avaliacaoAlimentar.classificacaoApetite" cssClass="form-control" maxlength="20"/>
-				</div>
-				<div class="col-xs-6">
-		    		<form:label path="avaliacaoAlimentar.horarioFome">Horário de Fome</form:label>
-					<form:input path="avaliacaoAlimentar.horarioFome" cssClass="form-control" maxlength="20"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-6">
-		    		<form:label path="avaliacaoAlimentar.alteracaoApetite">Alteração de Apetite</form:label>
-					<form:input path="avaliacaoAlimentar.alteracaoApetite" cssClass="form-control" maxlength="20"/>
-				</div>
-				<div class="col-xs-6">
-		    		<form:label path="avaliacaoAlimentar.motivoAlteracao">Motivo da Alteração</form:label>
-					<form:input path="avaliacaoAlimentar.motivoAlteracao" cssClass="form-control" maxlength="20"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.beliscaEntreRefeicao">Belisca Entre Refeição</form:label>
-					<form:select path="avaliacaoAlimentar.beliscaEntreRefeicao" cssClass="form-control">
-						<form:option value="false">Não</form:option>
-						<form:option value="true">Sim</form:option>
-					</form:select>
-				</div>
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.qtdAguaDia">Quantidade de Água diária</form:label>
-					<form:input path="avaliacaoAlimentar.qtdAguaDia" cssClass="form-control maskQtdAgua" />
-				</div>
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.qtdLiquidoDia">Quantidade de Líquido diário</form:label>
-					<form:input path="avaliacaoAlimentar.qtdLiquidoDia" cssClass="form-control maskQtdAgua"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.ingereLiquidoRefeicao">Ingere líquido durante as refeições</form:label>
-					<form:select path="avaliacaoAlimentar.ingereLiquidoRefeicao" cssClass="form-control">
-						<form:option value="false">Não</form:option>
-						<form:option value="true">Sim</form:option>
-					</form:select>
-				</div>
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.qtdLiquidoRefeicao">Quantidade de Líquido durante as refeições</form:label>
-					<form:input path="avaliacaoAlimentar.qtdLiquidoRefeicao" cssClass="form-control maskQtdAgua"/>
-				</div>
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.usaSuplemento">Usa Suplemento?</form:label>
-					<form:select path="avaliacaoAlimentar.usaSuplemento" cssClass="form-control">
-						<form:option value="false">Não</form:option>
-						<form:option value="true">Sim</form:option>
-					</form:select>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.indicacaoUsoSuplemento">Indicação de Uso do Suplemento</form:label>
-					<form:input path="avaliacaoAlimentar.indicacaoUsoSuplemento" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.quemPreparaRefeicao">Quem prepara as refeições?</form:label>
-					<form:input path="avaliacaoAlimentar.quemPreparaRefeicao" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.quemEscolheAlimento">Quem escolhe os alimentos?</form:label>
-					<form:input path="avaliacaoAlimentar.quemEscolheAlimento" cssClass="form-control" maxlength="50"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.formaPreparoRefeicao">Qual a forma de preparo das refeições</form:label>
-					<form:input path="avaliacaoAlimentar.formaPreparoRefeicao" cssClass="form-control" maxlength="100"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="avaliacaoAlimentar.gorduraPreparoRefeicao">Quanto de gordura é utilizado no preparo?</form:label>
-					<form:input path="avaliacaoAlimentar.gorduraPreparoRefeicao" cssClass="form-control" maxlength="30"/>
-				</div>
-			</div>
-			
-			
-			<div class="form-group row">
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.nrPessoasCozinha">Pessoas na Cozinha</form:label>
-					<form:input path="avaliacaoAlimentar.nrPessoasCozinha" cssClass="form-control maskNumber" maxlength="11"/>
-				</div>
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.qtdSal">Qtd. Sal</form:label>
-					<form:input path="avaliacaoAlimentar.qtdSal" cssClass="form-control maskQtdSal"/>
-				</div>
-				<div class="col-xs-4">
-		    		<form:label path="avaliacaoAlimentar.qtdGordura">Qtd. Gordura</form:label>
-					<form:input path="avaliacaoAlimentar.qtdGordura" cssClass="form-control maskQtdSal"/>
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="avaliacaoAlimentar.totSalDia">Sal / Dia</form:label>
-					<form:input path="avaliacaoAlimentar.totSalDia" cssClass="form-control maskQtdSal"/>
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="avaliacaoAlimentar.totSalMes">Sal / Mês</form:label>
-					<form:input path="avaliacaoAlimentar.totSalMes" cssClass="form-control maskQtdSal"/>
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="avaliacaoAlimentar.totOleoDia">Óleo / dia</form:label>
-					<form:input path="avaliacaoAlimentar.totOleoDia" cssClass="form-control maskQtdOleo"/>
-				</div>
-				<div class="col-xs-3">
-		    		<form:label path="avaliacaoAlimentar.totalOleoMes">Óleo / mês</form:label>
-					<form:input path="avaliacaoAlimentar.totalOleoMes" cssClass="form-control maskQtdOleo"/>
-				</div>
-			</div>
-			
-			<h4>Dieta Nutricional</h4>
-			
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="dietaNutricional.cafeDaManha">Café da Manhã</form:label>
-					<form:textarea path="dietaNutricional.cafeDaManha" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-	    		<div class="col-xs-12">
-		    		<form:label path="dietaNutricional.lancheDaManha">Lanche da manhã</form:label>
-					<form:textarea path="dietaNutricional.lancheDaManha" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="dietaNutricional.almoco">Almoco</form:label>
-					<form:textarea path="dietaNutricional.almoco" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="dietaNutricional.lancheTarde">Lanche da tarde</form:label>
-					<form:textarea path="dietaNutricional.lancheTarde" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="dietaNutricional.jantar">Jantar</form:label>
-					<form:textarea path="dietaNutricional.jantar" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-12">
-		    		<form:label path="dietaNutricional.ceia">Ceia</form:label>
-					<form:textarea path="dietaNutricional.ceia" cssClass="form-control"/>
-				</div>
-			</div>
-			
-			<h4>Dados Laboratoriais <c:if test="${consulta.agendamento.cliente.dadoLaboratorial.data != null}">(Última Atualização: <fmt:formatDate pattern="dd/MM/yyyy hh:mm" value="${consulta.agendamento.cliente.dadoLaboratorial.data}" />)</c:if></h4>
-			
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.acidoUrico">Ácido Úrico</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.acidoUrico" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.creatinina">Creatinina</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.creatinina" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.ferritina">Ferritina</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.ferritina" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.glicemiaJejum">Glicemia Jejum</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.glicemiaJejum" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.ureia">Uréia</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.ureia" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.capacFixacaoFerro">Capacidade de fixação de ferro</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.capacFixacaoFerro" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.fosfoquinase">Fosfoquinase</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.fosfoquinase" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.glicemiaPosPrandial">Glicemia pós prandial</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.glicemiaPosPrandial" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.hemoglobinaGlicada">Hemoglobina Glicada</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.hemoglobinaGlicada" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.homocisteina">Homocisteína</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.homocisteina" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.insulina">Insulina</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.insulina" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.saturacaoTransferrina">Saturação Transferrina</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.saturacaoTransferrina" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.transferrina">Transferrina</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.transferrina" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.tgo">TGO</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.tgo" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.tgp">TGP</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.tgp" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.eritrocitos">Eritrócitos</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.eritrocitos" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.hematocrito">Hematocrito</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.hematocrito" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.hemoglobina">Hemoglobina</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.hemoglobina" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.vcm">VCM</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.vcm" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.hcm">HCM</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.hcm" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.rdw">RDW</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.rdw" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.chcm">CHCM</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.chcm" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.leucocitosTotais">Leucócitos Totais</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.leucocitosTotais" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.basofilo">Basófilo</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.basofilo" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.bastonete">Bastonete</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.bastonete" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.blastos">Blastos</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.blastos" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.eosinofilos">Eosinófilos</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.eosinofilos" cssClass="form-control"/>
-				</div>
-				<div class="col-xs-3">
-					<form:label path="agendamento.cliente.dadoLaboratorial.linfocitos">Linfócitos</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.linfocitos" cssClass="form-control"/>
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-xs-3">
-		    		<form:label path="agendamento.cliente.dadoLaboratorial.metamielocitos">Metamielocitos</form:label>
-					<form:input path="agendamento.cliente.dadoLaboratorial.metamielocitos" cssClass="form-control" />
-				</div>
-				<div class="col-xs-9"></div>
-			</div>
-			
 			<div class="form-group row">
 				<input type="submit" class="btn" value="<spring:message text="Salvar Consulta"/>" />
 			</div>

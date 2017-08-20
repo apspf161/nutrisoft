@@ -16,6 +16,8 @@ import com.nutrisoft.model.Cliente;
 import com.nutrisoft.model.Consulta;
 import com.nutrisoft.model.DadoLaboratorial;
 import com.nutrisoft.model.DietaNutricional;
+import com.nutrisoft.model.Nutricionista;
+import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.repository.AgendamentoDAO;
 import com.nutrisoft.repository.AntropometriaDAO;
 import com.nutrisoft.repository.AvaliacaoAlimentarDAO;
@@ -52,6 +54,7 @@ public class ConsultaServiceImpl implements ConsultaService {
 		
 		Agendamento agendamento = this.agendamentoDAO.getAgendamentoById(consulta.getAgendamento().getIdAgendamento());
 		agendamento.realizarConsulta();
+		agendamento.setStAgendamento(StatusAgendamentoEnum.REALIZADO);
 		this.agendamentoDAO.salvar(agendamento);
 		
 		this.consultaDAO.salvar(consulta);

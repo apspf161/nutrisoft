@@ -45,7 +45,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<beans:property name="url"
-			value="jdbc:mysql://localhost:3306/nutrisoft" />
+			value="jdbc:mysql://localhost:3306/nutrisoft2" />
 		<beans:property name="username" value="root" />
 		<beans:property name="password" value="root" />
 	</beans:bean>
@@ -91,4 +91,13 @@
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 	<tx:annotation-driven transaction-manager="transactionManager" />	
+	
+	<beans:bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<beans:property name="registerDefaultFormatters" value="false" />
+		<beans:property name="formatters">
+		    <beans:set>
+		        <beans:bean class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory" />
+		    </beans:set>
+	    </beans:property>
+	</beans:bean>
 </beans:beans>

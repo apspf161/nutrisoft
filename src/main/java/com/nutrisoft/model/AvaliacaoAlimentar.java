@@ -52,15 +52,15 @@ public class AvaliacaoAlimentar implements Serializable {
 	
 	private String motivoAlteracao;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float qtdAguaDia;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float qtdLiquidoDia;
 	
 	private Boolean ingereLiquidoRefeicao;
 
-	@NumberFormat(pattern = "#0,00")
+	@NumberFormat(pattern = "#0.0")
 	private Float qtdLiquidoRefeicao;
 	
 	private Boolean usaSuplemento;
@@ -77,22 +77,22 @@ public class AvaliacaoAlimentar implements Serializable {
 	
 	private Integer nrPessoasCozinha;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float qtdSal;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float qtdGordura;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float totSalMes;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float totSalDia;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float totOleoDia;
 
-	@NumberFormat(pattern = "#0,0")
+	@NumberFormat(pattern = "#0.0")
 	private Float totalOleoMes;
 
 	public char getStAcompanhamentoNutricional() {

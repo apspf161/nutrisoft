@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 @Entity
 @Table(name="Cliente")
@@ -20,6 +22,7 @@ public class Cliente extends Pessoa {
 	@Column(name="profissao")
 	private String profissao;
 
+	@NumberFormat(style=Style.NUMBER)
 	@Column(name="altura")
 	private Float altura;	
 	

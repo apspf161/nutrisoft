@@ -1,7 +1,6 @@
 package com.nutrisoft.model;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 @Entity
 @Table(name="Consulta")
@@ -34,50 +32,47 @@ public class Consulta implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idConsulta;
 	
-	@Column(name = "pesoCliente", precision = 4, scale = 1)
-	@NumberFormat(pattern = "##0,0")
+	@Column(name="pesoCliente", precision=4, scale=1)
+	@NumberFormat(pattern="##0.0")
 	private Float pesoCliente;
 	
-	@Column(name = "meta", precision = 4, scale = 1)
-	@NumberFormat(pattern = "##0,0")
+	@Column(name="meta", precision=4, scale=1)
+	@NumberFormat(pattern="##0.0")
 	private Float meta;	
-
-	@Column(name = "valor", precision = 5, scale = 2)
-	@NumberFormat(pattern = "#.###,###")
-	private Float valor;
-
-	@Column(name = "calorias")
-	@NumberFormat(pattern = "###0")
-	private Float calorias;
 	
+	@Column(name="valor", precision=5, scale=2)
+	@NumberFormat(style=Style.CURRENCY)
+	private Float valor;
+	
+	@Column(name="calorias")
+	@NumberFormat(pattern="###0")
+	private Float calorias;
+
 	@Column(name = "pago")
 	private Boolean pago;
 	
 	@Column(name="formaPgto")
 	private String formaPgto;	
 	
-	@OneToOne(fetch = FetchType.EAGER) 
-	@JoinColumn(name = "idAgendamento")
-	@OnDelete(action = OnDeleteAction.NO_ACTION)
+	@OneToOne(fetch=FetchType.EAGER) 
+	@JoinColumn(name="idAgendamento")
+	@OnDelete(action=OnDeleteAction.NO_ACTION)
 	private Agendamento agendamento;
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn(name="idConsulta")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private DietaNutricional dietaNutricional;
-
+	
 	@OneToOne
 	@PrimaryKeyJoinColumn(name="idConsulta")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Antropometria antropometria;
-
+	
 	@OneToOne
 	@PrimaryKeyJoinColumn(name="idConsulta")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private AvaliacaoAlimentar avaliacaoAlimentar;
-
-	@Transient
-	private double imc;
 	
 	public Integer getIdConsulta() {
 		return idConsulta;
@@ -166,17 +161,31 @@ public class Consulta implements Serializable {
 	public void setFormaPgto(String formaPgto) {
 		this.formaPgto = formaPgto;
 	}
-
-	public double getImc() {
-/*		
-		DecimalFormat df = new DecimalFormat("0.##");
-		String dx = df.format(valor);*/
-		
-		if(this.agendamento != null && this.agendamento.getCliente() != null){
-			double imc = this.pesoCliente / (this.agendamento.getCliente().getAltura() * this.agendamento.getCliente().getAltura());
-			return imc;
+	
+	@NumberFormat(pattern="###0")
+	public Float getImc() {
+		if (this.pesoCliente != null && this.agendamento != null && this.agendamento.getCliente() != null && this.agendamento.getCliente().getAltura() != null) {
+			return CalculosConsultaHelper.calcularIMC(this.pesoCliente, this.agendamento.getCliente().getAltura());
 		} else {
-			return 0;
+			return null;
+		}
+	}
+
+	@NumberFormat(pattern="###0")
+	public Double getTmb() {
+		if (this.pesoCliente != null && this.agendamento != null && this.agendamento.getCliente() != null && this.agendamento.getCliente().getAltura() != null && this.agendamento.getCliente().getIdade() != null) {
+			return CalculosConsultaHelper.calcularTMB(this.pesoCliente, this.agendamento.getCliente().getAltura(), this.getAgendamento().getCliente().getIdade(), this.agendamento.getCliente().getSexo());
+		} else {
+			return null;
+		}
+	}
+
+	@NumberFormat(pattern="###0")
+	public Double getVet() {
+		if (this.pesoCliente != null && this.agendamento != null && this.agendamento.getCliente() != null && this.agendamento.getCliente().getAltura() != null && this.agendamento.getCliente().getIdade() != null) {
+			return CalculosConsultaHelper.calcularVET(this.pesoCliente, this.agendamento.getCliente().getAltura(), this.getAgendamento().getCliente().getIdade(), this.agendamento.getCliente().getSexo());
+		} else {
+			return null;
 		}
 	}
 }

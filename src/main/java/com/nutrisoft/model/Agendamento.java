@@ -25,6 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.model.enums.TipoConsultaEnum;
+import com.nutrisoft.service.AgendamentoService;
 
 
 @Entity
@@ -132,8 +133,8 @@ public class Agendamento {
 		this.tipoConsulta = tipoConsulta;
 	}
 
-	public void marcar() throws Exception {
-		currentState.marcar(this);
+	public void marcar(AgendamentoService agendamentoService) throws Exception {
+		currentState.marcar(this, agendamentoService);
 	}
 
 	public void confirmar()  {

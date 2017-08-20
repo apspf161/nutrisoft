@@ -22,6 +22,8 @@ public interface AgendamentoService {
 
 	void confirmarConsulta(Agendamento agendamento);
 
+	void realizarConsulta(Agendamento agendamento);
+	
 	void cancelarAgendamento(Agendamento agendamento);
 
 	List<Agendamento> listarAgendamentosNutricionistaDeHoje(Nutricionista nutricionista);
@@ -29,4 +31,6 @@ public interface AgendamentoService {
 	List<Agendamento> filtrarListaRelatorioAgendamento(Agendamento agendamento);
 
 	List<Cliente> filtrarListaClienteRelatorioEvolucao(Agendamento agendamento);
+
+	List<Agendamento> filtrarListaAgendamentosExistentes(Agendamento agendamento);
 }

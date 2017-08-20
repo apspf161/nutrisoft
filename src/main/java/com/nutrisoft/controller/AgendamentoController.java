@@ -27,6 +27,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Cliente;
 import com.nutrisoft.model.Nutricionista;
+import com.nutrisoft.model.enums.StatusAgendamentoEnum;
 import com.nutrisoft.service.AgendamentoService;
 import com.nutrisoft.service.ClienteService;
 import com.nutrisoft.service.NutricionistaService;
@@ -62,12 +63,12 @@ public class AgendamentoController {
 	}
 
 	@RequestMapping(value = "/filtraListaAgendamento/{txtData}", method = RequestMethod.GET)
-	public ModelAndView filtraListaAdesao(@PathVariable String txtData, Model model, RedirectAttributes redirectAttrs) throws ParseException {
+	public ModelAndView filtraListaAgendamento(@PathVariable String txtData, Model model, RedirectAttributes redirectAttrs) throws ParseException {
 
 		Agendamento agendamento = new Agendamento();
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		agendamento.setDataAgendamento(sdf1.parse(txtData));
-		
+		agendamento.setStAgendamento(StatusAgendamentoEnum.MARCADO);
 		List<Agendamento> listaAgendamento = agendamentoService.filtrarListaAgendamentos(agendamento);
 
 		redirectAttrs.addFlashAttribute("agendamento", listaAgendamento);
@@ -206,8 +207,9 @@ public class AgendamentoController {
 		try{
 			String data = sdfDataHora.format(agendamento.getDataAgendamento());
 			
+			agendamento.marcar(agendamentoService);
+			
 			if (agendamento.getIdAgendamento() == null) {
-				agendamento.marcar();
 				this.agendamentoService.addAgendamento(agendamento);
 				redirectAttrs.addFlashAttribute("success", "Consulta agendada para o dia "+ data +".");
 			} else {
@@ -217,8 +219,9 @@ public class AgendamentoController {
 			}
 		}
 
+		
 		catch(Exception e){
-			redirectAttrs.addFlashAttribute("error", "Erro ao Agendar uma Consulta");
+			redirectAttrs.addFlashAttribute("error", "Erro ao Agendar uma Consulta: "+e.getMessage());
 		}
 		return new ModelAndView(url);	
 	}

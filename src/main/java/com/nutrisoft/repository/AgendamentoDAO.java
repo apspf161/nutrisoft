@@ -27,4 +27,6 @@ public interface AgendamentoDAO {
 	List<Agendamento> listarRelatorioAgendamento(Agendamento agendamento);
 
 	List<Cliente> listarClienteRelatorioEvolucao(Agendamento agendamento);
+
+	List<Agendamento> filtrarListaAgendamentosExistentes(Agendamento agendamento);
 }

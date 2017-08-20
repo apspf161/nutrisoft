@@ -66,6 +66,11 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	}
 
 	@Override
+	public List<Agendamento> filtrarListaAgendamentosExistentes(Agendamento agendamento) {
+		return this.agendamentoDAO.filtrarListaAgendamentosExistentes(agendamento);
+	}
+
+	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void confirmarConsulta(Agendamento agendamento) {
 		
@@ -80,6 +85,20 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 		this.agendamentoDAO.alterar(agendamentoBanco);
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void realizarConsulta(Agendamento agendamento) {
+		
+		Agendamento agendamentoBanco = this.agendamentoDAO.obterPorIdAgendamento(agendamento.getIdAgendamento());
+		Cliente cliente = clienteDAO.obterPorId(agendamentoBanco.getCliente().getIdPessoa());
+		Nutricionista nutricionista = nutricionistaDAO.obterPorId(agendamentoBanco.getNutricionista().getIdPessoa());
+
+		agendamentoBanco.setStAgendamento(StatusAgendamentoEnum.REALIZADO);
+		agendamentoBanco.setCliente(cliente);
+		agendamentoBanco.setNutricionista(nutricionista);		
+		
+		this.agendamentoDAO.alterar(agendamentoBanco);
+	}
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void cancelarAgendamento(Agendamento agendamento) {

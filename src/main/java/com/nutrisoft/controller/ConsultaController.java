@@ -5,7 +5,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomBooleanEditor;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -32,6 +32,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import com.nutrisoft.model.Agendamento;
 import com.nutrisoft.model.Antropometria;
 import com.nutrisoft.model.AvaliacaoAlimentar;
+import com.nutrisoft.model.CalculosConsultaHelper;
 import com.nutrisoft.model.Cliente;
 import com.nutrisoft.model.Consulta;
 import com.nutrisoft.model.DietaNutricional;
@@ -88,7 +89,7 @@ public class ConsultaController {
 		Consulta consulta = new Consulta();
 		Agendamento agendamento = new Agendamento();
 		Cliente cliente = new Cliente();
-		Boolean valorPendente = false;
+		Boolean valorPendente = true;
 
 		//Verifica se foi preenchido um text padrão para casos em que o usuário não preencher o campo.
 		txtNome = ("x$x").equals(txtNome) ? null : txtNome;
@@ -481,6 +482,18 @@ public class ConsultaController {
 		return mv;
 	}
 
-
+	@RequestMapping(value = "/realizarCalculosAntropometria", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> realizarCalculosAntropometria(
+			@RequestParam Float peso, 
+			@RequestParam Float altura,
+			@RequestParam Integer idade,
+			@RequestParam char sexo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("imc", CalculosConsultaHelper.calcularIMC(peso, altura));
+		map.put("tmb", CalculosConsultaHelper.calcularTMB(peso, altura, idade, sexo));
+		map.put("vet", CalculosConsultaHelper.calcularVET(peso, altura, idade, sexo));
+		return map;
+	}
 
 }

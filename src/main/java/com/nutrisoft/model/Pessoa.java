@@ -1,5 +1,8 @@
 package com.nutrisoft.model;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="Pessoa")
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -21,6 +26,7 @@ public class Pessoa {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idPessoa;
 	
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 	
@@ -139,7 +145,17 @@ public class Pessoa {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-
+	
+	public Integer getIdade() {
+		if (this.dataNascimento != null) {
+			LocalDate ldtHoje = LocalDate.now();
+			LocalDate ldtDataNascimento = new java.util.Date(this.dataNascimento.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			Period period = Period.between(ldtDataNascimento, ldtHoje);
+			return period.getYears();
+		}
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return "Pessoa [idPessoa=" + idPessoa + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + ", nome="+ nome + ", cpf=" + cpf + ", endereco=" + endereco + ", cep=" + cep + ", cidade=" + cidade + ", uf="+ uf + ", email=" + email + ", telefone=" + telefone + ", celular=" + celular + "]";

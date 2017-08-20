@@ -12,6 +12,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.NumberFormat;
+
 @Entity
 @Table(name="Antropometria")
 public class Antropometria implements Serializable {
@@ -26,11 +28,13 @@ public class Antropometria implements Serializable {
 	@OneToOne(mappedBy="antropometria")
 	@JoinColumn(name="idConsulta")
 	private Consulta consulta;
-
-	@Column(name = "pesoUsual", precision = 4, scale = 1)  
-	private Float pesoUsual;	
-
-	@Column(name = "pesoDesejavel", precision = 4, scale = 1)  
+	
+	@Column(name="pesoUsual", precision=4, scale=1)
+	@NumberFormat(pattern="##0.0")
+	private Float pesoUsual;
+	
+	@Column(name="pesoDesejavel", precision=4, scale=1)  
+	@NumberFormat(pattern="##0.0")
 	private Float pesoDesejavel;
 	
 	private Integer torax;
@@ -65,8 +69,9 @@ public class Antropometria implements Serializable {
 
 	private Integer suparaliaca;
 	
+	@NumberFormat(pattern="##.00")
 	private Float percGordura;
-	
+
 	private String classifPercGordura;
 	
 	public Float getPesoUsual() {
